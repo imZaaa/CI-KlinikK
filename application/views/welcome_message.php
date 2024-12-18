@@ -9,3 +9,4 @@
 	<a href="<?= site_url('welcome/home') ?>">tes</a>
 </body>
 </html>
+
