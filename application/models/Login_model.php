@@ -3,26 +3,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login_model extends CI_Model {
 
-    public function __construct() {
-        parent::__construct();
-        $this->load->database();
-    }
-
-    // Fungsi untuk verifikasi login
+    // Fungsi untuk login
     public function login($email, $password) {
-        // Query untuk mencari pengguna berdasarkan email
         $this->db->where('email', $email);
-        $query = $this->db->get('tbl_login');
+        $this->db->where('password', $password);
+        $query = $this->db->get('tbl_login'); // Pastikan nama tabel sesuai dengan tabel Anda
 
         if ($query->num_rows() > 0) {
-            $user = $query->row();
-
-            // Verifikasi password
-            if (password_verify($password, $user->password)) {
-                return $user; // Jika berhasil, return data user
-            }
+            return $query->row(); // Mengembalikan data user
+        } else {
+            return false; // Jika tidak ada user yang cocok
         }
+    }
 
-        return FALSE; // Jika gagal, return false
+    // Fungsi untuk mendapatkan user berdasarkan email
+    public function get_user_by_email($email) {
+        $this->db->where('email', $email);
+        $query = $this->db->get('tbl_login'); // Pastikan nama tabel sesuai dengan tabel Anda
+
+        if ($query->num_rows() > 0) {
+            return $query->row(); // Mengembalikan data user
+        } else {
+            return null; // Jika tidak ditemukan user
+        }
     }
 }
+?>

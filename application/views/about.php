@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/logo.png')?>">
@@ -56,6 +55,37 @@
             margin-left: -20px;
         }
 
+        .dropdown-menu {
+            min-width: 400px; /* Atur ukuran sesuai kebutuhan */
+            margin-left: -150px; /* Posisi sesuai kebutuhan */
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef); /* Gradasi warna */
+            border: 1px solid #dee2e6; /* Border lembut */
+            border-radius: 8px; /* Membulatkan sudut */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan */
+            padding: 10px; /* Memberi ruang di dalam */
+            transition: all 0.3s ease; /* Efek transisi */
+        }
+
+        .dropdown-menu li a {
+            color: #343a40; /* Warna teks */
+            font-weight: 500; /* Tebal teks */
+            padding: 8px 16px; /* Spasi dalam item */
+            border-radius: 5px; /* Membulatkan sudut */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Transisi halus */
+            text-align: center;
+        }
+
+        .dropdown-menu li a:hover {
+            background-color: #343a40; /* Warna latar saat hover */
+            color: #ffffff; /* Warna teks saat hover */
+        }
+
+        .dropdown-divider {
+            border-color: #dee2e6; /* Warna divider */
+            margin: 8px 0; /* Spasi divider */
+        }
+
+
         .carousel-item img {
             width: 100%;
             height: auto;
@@ -81,13 +111,14 @@
             justify-content: space-between;
             align-items: center;
         }
+
 </style>
 <body>
     <!-- Navbar atas -->
   <nav class="navbar bg-body-light" style="background-color: #00705a; height: 50px; padding: 0 20px;">
     <div class="container">
         <div class="d-flex align-items-center">
-            <b class="text-light"><i class="bi bi-clock"></i> Senin - Sabtu 8:00 - 11:00</b>
+            <b class="text-light"><i class="bi bi-clock"></i> Senin - Sabtu 8:00 - 21:00</b>
         </div>
         <div class="d-flex align-items-center">
             <b class="text-light"><i class="bi bi-whatsapp"></i> 083928392392</b>
@@ -98,35 +129,65 @@
   </nav>
 
   <!-- Navbar bawah -->
-  <nav class="navbar navbar-expand-lg sticky sticky-top" style="background-color: #ffffff; height: 40px;">
+  <nav class="navbar navbar-expand-lg border sticky sticky-top" style="background-color: #ffffff; height: 40px;">
     <div class="container-fluid">
-      <!-- Toggler untuk tampilan mobile -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <!-- Toggler untuk tampilan mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-      <!-- Navbar Items -->
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav w-100 d-flex justify-content-center">
-          <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('home/index')?>">Beranda</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" href="#">Features</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" href="#">Pricing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light active" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" href="#">Contact</a>
-          </li>
-        </ul>
-      </div>
+        <!-- Navbar Items -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav w-100 d-flex justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="<?= site_url('home/index')?>">Beranda</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark active" href="#">About</a>
+                </li>
+             <li class="nav-item dropdown">
+                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Data
+                </a>
+                <ul class="dropdown-menu">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <li><a class="dropdown-item" href="#">Admin</a></li>
+                        </div>
+                        <div class="col-sm-6">
+                            <li><a class="dropdown-item" href="#">User</a></li>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-6">
+                        <li><a class="dropdown-item" href="#">data ppppppppppp</a></li>
+                        <li><a class="dropdown-item" href="#">data ppppppppppp</a></li>
+                        <li><a class="dropdown-item" href="#">data ppppppppppp</a></li>
+                        </div>
+                        <div class="col-sm-6">
+                        <li><a class="dropdown-item" href="#">data ppppppppppp</a></li>
+                        <li><a class="dropdown-item" href="#">data ppppppppppp</a></li>
+                        <li><a class="dropdown-item" href="#">data ppppppppppp</a></li>
+                        </div>
+                      
+                    </div>
+                </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#">Dokter</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#">Layanan</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
     </div>
-  </nav>
+</nav>
+
 
   <div class="container mt-5">
     <div class="row align-items-center">
@@ -184,7 +245,7 @@
                  <img src="<?= base_url('assets/about2.jpg') ?>" alt="About Vivarta Klinik" class="img-fluid rounded" style="max-width: 100%; height: auto;">
             </div>       
         </div>
-       <h3 class="mt-5 text-center">Vivarta Klinik adalah mitra kesehatan Anda untuk hidup yang lebih baik. Kesehatan Anda, Prioritas Kami.</h3>
+       <h3 class="mt-5 text-center">Vivarta Klinik adalah mitra kesehatan Anda untuk hidup yang lebih baik. <br> Kesehatan Anda, Prioritas Kami.</h3>
     </div>
 </div>
 
@@ -197,7 +258,7 @@
                 <ul style="list-style-type: none; padding: 0;">
                     <li><i class="bi bi-telephone"></i> 083928392392</li>
                     <li><i class="bi bi-envelope"></i> info@klinikvivarta.com</li>
-                    <li><i class="bi bi-geo-alt"></i> Jl. Kesehatan No. 123, Jakarta</li>
+                    <li><i class="bi bi-geo-alt"></i> Jl. Raya Serang, Jakarta</li>
                 </ul>
             </div>
             <div class="col-md-4">
@@ -221,4 +282,6 @@
     </div>
 </footer>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </html>

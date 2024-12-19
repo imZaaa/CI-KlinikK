@@ -5,61 +5,67 @@ class Login extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        // Load model dan library yang dibutuhkan
-        $this->load->model('Login_model');
-        $this->load->library('form_validation');
-        $this->load->library('session');
+        $this->load->model('Login_model'); // Load Login_model
+        $this->load->library('session'); // Load library session
     }
 
     // Menampilkan halaman login
     public function index() {
-        // Cek apakah sudah login
-        if ($this->session->userdata('logged_in')) {
-            redirect('home'); // jika sudah login, alihkan ke dashboard
+        if ($this->session->userdata('logged_in')) { 
+            redirect('home'); // Jika sudah login, arahkan ke halaman utama
         }
-
-        // Tampilkan form login
-        $this->load->view('login');
+        $this->load->view('login'); // Tampilkan view login
     }
 
     // Proses login
     public function login_process() {
-        // Aturan validasi form
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-        $this->form_validation->set_rules('password', 'Password', 'required');
+        $email = $this->input->post('email');
+        $password = $this->input->post('password');
 
-        if ($this->form_validation->run() == FALSE) {
-            // Jika validasi gagal, tampilkan form login lagi
-            $this->load->view('login');
+        // Cek login melalui model
+        $user = $this->Login_model->login($email, $password);
+
+        if ($user) {
+            // Set session jika login berhasil
+            $session_data = array(
+                'user_id' => $user->id,
+                'email' => $user->email,
+                'logged_in' => TRUE
+            );
+            $this->session->set_userdata($session_data);
+            redirect('home'); // Arahkan ke halaman utama
         } else {
-            $email = $this->input->post('email');
-            $password = $this->input->post('password');
-            
-            // Verifikasi user berdasarkan email dan password
-            $user = $this->Login_model->login($email, $password);
-
-            if ($user) {
-                // Set session jika login berhasil
-                $session_data = array(
-                    'user_id' => $user->id,
-                    'email' => $user->email,
-                    'logged_in' => TRUE
-                );
-                $this->session->set_userdata($session_data);
-                redirect('home'); // alihkan ke halaman dashboard setelah login
-            } else {
-                // Jika login gagal, tampilkan pesan error
-                $this->session->set_flashdata('error', 'Invalid email or password');
-                redirect('login');
-            }
+            // Jika login gagal, tampilkan pesan error
+            $this->session->set_flashdata('error', 'Email atau password salah');
+            redirect('login');
         }
+    }
+
+    // Fungsi untuk menampilkan password pengguna berdasarkan email
+    public function show_password() {
+        $email = $this->input->post('email'); // Ambil email dari input form
+
+        // Cek apakah email ada dalam database
+        $user = $this->Login_model->get_user_by_email($email);
+
+        if ($user) {
+            // Jika email ditemukan, tampilkan password
+            $data['password_message'] = 'Your password: ' . $user->password;
+            $data['error_message'] = null;
+        } else {
+            // Jika email tidak ditemukan, tampilkan pesan error
+            $data['error_message'] = 'Email is not registered.';
+            $data['password_message'] = null;
+        }
+
+        // Tampilkan halaman login dengan pesan terkait password
+        $this->load->view('login', $data);
     }
 
     // Logout
     public function logout() {
-        // Hapus session dan redirect ke halaman login
-        $this->session->sess_destroy();
-        redirect('login');
+        $this->session->sess_destroy(); // Hapus session
+        redirect('login'); // Kembali ke halaman login
     }
 }
 ?>
