@@ -112,7 +112,7 @@
          .card {
             border-radius: 15px; /* Membuat sudut card lebih halus */
             background: linear-gradient(135deg, #e0eafc, #cfdef3); /* Gradient background lembut */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Shadow yang lebih halus */
+            box-shadow: 0 10px 30px #00705a; /* Shadow yang lebih halus */
         }
 
         .card-header {
@@ -124,7 +124,7 @@
 
         .card-body {
             padding: 30px;
-            background-color: #d9d9d9;
+            background-color: white;
             font-family: 'Montserrat', sans-serif;
         }
 
@@ -150,6 +150,38 @@
             margin-top: 10px;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        .certificate-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px #00705a;
+            margin-top: 50px;
+        }
+        .certificate-container h2 {
+            color: #00705a;
+            font-weight: bold;
+            font-size: 40px;
+        }
+        .certificate-container h4 {
+            color: #555;
+            font-size: 20px;
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+        .certificate-container img {
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            width: 700px;
+        }
+        .decorative-line {
+            height: 4px;
+            width: 100px;
+            background-color: #00705a;
+            margin: 20px auto;
+            border-radius: 2px;
         }
     </style>
 </head>
@@ -242,14 +274,6 @@
           <img src="<?= base_url('assets/banner3.jpg') ?>" class="d-block w-100" alt="Banner 3">
         </div>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
     </div>
   </div>
 
@@ -267,10 +291,50 @@
 
                 Klinik Vivarta dikemudian hari diharapkan mendapatkan dukungan oleh semua pihak yang terkait dan terus memberikan pelayanan kesehatan secara tuntas sesuai dengan visi, misi dan nilai-nilai yang dicanangkan.
             </p>
-            <center><img class="rounded-5" src="<?= base_url('assets/alamat.jpg') ?>" width="500px"></center>
+            <center><img class="rounded-5" src="<?= base_url('assets/alamat.jpg') ?>"></center>
         </div>
     </div>
 </div>
+
+<div class="container d-flex justify-content-center">
+    <div class="certificate-container text-center">
+        <h2>Sertifikasi Klinik Vivarta</h2>
+        <div class="decorative-line"></div>
+        <h4>
+            Vivarta Klinik Telah lulus Akreditasi Tingkat <strong>PARIPURNA</strong> 
+            sesuai dengan Standar Akreditasi Kementrian Kesehatan (<strong>STARKES</strong>) 
+            Republik Indonesia Tahun 2022
+        </h4>
+        <img src="<?= base_url('assets/sertif.jpg') ?>" alt="Sertifikat" class="img-fluid" width="500px">
+    </div>
+</div>
+
+<div class="container mt-5 pt-4 pb-5" style="background-color: white; box-shadow: 0 5px 15px #00705a; border-radius: 20px;">    
+    <h2 class="text-center fw-bold" style="color: #00705a;">Mengapa Memilih Vivarta Klinik</h2>
+    <div class="row justify-content-center mt-3">
+        <div class="col-sm-3 text-center">
+            <img src="<?= base_url('assets/why1.jpg')?>" width="120px" class="img-fluid">
+            <h3 class="fw-bold mt-2">Fitur Berlimpah</h3> 
+            <p >Aplikasi Rekam Medis Elektronik Terintegrasi Satu Sehat dan BPJS untuk Klinik BPJS</p>
+        </div>
+        <div class="col-sm-3 text-center">
+            <img src="<?= base_url('assets/why2.jpg')?>" width="120px" class="img-fluid">
+            <h3 class="fw-bold mt-2">Mudah Digunakan</h3> 
+            <p>Aplikasi Rekam Medis Elektronik yang Mudah digunakan dan User Friendly. Dengan menu mudah dipahami.</p>
+        </div>
+        <div class="col-sm-3 text-center">
+            <img src="<?= base_url('assets/why3.jpg')?>" width="120px" class="img-fluid">
+            <h3 class="fw-bold mt-2">Aman Terpercaya</h3>
+            <p>oftware Vivarta Klinik Terdaftar di PSE Kominfo, kerasiahaan dam keamanan data tersertifikasi</p> 
+        </div>
+        <div class="col-sm-3 text-center">
+            <img src="<?= base_url('assets/why4.jpg')?>" width="120px" class="img-fluid">
+            <h3 class="fw-bold mt-2">Harga Ramah</h3>
+            <p>Harga Ramah dan Terbaik, tanpa perlu tambahan biaya untuk fitur terbaru</p>
+        </div>
+    </div>
+</div>
+
 
 <footer style="background-color: #00705a; color: white; padding: 30px 0; text-align: center; margin-top: 50px;">
     <div class="container">

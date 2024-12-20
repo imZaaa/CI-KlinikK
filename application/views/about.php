@@ -112,6 +112,7 @@
             align-items: center;
         }
 
+        
 </style>
 <body>
     <!-- Navbar atas -->
@@ -229,26 +230,10 @@
                 Melibatkan tim medis dan staf yang kompeten dengan standar etika tinggi dalam setiap pelayanan.                </p>
             </div>
         </div>
-        <div class="row mt-3">
-            <div class="col-sm-6">
-                <h3 class="text-start">Kenapa Memilih Vivarta Klinik?</h3>
-                <p><b>1.Pelayanan Cepat dan Ramah:</b> <br>
-                Dokter dan staf kami siap membantu dengan senyum dan dedikasi tinggi. </p>
-                <p><b>2.Layanan Online Terintegrasi:</b> <br>
-                Mulai dari reservasi hingga konsultasi bisa dilakukan secara online. </p>
-                <p><b>3.Dokter Spesialis Terpercaya:</b> <br>
-                Beragam spesialisasi tersedia untuk kebutuhan kesehatan Anda. </p>
-                <p><b>4.Fasilitas Modern:</b> <br>
-                Kami menyediakan fasilitas yang nyaman dan dilengkapi dengan teknologi medis terkini.</p>
-            </div>
-            <div class="col-sm-6 text-center">
-                 <img src="<?= base_url('assets/about2.jpg') ?>" alt="About Vivarta Klinik" class="img-fluid rounded" style="max-width: 100%; height: auto;">
-            </div>       
-        </div>
-       <h3 class="mt-5 text-center">Vivarta Klinik adalah mitra kesehatan Anda untuk hidup yang lebih baik. <br> Kesehatan Anda, Prioritas Kami.</h3>
     </div>
-</div>
+    </div>
 
+<h3 class="mt-5 text-center">Vivarta Klinik adalah mitra kesehatan Anda untuk hidup yang lebih baik. <br> Kesehatan Anda, Prioritas Kami.</h3>
 
   <footer style="background-color: #00705a; color: white; padding: 30px 0; text-align: center; margin-top: 50px;">
     <div class="container">
