@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About</title>
+    <title>Kontak</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -53,8 +53,12 @@
 
         .navbar i {
             margin-left: -20px;
+        } 
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-
         .dropdown-menu {
             min-width: 400px; /* Atur ukuran sesuai kebutuhan */
             margin-left: -150px; /* Posisi sesuai kebutuhan */
@@ -84,38 +88,73 @@
             border-color: #dee2e6; /* Warna divider */
             margin: 8px 0; /* Spasi divider */
         }
-
-
-        .carousel-item img {
-            width: 100%;
-            height: auto;
-        }
-
-        ::-webkit-scrollbar {
+        ::-webkit-scrollbar{
             display: none;
         }
 
-        .btn-custom {
-            margin-left: 10px; /* Jarak antara tombol dan nomor telepon */
-            background-color:rgb(44, 113, 100);
-            
-        }
-        .btn-custom:hover {
-            margin-left: 10px; /* Jarak antara tombol dan nomor telepon */
-            background-color: yellow;
-            
-        }
+       
+        .form-container {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
 
-        .navbar .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+/* Form Elements */
+.form-label {
+    font-weight: 500;
+    color: #333;
+}
 
-        
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+textarea.form-control {
+    resize: none;
+}
+
+/* Button */
+.btn-custom {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Alert Styles */
+.alert {
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 0.9rem;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
 </style>
 <body>
-    <!-- Navbar atas -->
+     <!-- Navbar atas -->
   <nav class="navbar bg-body-light" style="background-color: #00705a; height: 50px; padding: 0 20px;">
     <div class="container">
         <div class="d-flex align-items-center">
@@ -132,21 +171,21 @@
   <!-- Navbar bawah -->
   <nav class="navbar navbar-expand-lg border sticky sticky-top" style="background-color: #ffffff; height: 40px;">
     <div class="container-fluid">
-        <!-- Toggler untuk tampilan mobile -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+      <!-- Toggler untuk tampilan mobile -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <!-- Navbar Items -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav w-100 d-flex justify-content-center">
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="<?= site_url('home/index')?>">Beranda</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark active" href="#">About</a>
-                </li>
-             <li class="nav-item dropdown">
+      <!-- Navbar Items -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav w-100 d-flex justify-content-center">
+          <li class="nav-item">
+            <a class="nav-link text-light" href="<?= site_url('welcome/home')?>">Beranda</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="<?= site_url('welcome/about')?>">About</a>
+          </li>
+          <li class="nav-item dropdown">
                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Data
                 </a>
@@ -175,66 +214,76 @@
                     </div>
                 </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">Dokter</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">Layanan</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="<?= site_url('')?>">Kontak</a>
-                </li>
-            </ul>
-        </div>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="#">Dokter</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="#">Layanan</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light active" href="#">Kontak</a>
+          </li>
+        </ul>
+      </div>
     </div>
-</nav>
+  </nav>
 
-<img src="<?= base_url('assets/bannerA.jpg')?>" width=1366px">
+  <img src="<?= base_url('assets/bannerK.jpg')?>" width=1366px">
+
   <div class="container mt-5">
-    <div class="row align-items-center">
-        <!-- Kolom Gambar -->
-        <div class="col-md-6 text-center mb-4 mb-md-0">
-            <img src="<?= base_url('assets/about.jpg') ?>" alt="About Vivarta Klinik" class="img-fluid rounded" style="max-width: 100%; height: auto;">
-        </div>
-        <!-- Kolom Teks -->
-        <div class="col-md-6">
-            <h3 class="mb-3">Selamat Datang di Vivarta Klinik</h3>
-            <p class="text-justify">
-                Solusi kesehatan terpercaya Anda. Kami hadir dengan komitmen untuk memberikan layanan kesehatan terbaik, modern, dan mudah diakses bagi semua lapisan masyarakat. 
-            </p>
-            <p class="text-justify">
-                Vivarta Klinik menggabungkan teknologi terkini dengan pelayanan medis profesional untuk memastikan kenyamanan dan kepuasan pasien. Dengan tenaga medis yang berpengalaman dan fasilitas yang lengkap, kami siap membantu Anda menjaga kesehatan dan memberikan solusi terbaik untuk setiap kebutuhan medis Anda.
-            </p>
-        </div>
-        
-        <div class="row mt-3">
-            <div class="col-sm-6">
-                <h3 class="text-center">Visi</h3>
-                <p class="text-justify">Menjadi klinik kesehatan terpercaya dan terdepan di Indonesia dengan memberikan pelayanan kesehatan yang unggul, inovatif, dan berorientasi pada kebutuhan pasien. Kami berkomitmen untuk mengintegrasikan teknologi modern dengan keahlian medis terbaik guna menciptakan pengalaman pelayanan kesehatan yang aman, nyaman, dan mudah diakses oleh semua kalangan masyarakat.</p>
-            </div>
-            <div class="col-sm-6">
-                <h3 class="text-center">Misi</h3>
-                <p><b>1. Memberikan Layanan Berkualitas Tinggi:</b> <br>
-                Menyediakan layanan kesehatan yang komprehensif dan profesional dengan mengutamakan kenyamanan pasien.
-                </p>
-                <p><b>2. Menerapkan Teknologi Modern:</b> <br>
-                Mengintegrasikan teknologi digital untuk mempermudah akses layanan kesehatan, seperti reservasi online dan telemedicine.
-                </p>
-                <p><b>3. Memastikan Kepuasan Pasien:</b> <br>
-                Menyediakan pelayanan ramah, cepat, dan efisien untuk memenuhi kebutuhan kesehatan setiap individu.
-                </p>
-                <p><b>4.Meningkatkan Edukasi Kesehatan:</b> <br>
-                Membantu masyarakat memahami pentingnya gaya hidup sehat melalui informasi kesehatan dan program pencegahan.
-                </p>
-                <p><b>5.Bekerja Secara Profesional dan Berintegritas:</b> <br>
-                Melibatkan tim medis dan staf yang kompeten dengan standar etika tinggi dalam setiap pelayanan.                </p>
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="form-container">
+                <h2 class="text-center mb-4">Kirim Pesan Anda</h2>
+                <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
+                <?php echo form_open('message/submit'); ?>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nama Anda</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="name" 
+                        name="name" 
+                        placeholder="Masukkan nama lengkap Anda" 
+                        value="<?php echo set_value('name'); ?>" 
+                        required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Anda</label>
+                    <input 
+                        type="email" 
+                        class="form-control" 
+                        id="email" 
+                        name="email" 
+                        placeholder="Masukkan email Anda" 
+                        value="<?php echo set_value('email'); ?>" 
+                        required>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Pesan Anda</label>
+                    <textarea 
+                        class="form-control" 
+                        id="message" 
+                        name="message" 
+                        rows="5" 
+                        placeholder="Tuliskan pesan Anda di sini..." 
+                        required><?php echo set_value('message'); ?></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-custom w-100">Kirim Pesan</button>
+                </div>
+                <?php echo form_close(); ?>
             </div>
         </div>
     </div>
+</div>
+
+        </div>
+        <div class="col-sm-4">
+            <p>woi</p>
+        </div>
     </div>
-
-<h3 class="mt-5 text-center">Vivarta Klinik adalah mitra kesehatan Anda untuk hidup yang lebih baik. <br> Kesehatan Anda, Prioritas Kami.</h3>
-
+  </div>
   <footer style="background-color: #00705a; color: white; padding: 30px 0; text-align: center; margin-top: 50px;">
     <div class="container">
         <div class="row">
@@ -243,7 +292,7 @@
                 <ul style="list-style-type: none; padding: 0;">
                     <li><i class="bi bi-telephone"></i> 083928392392</li>
                     <li><i class="bi bi-envelope"></i> info@klinikvivarta.com</li>
-                    <li><i class="bi bi-geo-alt"></i> Jl. Raya Serang, Jakarta</li>
+                    <li><i class="bi bi-geo-alt"></i> Jl. Kesehatan No. 123, Jakarta</li>
                 </ul>
             </div>
             <div class="col-md-4">
@@ -267,6 +316,4 @@
     </div>
 </footer>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </html>

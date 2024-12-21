@@ -253,7 +253,7 @@
             <a class="nav-link text-light" href="#">Layanan</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="#">Contact</a>
+            <a class="nav-link text-light" href="<?= site_url('welcome/kontak')?>">Kontak</a>
           </li>
         </ul>
       </div>
@@ -325,7 +325,7 @@
         <div class="col-sm-3 text-center">
             <img src="<?= base_url('assets/why3.jpg')?>" width="120px" class="img-fluid">
             <h3 class="fw-bold mt-2">Aman Terpercaya</h3>
-            <p>oftware Vivarta Klinik Terdaftar di PSE Kominfo, kerasiahaan dam keamanan data tersertifikasi</p> 
+            <p>Software Vivarta Klinik Terdaftar di PSE Kominfo, kerasiahaan dam keamanan data tersertifikasi</p> 
         </div>
         <div class="col-sm-3 text-center">
             <img src="<?= base_url('assets/why4.jpg')?>" width="120px" class="img-fluid">
