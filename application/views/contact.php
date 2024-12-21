@@ -93,36 +93,7 @@
         }
 
        
-        .form-container {
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-}
-
-/* Form Elements */
-.form-label {
-    font-weight: 500;
-    color: #333;
-}
-
-.form-control {
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-}
-
-.form-control:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    outline: none;
-}
-
-textarea.form-control {
-    resize: none;
-}
+       
 
 /* Button */
 .btn-custom {
@@ -152,6 +123,53 @@ textarea.form-control {
     color: #721c24;
     border: 1px solid #f5c6cb;
 }
+
+/* Mengubah warna latar belakang dan border form */
+.form-container {
+    padding: 30px;
+    border-radius: 8px;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+}
+
+/* Menambahkan warna hijau pada label */
+.form-label {
+    color: #00705a;
+    font-weight: bold;
+}
+
+/* Menambahkan warna hijau pada input dan textarea */
+.form-control {
+    border-color: #00705a;
+    border-radius: 4px;
+}
+
+/* Mengubah warna border pada input saat fokus */
+.form-control:focus {
+    border-color: #005740; /* Lebih gelap saat fokus */
+    box-shadow: 0 0 5px rgba(0, 112, 90, 0.5);
+}
+
+/* Menambahkan warna hijau pada tombol kirim */
+.btn-custom {
+    background-color: #00705a;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.btn-custom:hover {
+    background-color: #005740; /* Efek hover yang lebih gelap */
+    box-shadow: 0 4px 6px rgba(0, 112, 90, 0.3);
+}
+
+/* Menambahkan margin bawah pada form */
+.mb-3 {
+    margin-bottom: 15px;
+}
+
+
 </style>
 <body>
      <!-- Navbar atas -->
@@ -230,12 +248,18 @@ textarea.form-control {
 
   <img src="<?= base_url('assets/bannerK.jpg')?>" width=1366px">
 
-  <div class="container mt-5">
-    <div class="row justify-content-center">
+  <div class="container mt-5" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 30px; border-radius: 8px;">
+    <div class="row">
         <div class="col-lg-6 col-md-8">
             <div class="form-container">
-                <h2 class="text-center mb-4">Kirim Pesan Anda</h2>
+                <h2 class="text-center mb-4" style="color: #00705a;">Kirim Pesan Anda</h2>
                 <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
+                 <!-- Menampilkan pesan sukses jika ada -->
+                 <?php if($this->session->flashdata('message')): ?>
+                    <script>
+                        alert("<?php echo $this->session->flashdata('message'); ?>");
+                    </script>
+                <?php endif; ?>
                 <?php echo form_open('message/submit'); ?>
                 <div class="mb-3">
                     <label for="name" class="form-label">Nama Anda</label>
@@ -275,15 +299,11 @@ textarea.form-control {
                 <?php echo form_close(); ?>
             </div>
         </div>
+        <div class="col-sm-4">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31731.931926340734!2d106.55299830392494!3d-6.198701887362597!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fe5b993d64a5%3A0xdc2dde42c09c66e7!2sKec.%20Jatiuwung%2C%20Kota%20Tangerang%2C%20Banten!5e0!3m2!1sid!2sid!4v1734798227528!5m2!1sid!2sid" width="600" height="550" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded-3"></iframe>
+        </div>
     </div>
 </div>
-
-        </div>
-        <div class="col-sm-4">
-            <p>woi</p>
-        </div>
-    </div>
-  </div>
   <footer style="background-color: #00705a; color: white; padding: 30px 0; text-align: center; margin-top: 50px;">
     <div class="container">
         <div class="row">

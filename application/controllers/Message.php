@@ -8,6 +8,7 @@ class Message extends CI_Controller {
         $this->load->model('Message_model');
         $this->load->helper(['form', 'url']);
         $this->load->library('form_validation');
+        $this->load->library('session');
     }
 
     public function index() {
@@ -31,7 +32,8 @@ class Message extends CI_Controller {
             ];
             $this->Message_model->save_message($data);
 
-            $this->load->view('message_success');
-        }
+            $this->session->set_flashdata('message', 'Pesan Anda telah berhasil dikirim!');
+            redirect('message/index'); // Mengarahkan kembali ke halaman kontak        }
     }
+}
 }
