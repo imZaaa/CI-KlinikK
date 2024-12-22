@@ -186,20 +186,47 @@
     </style>
 </head>
 <body>
-  <!-- Navbar atas -->
-  <nav class="navbar bg-body-light" style="background-color: #00705a; height: 50px; padding: 0 20px;">
+<!-- Navbar atas -->
+<nav class="navbar bg-body-light" style="background-color: #00705a; height: 50px; padding: 0 20px;">
     <div class="container">
         <div class="d-flex align-items-center">
             <b class="text-light"><i class="bi bi-clock"></i> Senin - Sabtu 8:00 - 21:00</b>
         </div>
-        <div class="d-flex align-items-center">
-            <b class="text-light"><i class="bi bi-whatsapp"></i> 083928392392</b>
-            <!-- Button di samping nomor telepon -->
-            <a href="<?= site_url('login/index')?>" class="btn btn-custom text-light">Login</a>
+        <div class="d-flex align-items-center ms-auto">
+            <b class="text-light me-3"><i class="bi bi-whatsapp"></i> 083928392392</b>
+            <!-- Button untuk login atau username setelah login -->
+            <?php if ($this->session->userdata('logged_in')): ?> 
+                <!-- Tampilkan Username di Modal -->
+                <button type="button" class="btn btn-link text-light" data-bs-toggle="modal" data-bs-target="#profileModal" style="text-decoration: none; margin-left: 20px;">
+                <i class="bi bi-person-circle"></i>
+                    <?php echo $this->session->userdata('username'); ?>
+                </button>
+            <?php else: ?>
+                <!-- Tampilkan Tombol Login di Modal -->
+                <a href="<?= site_url('Login/index')?>" type="button" class="btn btn-link text-light">
+                    Login
+                </a>
+            <?php endif; ?>
         </div>
     </div>
-  </nav>
+</nav>
 
+<!-- Modal Profile -->
+<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="profileModalLabel">Profile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Username: <?php echo $this->session->userdata('username'); ?></p>
+                <p>Sebagai: <?php echo $this->session->userdata('role'); ?></p>
+                <a href="<?php echo site_url('login/logout'); ?>" class="btn btn-danger w-100">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
   <!-- Navbar bawah -->
   <nav class="navbar navbar-expand-lg border sticky sticky-top" style="background-color: #ffffff; height: 40px;">
     <div class="container-fluid">
