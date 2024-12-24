@@ -36,18 +36,18 @@ class Login_model extends CI_Model {
 
    // Model Login_model
 
-// Fungsi untuk mengambil user berdasarkan email
-public function get_user_by_email($email) {
-    $this->db->where('email', $email);
-    $query = $this->db->get('tbl_login'); // Ganti dengan nama tabel Anda
-    return $query->row(); // Mengembalikan hasil satu baris
-}
+    // Fungsi untuk mengambil user berdasarkan email
+    public function get_user_by_email($email) {
+        $this->db->where('email', $email);
+        $query = $this->db->get('tbl_login'); // Ganti dengan nama tabel Anda
+        return $query->row(); // Mengembalikan hasil satu baris
+    }
 
-// Fungsi untuk update password
-public function update_password($email, $new_password) {
-    $this->db->set('password', $new_password);
-    $this->db->where('email', $email);
-    $this->db->update('tbl_login'); // Ganti dengan nama tabel Anda
-}
-}
+    // Fungsi untuk update password
+    public function update_password($email, $new_password) {
+        $this->db->set('password', $new_password);
+        $this->db->where('email', $email);
+        $this->db->update('tbl_login'); // Ganti dengan nama tabel Anda
+    }
+    }
 ?>

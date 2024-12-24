@@ -138,27 +138,36 @@
         </div>
     </div>
 
-    <!-- Modal untuk Reset Password -->
-    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="forgotPasswordModalLabel">Reset Password</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="<?= site_url('login/reset_password_process') ?>" method="POST">
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required placeholder="Enter your registered email">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Reset Password</button>
-                    </form>
-                </div>
+    <!-- Modal untuk Lupa Password -->
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="<?= site_url('login/show_password') ?>" method="POST">
+                    <div class="mb-3">
+                        <label for="email_forgot" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email_forgot" name="email" required placeholder="Enter your email">
+                    </div>
+                    <?php if (!empty($password_message)): ?>
+    <div class="alert alert-info"><?= $password_message; ?></div>
+<?php elseif (!empty($error_message)): ?>
+    <div class="alert alert-danger"><?= $error_message; ?></div>
+<?php endif; ?>
+
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary">Show Password</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

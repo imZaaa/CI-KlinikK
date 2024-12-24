@@ -11,20 +11,34 @@ class Login extends CI_Controller {
 
     // Menampilkan halaman login
     public function index() {
-        if ($this->session->userdata('logged_in')) { 
-            redirect('home'); // Jika sudah login, arahkan ke halaman utama
+        if ($this->session->userdata('logged_in')) {
+            $role = $this->session->userdata('role');
+            // Arahkan sesuai role
+            if ($role === 'admin') {
+                redirect('admin/home');
+            } elseif ($role === 'user') {
+                redirect('user/home');
+            }
         }
         $this->load->view('login'); // Tampilkan view login
+    }
+
+    public function admin(){
+        $this->load->view('admin/home');
+    }
+
+    public function user(){
+        $this->load->view('user/gallery');
     }
 
     // Proses login
     public function login_process() {
         $username = $this->input->post('username');
         $password = $this->input->post('password');
-        
+
         // Cek login melalui model
         $user = $this->Login_model->login($username, $password);
-        
+
         if ($user) {
             // Memastikan kapitalisasi username dan password cocok
             if (strcmp($user->username, $username) === 0 && strcmp($user->password, $password) === 0) {
@@ -36,10 +50,15 @@ class Login extends CI_Controller {
                     'logged_in' => TRUE
                 );
                 $this->session->set_userdata($session_data);
-    
-                // Set flashdata untuk pesan berhasil login
-                $this->session->set_flashdata('success', 'Login berhasil! Selamat datang, ' . $user->username);
-                redirect('home'); // Arahkan ke halaman utama
+
+                // Arahkan sesuai role
+                if ($user->role === 'admin') {
+                    $this->session->set_flashdata('success', 'Login berhasil sebagai Admin!');
+                    redirect('Login/admin');
+                } elseif ($user->role === 'user') {
+                    $this->session->set_flashdata('success', 'Login berhasil sebagai User!');
+                    redirect('Login/user');
+                }
             } else {
                 // Jika login gagal karena kapitalisasi yang tidak cocok
                 $this->session->set_flashdata('error', 'Username atau password tidak cocok');
@@ -51,36 +70,8 @@ class Login extends CI_Controller {
             redirect('login');
         }
     }
-    public function change_password() {
-        $old_password = $this->input->post('old_password');
-        $new_password = $this->input->post('new_password');
-        $email = $this->input->post('email');
 
-        // Ambil data user berdasarkan email
-        $user = $this->Login_model->get_user_by_email($email);
-
-        if ($user) {
-            // Cek apakah password lama cocok
-            if ($old_password === $user->password) {
-                // Password lama cocok, update password baru
-                $this->Login_model->update_password($email, $new_password);
-                
-                // Set flashdata pesan sukses
-                $this->session->set_flashdata('success', 'Password berhasil diubah.');
-                redirect('login');
-            } else {
-                // Password lama tidak cocok
-                $this->session->set_flashdata('error', 'Password lama salah.');
-                redirect('login');
-            }
-        } else {
-            // Jika email tidak ditemukan
-            $this->session->set_flashdata('error', 'Email tidak ditemukan.');
-            redirect('login');
-        }
-    }
-
-    // Logout
+    // Fungsi untuk logout
     public function logout() {
         $this->session->sess_destroy(); // Hapus session
         $this->session->set_flashdata('success', 'Anda telah berhasil logout');
