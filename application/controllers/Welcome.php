@@ -31,4 +31,7 @@ class Welcome extends CI_Controller {
 	public function home(){
         $this->load->view('home');
     }
+	public function galeri(){
+		$this->load->view('user/gallery');
+	}
 }

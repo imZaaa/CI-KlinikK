@@ -28,7 +28,7 @@ class Login extends CI_Controller {
     }
 
     public function user(){
-        $this->load->view('user/gallery');
+        $this->load->view('user/home');
     }
 
     // Proses login
