@@ -25,17 +25,7 @@
                         <?php echo form_open_multipart('Gallery/edit/' . $upload->id); ?>
                             <!-- Input field untuk deskripsi dengan nilai default dari data yang sudah ada -->
                             
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Nama</label>
-                                <input 
-                                    type="text" 
-                                    name="nama_produk" 
-                                    id="name" 
-                                    class="form-control" 
-                                    value="<?php echo $upload->deskripsi; ?>" 
-                                    placeholder="Masukkan nama baru" 
-                                    required>
-                            </div>
+                            
                             <div class="mb-3">
                                 <label for="deskripsi" class="form-label">Deskripsi</label>
                                 <input 

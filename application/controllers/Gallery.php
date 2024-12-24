@@ -12,10 +12,16 @@ Class Gallery extends CI_Controller {
     }
 
     // Menampilkan semua data upload
-    public function index(){
+    public function admin(){
         $data['uploads'] = $this->Gallery_model->get_uploads();  // Mengambil data upload dari model
         $this->load->view('admin/gallery', $data);                // Memuat tampilan 'index' dan mengirim data upload ke view
     }
+    public function user(){
+        $data['uploads'] = $this->Gallery_model->get_uploads();  // Mengambil data upload dari model
+        $this->load->view('user/gallery', $data);                // Memuat tampilan 'index' dan mengirim data upload ke view
+    }
+
+
 
     // Membuat upload baru
     public function create(){
@@ -32,7 +38,7 @@ Class Gallery extends CI_Controller {
                     'deskripsi' => $this->input->post('deskripsi')
                 );
                 $this->Gallery_model->insert_upload($data);  // Menyimpan data upload ke database
-                redirect('gallery');  // Redirect ke halaman 'upload' setelah sukses
+                redirect('gallery/admin');  // Redirect ke halaman 'upload' setelah sukses
             } else {
                 $error = array('error' => $this->upload->display_errors());  // Menangkap error jika upload gagal
                 $this->load->view('admin/create', $error);  // Memuat tampilan 'create' dengan pesan error
@@ -57,7 +63,7 @@ Class Gallery extends CI_Controller {
                     'deskripsi' => $this->input->post('deskripsi')
                 );
                 $this->Gallery_model->update_upload($id, $data);  // Memperbarui data upload yang ada di database
-                redirect('gallery');  // Redirect ke halaman 'upload' setelah sukses
+                redirect('gallery/admin');  // Redirect ke halaman 'upload' setelah sukses
             }
         } else {
             $data['upload'] = $this->Gallery_model->get_upload_by_id($id);  // Mengambil data upload berdasarkan ID
@@ -68,7 +74,7 @@ Class Gallery extends CI_Controller {
     // Menghapus upload
     public function delete($id){
         $this->Gallery_model->delete_upload($id);  // Menghapus data upload dari database
-        redirect('gallery');  // Redirect ke halaman 'upload' setelah penghapusan
+        redirect('gallery/admin');  // Redirect ke halaman 'upload' setelah penghapusan
     }
 }
 ?>

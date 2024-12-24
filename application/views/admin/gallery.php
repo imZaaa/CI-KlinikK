@@ -89,7 +89,9 @@
             margin: 8px 0; /* Spasi divider */
         }
 
-
+        ::-webkit-scrollbar{
+            display: none;
+        }
 </style>
 <body>
 <nav class="navbar bg-body-light" style="background-color: #00705a; height: 50px; padding: 0 20px;">

@@ -277,7 +277,7 @@
             <a class="nav-link text-light" href="#">Dokter</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('Gallery') ?>">Gallery</a>
+            <a class="nav-link text-light" href="<?= site_url('Gallery/admin') ?>">Gallery</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-light" href="#">Layanan</a>
