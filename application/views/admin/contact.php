@@ -226,10 +226,10 @@
       <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav w-100 d-flex justify-content-center">
           <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('welcome/home')?>">Beranda</a>
+            <a class="nav-link text-light" href="<?= site_url('Home/admin')?>">Beranda</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('welcome/about')?>">About</a>
+            <a class="nav-link text-light" href="<?= site_url('welcome/aboutA')?>">About</a>
           </li>
           <li class="nav-item dropdown">
                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -261,11 +261,9 @@
                 </ul>
                 </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="#">Dokter</a>
+            <a class="nav-link text-light" href="<?= site_url('Gallery/admin')?>">Gallery</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" href="#">Layanan</a>
-          </li>
+
           <li class="nav-item">
             <a class="nav-link text-light active" href="#">Kontak</a>
           </li>

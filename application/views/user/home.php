@@ -242,7 +242,7 @@
             <a class="nav-link text-light active" href="#">Beranda</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('welcome/about')?>">About</a>
+            <a class="nav-link text-light" href="<?= site_url('welcome/aboutU')?>">About</a>
           </li>
           <li class="nav-item dropdown">
                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -280,7 +280,7 @@
             <a class="nav-link text-light" href="<?= site_url('Gallery/user')?>">Gallery</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('welcome/kontak')?>">Kontak</a>
+            <a class="nav-link text-light" href="<?= site_url('welcome/kontakU')?>">Kontak</a>
           </li>
         </ul>
       </div>

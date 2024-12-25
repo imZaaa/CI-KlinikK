@@ -167,7 +167,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav w-100 d-flex justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="<?= site_url('home/index')?>">Beranda</a>
+                    <a class="nav-link text-dark" href="<?= site_url('home/user')?>">Beranda</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-dark active" href="#">About</a>
@@ -205,10 +205,10 @@
                     <a class="nav-link text-dark" href="#">Dokter</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="<?= site_url('Gallery/index') ?>">Gallery</a>
+                    <a class="nav-link text-dark" href="<?= site_url('Gallery/user') ?>">Gallery</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="<?= site_url('Welcome/contact')?>">Kontak</a>
+                    <a class="nav-link text-dark" href="<?= site_url('Welcome/contactU')?>">Kontak</a>
                 </li>
             </ul>
         </div>

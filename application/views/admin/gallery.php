@@ -146,10 +146,10 @@
       <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav w-100 d-flex justify-content-center">
           <li class="nav-item">
-            <a class="nav-link text-light" href="#">Beranda</a>
+            <a class="nav-link text-light" href="<?= site_url('Home/admin')?>">Beranda</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('welcome/about')?>">About</a>
+            <a class="nav-link text-light" href="<?= site_url('welcome/aboutA')?>">About</a>
           </li>
           <li class="nav-item dropdown">
                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -187,7 +187,7 @@
             <a class="nav-link text-light active" href="#">Gallery</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('welcome/kontak')?>">Kontak</a>
+            <a class="nav-link text-light" href="<?= site_url('welcome/kontakA')?>">Kontak</a>
           </li>
         </ul>
       </div>
@@ -197,8 +197,8 @@
   <div class="container my-5">
         
         <!-- Judul dan tombol untuk menambah data -->
-        <div class="text-center mb-4">
-            <h2 class="text-primary">Gallery Upload</h2>
+        <div class="mb-4">
+            <h2 class="text-center text-primary">Gallery Upload</h2>
             <!-- Tombol untuk menambah data baru, mengarah ke halaman create -->
             <a href="<?= site_url('gallery/create'); ?>" class="btn btn-success btn-sm mt-3">
                 <i class="bi bi-plus-circle"></i> Tambah Data
@@ -250,8 +250,38 @@
         <?php endif; ?>
     </tbody>
 </table>
-
     </div>
+    <footer style="background-color: #00705a; color: white; padding: 30px 0; text-align: center; margin-top: 50px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>Kontak Kami</h4>
+                <ul style="list-style-type: none; padding: 0;">
+                    <li><i class="bi bi-telephone"></i> 083928392392</li>
+                    <li><i class="bi bi-envelope"></i> info@klinikvivarta.com</li>
+                    <li><i class="bi bi-geo-alt"></i> Jl. Kesehatan No. 123, Jakarta</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h4>Ikuti Kami</h4>
+                <div>
+                    <a href="#" class="text-light me-3"><i class="bi bi-facebook" style="font-size: 1.5rem;"></i></a>
+                    <a href="#" class="text-light me-3"><i class="bi bi-twitter" style="font-size: 1.5rem;"></i></a>
+                    <a href="#" class="text-light me-3"><i class="bi bi-instagram" style="font-size: 1.5rem;"></i></a>
+                    <a href="#" class="text-light me-3"><i class="bi bi-linkedin" style="font-size: 1.5rem;"></i></a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h4>Tentang Kami</h4>
+                <p>
+                    Klinik Vivarta adalah klinik kesehatan yang memberikan pelayanan pengobatan dan pencegahan penyakit untuk masyarakat sekitar. Dengan pelayanan yang terbaik, kami berkomitmen untuk meningkatkan kualitas hidup Anda.
+                </p>
+            </div>
+        </div>
+        <hr style="border-color: #fff;">
+        <p>&copy; 2024 Klinik Vivarta. Semua Hak Dilindungi.</p>
+    </div>
+</footer>
 </body>
 <script type="text/javascript">
         $(document).ready(function(){

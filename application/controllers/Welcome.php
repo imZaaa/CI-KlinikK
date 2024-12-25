@@ -22,16 +22,18 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('welcome_message');
 	}
-	public function about(){
-		$this->load->view('about');
+	public function aboutA(){
+		$this->load->view('admin/about');
 	}
-	public function kontak(){
-		$this->load->view('contact');
+	public function aboutU(){
+		$this->load->view('user/about');
 	}
-	public function home(){
-        $this->load->view('home');
-    }
-	public function galeri(){
-		$this->load->view('user/gallery');
+	public function kontakA(){
+		$this->load->view('admin/contact');
 	}
+	public function kontakU(){
+		$this->load->view('user/contact');
+	}
+
+
 }
