@@ -261,6 +261,9 @@
                 </ul>
                 </li>
           <li class="nav-item">
+            <a class="nav-link text-light" href="<?= site_url('dokter/admin')?>">Dokter</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link text-light" href="<?= site_url('Gallery/admin')?>">Gallery</a>
           </li>
 

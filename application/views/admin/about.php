@@ -202,7 +202,7 @@
                 </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">Dokter</a>
+                    <a class="nav-link text-dark" href="<?= site_url('Dokter/admin')?>">Dokter</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="<?= site_url('Gallery/admin') ?>">Gallery</a>

@@ -274,7 +274,7 @@
                 </ul>
                 </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="#">Dokter</a>
+            <a class="nav-link text-light" href="<?= site_url('dokter/user')?>">Dokter</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-light" href="<?= site_url('Gallery/user')?>">Gallery</a>

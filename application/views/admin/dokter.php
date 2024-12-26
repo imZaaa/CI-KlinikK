@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery</title>
+    <title>Dokter</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -193,61 +193,64 @@
       </div>
     </div>
   </nav>
+  <img src="<?= base_url('assets/bannerD.jpg')?>" width=1366px">
 
   <div class="container my-5">
         
         <!-- Judul dan tombol untuk menambah data -->
         <div class="mb-4">
-            <h2 class="text-center text-primary">Gallery Upload</h2>
+            <h2 class="text-center" style="color: #00705a;">Data Dokter</h2>
             <!-- Tombol untuk menambah data baru, mengarah ke halaman create -->
-            <a href="<?= site_url('dokter/create'); ?>" class="btn btn-success btn-sm mt-3">
+            <a href="<?= site_url('Dokter/create'); ?>" class="btn btn-success btn-sm mt-3">
                 <i class="bi bi-plus-circle"></i> Tambah Data
             </a>
         </div>
 
         <!-- Tabel yang menampilkan data upload, dengan ID untuk DataTables -->
-        <table id="uploadTable" class="table table-bordered table-striped table-hover">
-    <thead class="table-primary">
+        <table id="uploadTable" class="table table-bordered table-striped table-hover" 
+       style="border-color: #00705a; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <thead class="table-primary" style="background-color: #00705a; color: #ffffff; border-top-left-radius: 10px; border-top-right-radius: 10px;">
         <tr>
-            <th>Nomor</th>
-            <th>Gambar</th>
-            <th>Deskripsi</th>
-            <th>Aksi</th>
+            <th style="border-color: #00705a; text-align: center; font-weight: bold;">Nomor</th>
+            <th style="border-color: #00705a; text-align: center; font-weight: bold;">Gambar</th>
+            <th style="border-color: #00705a; text-align: center; font-weight: bold;">Nama</th>
+            <th style="border-color: #00705a; text-align: center; font-weight: bold;">Spesialis</th>
+            <th style="border-color: #00705a; text-align: center; font-weight: bold;">Jadwal</th>
+            <th style="border-color: #00705a; text-align: center; font-weight: bold;">Aksi</th>
         </tr>
     </thead>
     <tbody>
-        <?php if (!empty($uploads)): // Pastikan ada data di $uploads ?>
-            <?php $no = 1;?> 
+        <?php if (!empty($uploads)): ?>
+            <?php $no = 1; ?>
             <?php foreach ($uploads as $upload): ?>
-                <tr>
-                    <td><?= $no++; ?></td>
-                    <td class="text-center">
-                        <!-- Menampilkan gambar -->
+                <tr style="background-color: #eaf7f3; border-color: #00705a; border-radius: 8px; transition: all 0.3s ease-in-out;">
+                    <td style="border-color: #00705a; text-align: center;"><?= $no++; ?></td>
+                    <td class="text-center" style="border-color: #00705a;">
                         <?php if (!empty($upload['gambar'])): ?>
-                            <img src="<?= base_url('assets/'.$upload['gambar']); ?>" class="img-thumbnail" width="90px">
+                            <img src="<?= base_url('assets/'.$upload['gambar']); ?>" class="img-thumbnail" width="90px" style="border-radius: 8px;">
                         <?php else: ?>
                             <span class="text-muted">Tidak ada gambar</span>
                         <?php endif; ?>
                     </td>
-                    <td><?= !empty($upload['nama']) ? $upload['nama'] : '-'; ?></td>
-                    <td><?= !empty($upload['spesialis']) ? $upload['spesialis'] : '-'; ?></td>
-                    <td><?= !empty($upload['jadwal']) ? $upload['jadwal'] : '-'; ?></td>
-                    <td class="text-center">
-                        <!-- Tombol Edit -->
-                        <a href="<?= site_url('dokter/edit/'.$upload['id']); ?>" class="btn btn-warning btn-sm">
+                    <td style="border-color: #00705a;"><?= !empty($upload['nama']) ? $upload['nama'] : '-'; ?></td>
+                    <td style="border-color: #00705a;"><?= !empty($upload['spesialis']) ? $upload['spesialis'] : '-'; ?></td>
+                    <td style="border-color: #00705a;"><?= !empty($upload['jadwal']) ? $upload['jadwal'] : '-'; ?></td>
+                    <td class="text-center" style="border-color: #00705a;">
+                        <a href="<?= site_url('dokter/edit/'.$upload['id']); ?>" class="btn btn-warning btn-sm" 
+                           style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;">
                             <i class="bi bi-pencil-square"></i> Edit
                         </a>
-                        <!-- Tombol Hapus -->
-                        <a href="<?= site_url('dokter/delete/'.$upload['id']); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus data ini?');">
+                        <a href="<?= site_url('dokter/delete/'.$upload['id']); ?>" class="btn btn-danger btn-sm" 
+                           style="color: #ffffff; background-color: #00705a; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;" 
+                           onclick="return confirm('Yakin ingin menghapus data ini?');">
                             <i class="bi bi-trash"></i> Hapus
                         </a>
                     </td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
-            <!-- Tampilkan pesan jika tidak ada data -->
             <tr>
-                <td colspan="8" class="text-center">Tidak ada data tersedia</td>
+                <td colspan="8" class="text-center" style="border-color: #00705a; font-style: italic; color: #666;">Tidak ada data tersedia</td>
             </tr>
         <?php endif; ?>
     </tbody>

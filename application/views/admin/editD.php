@@ -76,7 +76,7 @@
                             </div>
                             <!-- Tombol untuk submit form dan tombol untuk kembali ke halaman sebelumnya -->
                             <div class="text-center">
-                                <button type="submit" name="submit" value="Update" class="btn btn-success">
+                                <button type="submit" name="Submit" value="Update" class="btn btn-success">
                                     Update
                                 </button>
                                 <a href="<?= site_url('upload'); ?>" class="btn btn-secondary">

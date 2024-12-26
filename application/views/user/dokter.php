@@ -3,19 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Dokter</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/logo.png')?>">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <!-- Link ke jQuery, digunakan untuk DataTables dan interaksi DOM -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Link ke DataTables JS untuk menambah fungsionalitas tabel interaktif -->
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 </head>
 <style>
-    .nav-link {
+     /* Font Style */
+     .nav-link {
             font-family: 'Montserrat', sans-serif;
             font-size: 1.2rem;
             margin: 0 10px;
@@ -59,6 +55,31 @@
             margin-left: -20px;
         }
 
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        .btn-custom {
+            margin-left: 10px; /* Jarak antara tombol dan nomor telepon */
+            background-color:rgb(44, 113, 100);
+            
+        }
+        .btn-custom:hover {
+            margin-left: 10px; /* Jarak antara tombol dan nomor telepon */
+            background-color: yellow;
+            
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
         .dropdown-menu {
             min-width: 400px; /* Atur ukuran sesuai kebutuhan */
             margin-left: -150px; /* Posisi sesuai kebutuhan */
@@ -88,12 +109,103 @@
             border-color: #dee2e6; /* Warna divider */
             margin: 8px 0; /* Spasi divider */
         }
+         /* Gallery Section */
+    .gallery-header {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #00705a;
+    }
 
-        ::-webkit-scrollbar{
-            display: none;
-        }
+   /* Card Style */
+/* Card Style */
+.card {
+    border-radius: 12px; /* Membulatkan sudut card */
+    border: 2px solid #00705a;
+    background-color: #f9f9f9;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease; /* Efek transisi pada hover */
+}
+
+.card-body {
+    flex-grow: 1; /* Membuat card body mengisi sisa ruang */
+}
+
+.card img {
+    width: 100%; /* Membuat gambar memenuhi lebar card */
+    height: 250px; /* Batasi tinggi gambar agar tidak terlalu besar */
+    object-fit: contain; /* Menjaga gambar agar tetap utuh tanpa terpotong */
+    object-position: center; /* Menjaga gambar tetap terpusat */
+    border-bottom: 2px solid #f0f0f0; /* Membuat batas halus antara gambar dan deskripsi */
+    border-radius: 20px;
+}
+
+    .card-text {
+        font-size: 1rem;
+        color: #333;
+    }
+    .card-img-top {
+    height: 250px;
+    object-fit: cover; /* Menjaga gambar tidak terdistorsi */
+    object-position: center;
+    transition: transform 0.3s ease;
+}
+
+    .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Membesarkan card saat hover */
+}
+
+.card-img-top:hover {
+    transform: scale(1.05); /* Zoom gambar saat hover */
+}
+
+.no-uploads {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #00705a;
+    font-weight: 700;
+}
+
+    .gallery-row {
+        margin-top: 20px;
+    }
+
+    .no-uploads {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #00705a;
+        font-weight: 700;
+    }
+
+    /* Custom Button */
+    .btn-custom {
+        background-color: rgb(44, 113, 100);
+        color: white;
+        font-weight: 600;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-custom:hover {
+        background-color: yellow;
+        color: black;
+    }
+    .card:hover {
+        transform: scale(1.05);
+        transition: all 0.3s ease-in-out;
+    }
+    .card-img-top-container:hover .overlay {
+        display: flex;
+    }
+    h1 {
+        letter-spacing: 2px;
+    }
 </style>
 <body>
+    <!-- Navbar atas -->
 <nav class="navbar bg-body-light" style="background-color: #00705a; height: 50px; padding: 0 20px;">
     <div class="container">
         <div class="d-flex align-items-center">
@@ -146,10 +258,10 @@
       <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav w-100 d-flex justify-content-center">
           <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('Home/admin')?>">Beranda</a>
+            <a class="nav-link text-light" href="<?= site_url('home/user')?>">Beranda</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('welcome/aboutA')?>">About</a>
+            <a class="nav-link text-light" href="<?= site_url('welcome/aboutU')?>">About</a>
           </li>
           <li class="nav-item dropdown">
                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -181,79 +293,50 @@
                 </ul>
                 </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('dokter/admin')?>">Dokter</a>
+            <a class="nav-link text-light" href="#">Dokter</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light active" href="#">Gallery</a>
+            <a class="nav-link text-light active" href="<?= site_url('gallery/user')?>">Gallery</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('welcome/kontakA')?>">Kontak</a>
+            <a class="nav-link text-light" href="<?= site_url('welcome/kontakU')?>">Kontak</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
-  <img src="<?= base_url('assets/bannerG.jpg')?>" width=1366px">
+    <img src="<?= base_url('assets/bannerD.jpg')?>" width=1366px">
 
-
-  <div class="container my-5">
-        
-        <!-- Judul dan tombol untuk menambah data -->
-        <div class="mb-4">
-            <h2 class="text-center text-primary">Gallery Upload</h2>
-            <!-- Tombol untuk menambah data baru, mengarah ke halaman create -->
-            <a href="<?= site_url('gallery/create'); ?>" class="btn btn-success btn-sm mt-3">
-                <i class="bi bi-plus-circle"></i> Tambah Data
-            </a>
-        </div>
-
-        <!-- Tabel yang menampilkan data upload, dengan ID untuk DataTables -->
-        <table id="uploadTable" class="table table-bordered table-striped table-hover" 
-       style="border-color: #00705a; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-    <thead class="table-primary" style="background-color: #00705a; color: #ffffff; border-top-left-radius: 10px; border-top-right-radius: 10px;">
-        <tr>
-            <th style="border-color: #00705a; text-align: center; font-weight: bold;">Nomor</th>
-            <th style="border-color: #00705a; text-align: center; font-weight: bold;">Gambar</th>
-            <th style="border-color: #00705a; text-align: center; font-weight: bold;">Deskripsi</th>
-            <th style="border-color: #00705a; text-align: center; font-weight: bold;">Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
+  <div class="container">
+    <h1 class="text-center my-4" style="font-family: 'Poppins', sans-serif; font-weight: bold; color: #00705a;">Dokter Kami</h1>
+    <div class="row">
         <?php if (!empty($uploads)): ?>
-            <?php $no = 1; ?>
             <?php foreach ($uploads as $upload): ?>
-                <tr style="background-color: #eaf7f3; border-color: #00705a; border-radius: 8px; transition: all 0.3s ease-in-out;">
-                    <td style="border-color: #00705a; text-align: center;"><?= $no++; ?></td>
-                    <td class="text-center" style="border-color: #00705a;">
-                        <?php if (!empty($upload['gambar'])): ?>
-                            <img src="<?= base_url('assets/'.$upload['gambar']); ?>" class="img-thumbnail" width="90px" style="border-radius: 8px;">
-                        <?php else: ?>
-                            <span class="text-muted">Tidak ada gambar</span>
-                        <?php endif; ?>
-                    </td>
-                    <td style="border-color: #00705a;"><?= !empty($upload['deskripsi']) ? $upload['deskripsi'] : '-'; ?></td>
-                    <td class="text-center" style="border-color: #00705a;">
-                        <a href="<?= site_url('gallery/edit/'.$upload['id']); ?>" class="btn btn-warning btn-sm" 
-                           style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;">
-                            <i class="bi bi-pencil-square"></i> Edit
-                        </a>
-                        <a href="<?= site_url('gallery/delete/'.$upload['id']); ?>" class="btn btn-danger btn-sm" 
-                           style="color: #ffffff; background-color: #00705a; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;" 
-                           onclick="return confirm('Yakin ingin menghapus data ini?');">
-                            <i class="bi bi-trash"></i> Hapus
-                        </a>
-                    </td>
-                </tr>
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-lg border-0" style="border-radius: 15px; overflow: hidden;">
+                        <div class="card-img-top-container" style="position: relative;">
+                            <img src="<?= base_url('assets/' . $upload['gambar']); ?>" class="card-img-top" alt="Gambar" style="object-fit: cover; height: 200px;">
+                            <div class="overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none; justify-content: center; align-items: center; color: white; font-size: 1.2rem;">
+                                Info Lengkap
+                            </div>
+                        </div>
+                        <div class="card-body" style="background: linear-gradient(145deg, #f7f7f7, #f1f1f1);">
+                            <h5 class="text-center fw-bold" style="color: #34495e;">Nama</h5>
+                            <p class="card-text text-center mb-3" style="font-family: 'Roboto', sans-serif;"><?= $upload['nama']; ?></p>
+                            <h5 class="text-center fw-bold" style="color: #34495e;">Spesialis</h5>
+                            <p class="card-text text-center mb-3" style="font-family: 'Roboto', sans-serif;"><?= $upload['spesialis']; ?></p>
+                            <h5 class="text-center fw-bold" style="color: #34495e;">Jadwal</h5>
+                            <p class="card-text text-center" style="font-family: 'Roboto', sans-serif;"><?= $upload['jadwal']; ?></p>
+                        </div>
+                    </div>
+                </div>
             <?php endforeach; ?>
         <?php else: ?>
-            <tr>
-                <td colspan="8" class="text-center" style="border-color: #00705a; font-style: italic; color: #666;">Tidak ada data tersedia</td>
-            </tr>
+            <p class="text-center text-muted">Belum ada data yang diunggah.</p>
         <?php endif; ?>
-    </tbody>
-</table>
     </div>
-    <footer style="background-color: #00705a; color: white; padding: 30px 0; text-align: center; margin-top: 50px;">
+</div>
+<footer style="background-color: #00705a; color: white; padding: 30px 0; text-align: center; margin-top: 50px;">
     <div class="container">
         <div class="row">
             <div class="col-md-4">
@@ -285,25 +368,5 @@
     </div>
 </footer>
 </body>
-<script type="text/javascript">
-        $(document).ready(function(){
-            // Inisialisasi DataTables dengan konfigurasi
-            $('#uploadTable').DataTable({
-                responsive: true, // Menyusun ulang tabel agar responsif
-                autoWidth: false, // Menonaktifkan lebar otomatis
-                language: {
-                    search: "Cari:", // Label untuk kolom pencarian
-                    lengthMenu: "Tampilkan _MENU_ entri", // Pilihan jumlah entri yang tampil
-                    info: "Menampilkan _START_ ke _END_ dari _TOTAL_ entri", // Info tentang jumlah entri yang ditampilkan
-                    paginate: {
-                        first: "Pertama", // Label untuk tombol pertama
-                        last: "Terakhir", // Label untuk tombol terakhir
-                        next: "Berikutnya", // Label untuk tombol berikutnya
-                        previous: "Sebelumnya" // Label untuk tombol sebelumnya
-                    }
-                }
-            });
-        });
-    </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>

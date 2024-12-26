@@ -283,10 +283,10 @@
                 </ul>
                 </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="#">Dokter</a>
+            <a class="nav-link text-light" href="<?= site_url('dokter/user')?>">Dokter</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light active" href="<?= site_url('gallery/user')?>">Gallery</a>
+            <a class="nav-link text-light active" href="#">Gallery</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-light" href="<?= site_url('welcome/kontakU')?>">Kontak</a>
@@ -295,6 +295,8 @@
       </div>
     </div>
   </nav>
+  <img src="<?= base_url('assets/bannerG.jpg')?>" width=1366px">
+
   <div class="container">
     <h1 class="gallery-header">Gallery</h1>
     <div class="row gallery-row">
