@@ -251,10 +251,7 @@
                 <ul class="dropdown-menu">
                     <div class="row">
                         <div class="col-sm-6">
-                            <li><a class="dropdown-item" href="#">Admin</a></li>
-                        </div>
-                        <div class="col-sm-6">
-                            <li><a class="dropdown-item" href="#">User</a></li>
+                            <li><a class="dropdown-item" href="<?= site_url('login/dataU')?>">User</a></li>
                         </div>
                     </div>
                     <hr>

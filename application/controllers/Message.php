@@ -12,7 +12,7 @@ class Message extends CI_Controller {
     }
 
     public function index() {
-        $this->load->view('contact');
+        $this->load->view('admin/contact');
     }
 
     public function submit() {
@@ -22,7 +22,7 @@ class Message extends CI_Controller {
         $this->form_validation->set_rules('message', 'Message', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->load->view('message_form');
+            $this->load->view('admin/contact');
         } else {
             // Simpan ke database menggunakan model
             $data = [
@@ -33,7 +33,7 @@ class Message extends CI_Controller {
             $this->Message_model->save_message($data);
 
             $this->session->set_flashdata('message', 'Pesan Anda telah berhasil dikirim!');
-            redirect('message/index'); // Mengarahkan kembali ke halaman kontak        }
+$this->load->view('admin/contact');
     }
 }
 }

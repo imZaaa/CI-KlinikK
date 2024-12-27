@@ -264,9 +264,6 @@
             <a class="nav-link text-light" href="#">Dokter</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="#">Layanan</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link text-light active" href="#">Kontak</a>
           </li>
         </ul>

@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kontak</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Manajemen User</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/logo.png')?>">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <!-- Link ke jQuery, digunakan untuk DataTables dan interaksi DOM -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Link ke DataTables JS untuk menambah fungsionalitas tabel interaktif -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 </head>
 <style>
-     /* Font Style */
-     .nav-link {
+    .nav-link {
             font-family: 'Montserrat', sans-serif;
             font-size: 1.2rem;
             margin: 0 10px;
@@ -53,12 +57,8 @@
 
         .navbar i {
             margin-left: -20px;
-        } 
-        .navbar .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
+
         .dropdown-menu {
             min-width: 400px; /* Atur ukuran sesuai kebutuhan */
             margin-left: -150px; /* Posisi sesuai kebutuhan */
@@ -88,92 +88,59 @@
             border-color: #dee2e6; /* Warna divider */
             margin: 8px 0; /* Spasi divider */
         }
+
         ::-webkit-scrollbar{
             display: none;
         }
+         /* Style untuk table */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #ffffff; /* Latar belakang putih untuk tabel */
+        border: 1px solid #00705a; /* Border tabel dengan warna #00705a */
+    }
 
-       
-       
+    th, td {
+        padding: 12px; /* Memberikan padding pada cell */
+        text-align: center; /* Menyelaraskan teks ke tengah */
+        border: 1px solid #00705a; /* Border setiap cell dengan warna #00705a */
+    }
 
-/* Button */
-.btn-custom {
-    background-color: #007bff;
-    color: #ffffff;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
+    /* Style untuk header tabel */
+    th {
+        background-color: #00705a; /* Latar belakang hijau pada header */
+        color: #ffffff; /* Warna teks header putih */
+        font-weight: bold;
+    }
 
-.btn-custom:hover {
-    background-color: #0056b3;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+    /* Style untuk row tabel saat hover */
+    tr:hover {
+        background-color: #e8f5f4; /* Efek hover dengan warna latar belakang cerah */
+    }
 
-/* Alert Styles */
-.alert {
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 0.9rem;
-}
+    /* Style untuk button aksi */
+    .btn {
+        font-size: 0.9rem;
+        padding: 5px 10px;
+        text-align: center;
+    }
 
-.alert-danger {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
+    .btn-warning {
+        background-color: #f0ad4e; /* Warna untuk tombol edit */
+        border-color: #f0ad4e;
+    }
 
-/* Mengubah warna latar belakang dan border form */
-.form-container {
-    padding: 30px;
-    border-radius: 8px;
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
-}
+    .btn-danger {
+        background-color: #d9534f; /* Warna untuk tombol hapus */
+        border-color: #d9534f;
+    }
 
-/* Menambahkan warna hijau pada label */
-.form-label {
-    color: #00705a;
-    font-weight: bold;
-}
-
-/* Menambahkan warna hijau pada input dan textarea */
-.form-control {
-    border-color: #00705a;
-    border-radius: 4px;
-}
-
-/* Mengubah warna border pada input saat fokus */
-.form-control:focus {
-    border-color: #005740; /* Lebih gelap saat fokus */
-    box-shadow: 0 0 5px rgba(0, 112, 90, 0.5);
-}
-
-/* Menambahkan warna hijau pada tombol kirim */
-.btn-custom {
-    background-color: #00705a;
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 6px;
-    font-size: 16px;
-}
-
-.btn-custom:hover {
-    background-color: #005740; /* Efek hover yang lebih gelap */
-    box-shadow: 0 4px 6px rgba(0, 112, 90, 0.3);
-}
-
-/* Menambahkan margin bawah pada form */
-.mb-3 {
-    margin-bottom: 15px;
-}
-
-
+    .btn-warning:hover, .btn-danger:hover {
+        opacity: 0.8; /* Efek transparansi saat hover */
+    }
 </style>
 <body>
-     <!-- Navbar atas -->
-     <nav class="navbar bg-body-light" style="background-color: #00705a; height: 50px; padding: 0 20px;">
+    <nav class="navbar bg-body-light" style="background-color: #00705a; height: 50px; padding: 0 20px;">
     <div class="container">
         <div class="d-flex align-items-center">
             <b class="text-light"><i class="bi bi-clock"></i> Senin - Sabtu 8:00 - 21:00</b>
@@ -213,7 +180,6 @@
         </div>
     </div>
 </div>
-
   <!-- Navbar bawah -->
   <nav class="navbar navbar-expand-lg border sticky sticky-top" style="background-color: #ffffff; height: 40px;">
     <div class="container-fluid">
@@ -226,22 +192,20 @@
       <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav w-100 d-flex justify-content-center">
           <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('home/user')?>">Beranda</a>
+            <a class="nav-link text-light" href="<?= site_url('Home/admin')?>">Beranda</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('welcome/aboutU')?>">About</a>
+            <a class="nav-link text-light" href="<?= site_url('welcome/aboutA')?>">About</a>
           </li>
           <li class="nav-item dropdown">
-                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Data
                 </a>
                 <ul class="dropdown-menu">
                     <div class="row">
-                        <div class="col-sm-6">
-                            <li><a class="dropdown-item" href="#">Admin</a></li>
-                        </div>
-                        <div class="col-sm-6">
-                            <li><a class="dropdown-item" href="#">User</a></li>
+                      
+                        <div class="col-sm-12">
+                            <li><a class="dropdown-item active" href="#">User</a></li>
                         </div>
                     </div>
                     <hr>
@@ -261,78 +225,62 @@
                 </ul>
                 </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('dokter/user')?>">Dokter</a>
+            <a class="nav-link text-light" href="#">Dokter</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('Gallery/user')?>">Gallery</a>
+            <a class="nav-link text-light" href="<?= site_url('Gallery/admin')?>">Gallery</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light active" href="#">Kontak</a>
+            <a class="nav-link text-light" href="<?= site_url('welcome/kontakA')?>">Kontak</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+    <div class="container mt-5">
+        <h2 class="mb-4">Manajemen User</h2>
 
-  <img src="<?= base_url('assets/bannerK.jpg')?>" width=1366px">
+        <!-- Pesan sukses atau error -->
+        <?php if ($this->session->flashdata('success')): ?>
+            <div class="alert alert-success"><?= $this->session->flashdata('success'); ?></div>
+        <?php endif; ?>
+        <?php if ($this->session->flashdata('error')): ?>
+            <div class="alert alert-danger"><?= $this->session->flashdata('error'); ?></div>
+        <?php endif; ?>
 
-  <div class="container mt-5" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 30px; border-radius: 8px;">
-    <div class="row">
-        <div class="col-lg-6 col-md-8">
-            <div class="form-container">
-                <h2 class="text-center mb-4" style="color: #00705a;">Kirim Pesan Anda</h2>
-                <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
-                 <!-- Menampilkan pesan sukses jika ada -->
-                 <?php if($this->session->flashdata('message')): ?>
-                    <script>
-                        alert("<?php echo $this->session->flashdata('message'); ?>");
-                    </script>
+        <a href="<?= site_url('login/create'); ?>" class="btn btn-primary mb-3">Tambah User</a>
+
+        <table id="dataTable" class="table table-bordered table-hover">
+            <thead style="background-color: #00705a; color: white;">
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (!empty($users)): ?>
+                    <?php foreach ($users as $user): ?>
+                        <tr>
+                            <td><?= $user->id; ?></td>
+                            <td><?= $user->username; ?></td>
+                            <td><?= $user->role; ?></td>
+                            <td>
+                                <a href="<?= base_url('login/edit_user/' . $user->id); ?>" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="<?= base_url('login/delete_user/' . $user->id); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus user ini?');">Hapus</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="4" class="text-center">Tidak ada data user.</td>
+                    </tr>
                 <?php endif; ?>
-                <?php echo form_open('message/submit'); ?>
-                <div class="mb-3">
-                    <label for="name" class="form-label">Nama Anda</label>
-                    <input 
-                        type="text" 
-                        class="form-control" 
-                        id="name" 
-                        name="name" 
-                        placeholder="Masukkan nama lengkap Anda" 
-                        value="<?php echo set_value('name'); ?>" 
-                        required>
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email Anda</label>
-                    <input 
-                        type="email" 
-                        class="form-control" 
-                        id="email" 
-                        name="email" 
-                        placeholder="Masukkan email Anda" 
-                        value="<?php echo set_value('email'); ?>" 
-                        required>
-                </div>
-                <div class="mb-3">
-                    <label for="message" class="form-label">Pesan Anda</label>
-                    <textarea 
-                        class="form-control" 
-                        id="message" 
-                        name="message" 
-                        rows="5" 
-                        placeholder="Tuliskan pesan Anda di sini..." 
-                        required><?php echo set_value('message'); ?></textarea>
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-custom w-100">Kirim Pesan</button>
-                </div>
-                <?php echo form_close(); ?>
-            </div>
-        </div>
-        <div class="col-sm-4">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31731.931926340734!2d106.55299830392494!3d-6.198701887362597!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fe5b993d64a5%3A0xdc2dde42c09c66e7!2sKec.%20Jatiuwung%2C%20Kota%20Tangerang%2C%20Banten!5e0!3m2!1sid!2sid!4v1734798227528!5m2!1sid!2sid" width="600" height="550" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded-3"></iframe>
-        </div>
+            </tbody>
+        </table>
     </div>
-</div>
-  <footer style="background-color: #00705a; color: white; padding: 30px 0; text-align: center; margin-top: 50px;">
+     <footer style="background-color: #00705a; color: white; padding: 30px 0; text-align: center; margin-top: 50px;">
     <div class="container">
         <div class="row">
             <div class="col-md-4">
@@ -364,5 +312,25 @@
     </div>
 </footer>
 </body>
+<script type="text/javascript">
+        $(document).ready(function(){
+            // Inisialisasi DataTables dengan konfigurasi
+            $('#dataTable').DataTable({
+                responsive: true, // Menyusun ulang tabel agar responsif
+                autoWidth: false, // Menonaktifkan lebar otomatis
+                language: {
+                    search: "Cari:", // Label untuk kolom pencarian
+                    lengthMenu: "Tampilkan _MENU_ entri", // Pilihan jumlah entri yang tampil
+                    info: "Menampilkan _START_ ke _END_ dari _TOTAL_ entri", // Info tentang jumlah entri yang ditampilkan
+                    paginate: {
+                        first: "Pertama", // Label untuk tombol pertama
+                        last: "Terakhir", // Label untuk tombol terakhir
+                        next: "Berikutnya", // Label untuk tombol berikutnya
+                        previous: "Sebelumnya" // Label untuk tombol sebelumnya
+                    }
+                }
+            });
+        });
+    </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>
