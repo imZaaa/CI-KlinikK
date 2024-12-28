@@ -25,9 +25,9 @@ Class Gallery extends CI_Controller {
 
     // Membuat upload baru
     public function create(){
-        if ($this->input->post('submit')){  // Mengecek apakah form telah disubmit
+        if ($this->input->post('Submit')){  // Mengecek apakah form telah disubmit
             $config['upload_path'] = './assets/';  // Direktori tempat file akan disimpan
-            $config['allowed_types'] = 'gif|jpg|png';  // Jenis file yang diperbolehkan (gambar)
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';  // Jenis file yang diperbolehkan (gambar)
             $config['file_name'] = 'upload_' . rand(1, 1000); // Nama file di-generate secara otomatis dengan angka acak
             $this->upload->initialize($config);  // Menginisialisasi library upload dengan konfigurasi di atas
 

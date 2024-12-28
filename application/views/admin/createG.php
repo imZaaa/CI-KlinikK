@@ -45,7 +45,7 @@
 
                             <!-- Tombol submit dan tombol kembali -->
                             <div class="text-center"> <!-- Menyusun tombol secara terpusat -->
-                                <button type="submit" name="submit" value="Simpan" class="btn btn-success"> <!-- Tombol simpan dengan kelas success dari Bootstrap -->
+                                <button type="submit" name="Submit" value="Simpan" class="btn btn-success"> <!-- Tombol simpan dengan kelas success dari Bootstrap -->
                                     Simpan
                                 </button>
                                 <a href="<?= site_url('upload'); ?>" class="btn btn-secondary"> <!-- Tombol kembali dengan link ke halaman daftar upload -->

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/logo.png')?>">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <style>
         /* Font Style */
         .nav-link {
@@ -288,7 +289,7 @@
   </nav>
 
   <!-- Carousel -->
-  <div class="carousel-container">
+  <div data-aos="fade-up" class="carousel-container">
     <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
@@ -304,7 +305,7 @@
     </div>
   </div>
 
-  <div class="container mt-5">
+  <div class="container mt-5" data-aos="fade-right">
     <!-- Card untuk Profil -->
     <div class="card shadow-lg">
         <div class="card-header text-center">
@@ -323,7 +324,7 @@
     </div>
 </div>
 
-<div class="container d-flex justify-content-center">
+<div class="container d-flex justify-content-center" data-aos="fade-left">
     <div class="certificate-container text-center">
         <h2>Sertifikasi Klinik Vivarta</h2>
         <div class="decorative-line"></div>
@@ -336,8 +337,8 @@
     </div>
 </div>
 
-<div class="container mt-5 pt-4 pb-5" style="background-color: white; box-shadow: 0 5px 15px #00705a; border-radius: 20px;">    
-    <h2 class="text-center fw-bold" style="color: #00705a;">Mengapa Memilih Vivarta Klinik</h2>
+<div class="container mt-5 pt-4 pb-5" style="background-color: white; box-shadow: 0 5px 15px #00705a; border-radius: 20px;" data-aos="fade-right">    
+    <h2 class="text-center fw-bold" style="color: #00705a;">Mengapa Memilih Vivarta Klinik</h2> 
     <div class="row justify-content-center mt-3">
         <div class="col-sm-3 text-center">
             <img src="<?= base_url('assets/why1.jpg')?>" width="120px" class="img-fluid">
@@ -398,5 +399,9 @@
 
   <!-- Link JS Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
 </body>
 </html>

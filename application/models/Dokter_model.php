@@ -44,5 +44,6 @@ class Dokter_model extends CI_Model {
         $this->db->where('id', $id);  // Menambahkan kondisi untuk menghapus berdasarkan ID
         $this->db->delete('tbl_dokter');  // Menghapus data dari tabel 'tbl_upload'
     }
+    
 }
 ?>

@@ -22,10 +22,17 @@ class Login_model extends CI_Model {
         return $query->row(); // Mengembalikan satu baris data user
     }
 
-    // Fungsi untuk mendapatkan user berdasarkan ID
+    // Fungsi untuk mendapatkan user berdasarkan ID dengan prefix
     public function get_user_by_id($user_id) {
-        $this->db->where('id', $user_id);
-        return $this->db->get('tbl_login')->row(); // Mengembalikan satu baris data user
+        // Menambahkan logika untuk mendeteksi prefix
+        $prefix = substr($user_id, 0, 3); // Menangkap prefix pertama (ADM atau USR)
+        
+        // Memeriksa apakah ID sesuai dengan prefix yang diharapkan
+        if ($prefix === 'ADM' || $prefix === 'USR') {
+            $this->db->where('id', $user_id);
+            return $this->db->get('tbl_login')->row(); // Mengembalikan satu baris data user
+        }
+        return false; // Jika prefix tidak sesuai
     }
 
     // Fungsi untuk mengambil semua user
@@ -34,8 +41,14 @@ class Login_model extends CI_Model {
         return $query->result(); // Mengembalikan array objek data user
     }
 
-    // Fungsi untuk menambah user baru
+    // Fungsi untuk menambah user baru dengan ID yang memiliki prefix
     public function create_user($data) {
+        // Menambahkan prefix ID
+        if ($data['role'] === 'admin') {
+            $data['id'] = 'ADM-' . uniqid(); // Prefix ADM untuk admin
+        } else {
+            $data['id'] = 'USR-' . uniqid(); // Prefix USR untuk user biasa
+        }
         return $this->db->insert('tbl_login', $data); // Menyisipkan data baru ke tabel
     }
 
@@ -47,8 +60,12 @@ class Login_model extends CI_Model {
 
     // Fungsi untuk memperbarui data user
     public function update_user($id, $data) {
-        $this->db->where('id', $id);
-        return $this->db->update('tbl_login', $data); // Memperbarui data user berdasarkan ID
+        // Menambahkan logika untuk memeriksa prefix pada ID
+        if (substr($id, 0, 3) === 'ADM' || substr($id, 0, 3) === 'USR') {
+            $this->db->where('id', $id);
+            return $this->db->update('tbl_login', $data); // Memperbarui data user berdasarkan ID
+        }
+        return false; // Jika prefix ID tidak valid
     }
 
     // Fungsi untuk mengambil user berdasarkan email
@@ -64,8 +81,5 @@ class Login_model extends CI_Model {
         $this->db->where('email', $email);
         $this->db->update('tbl_login'); // Memperbarui password di tabel
     }
-
-
-
 }
 ?>

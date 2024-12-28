@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/logo.png')?>">
+      <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <style>
      /* Font Style */
@@ -297,25 +298,32 @@
   </nav>
   <img src="<?= base_url('assets/bannerG.jpg')?>" width=1366px">
 
-  <div class="container">
-    <h1 class="gallery-header">Gallery</h1>
+  <div class="container" >
+    <h1 class="gallery-header mt-3">Gallery</h1>
     <div class="row gallery-row">
-        <?php if (!empty($uploads)): ?>
-            <?php foreach ($uploads as $upload): ?>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="<?= base_url('assets/' . $upload['gambar']); ?>" class="card-img-top" alt="Gambar">
-                        <div class="card-body">
-                            <p class="card-text fs-4 fw-bold">Deskripsi</p>
-                            <p class="card-text"><?= $upload['deskripsi']; ?></p>
-                        </div>
+    <?php if (!empty($uploads)): ?>
+        <?php foreach ($uploads as $index => $upload): ?>
+            <div class="col-md-4 mb-4">
+                <div class="card" data-aos="zoom-in" 
+                    data-aos-delay="<?= ($index % 2 == 0) ? 100 : 300; ?>" 
+                    data-aos-duration="350"
+                    data-aos-easing="ease-in-out"
+                    data-aos-mirror="true"
+                    data-aos-once="false"
+                    data-aos-anchor-placement="top-center">
+                    <img src="<?= base_url('assets/' . $upload['gambar']); ?>" class="card-img-top" alt="Gambar">
+                    <div class="card-body">
+                        <p class="card-text fs-4 fw-bold">Deskripsi</p>
+                        <p class="card-text"><?= $upload['deskripsi']; ?></p>
                     </div>
                 </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p class="no-uploads">Belum ada data yang diunggah.</p>
-        <?php endif; ?>
-    </div>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p class="no-uploads">Belum ada data yang diunggah.</p>
+    <?php endif; ?>
+</div>
+
 </div>
 <footer style="background-color: #00705a; color: white; padding: 30px 0; text-align: center; margin-top: 50px;">
     <div class="container">
@@ -350,4 +358,8 @@
 </footer>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
 </html>

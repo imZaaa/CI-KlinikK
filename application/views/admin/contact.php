@@ -277,62 +277,46 @@
 
   <img src="<?= base_url('assets/bannerK.jpg')?>" width=1366px">
 
-  <div class="container mt-5" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 30px; border-radius: 8px;">
-    <div class="row">
-        <div class="col-lg-6 col-md-8">
-            <div class="form-container">
-                <h2 class="text-center mb-4" style="color: #00705a;">Kirim Pesan Anda</h2>
-                <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
-                 <!-- Menampilkan pesan sukses jika ada -->
-                 <?php if($this->session->flashdata('message')): ?>
-                    <script>
-                        alert("<?php echo $this->session->flashdata('message'); ?>");
-                    </script>
-                <?php endif; ?>
-                <?php echo form_open('Message/submit'); ?>
-                <div class="mb-3">
-                    <label for="name" class="form-label">Nama Anda</label>
-                    <input 
-                        type="text" 
-                        class="form-control" 
-                        id="name" 
-                        name="name" 
-                        placeholder="Masukkan nama lengkap Anda" 
-                        value="<?php echo set_value('name'); ?>" 
-                        required>
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email Anda</label>
-                    <input 
-                        type="email" 
-                        class="form-control" 
-                        id="email" 
-                        name="email" 
-                        placeholder="Masukkan email Anda" 
-                        value="<?php echo set_value('email'); ?>" 
-                        required>
-                </div>
-                <div class="mb-3">
-                    <label for="message" class="form-label">Pesan Anda</label>
-                    <textarea 
-                        class="form-control" 
-                        id="message" 
-                        name="message" 
-                        rows="5" 
-                        placeholder="Tuliskan pesan Anda di sini..." 
-                        required><?php echo set_value('message'); ?></textarea>
-                </div>
-                <div class="text-center">
-                    <button type="submit" name="submit" class="btn btn-custom w-100">Kirim Pesan</button>
-                </div>
-                <?php echo form_close(); ?>
-            </div>
+  <div class="container mt-5">
+    <h3 class="text-center" style="color: #00705a;">Data Pesan</h3>
+
+    <!-- Menampilkan pesan flash setelah berhasil mengirim pesan -->
+    <?php if ($this->session->flashdata('message')): ?>
+        <div class="alert alert-success text-center">
+            <?= htmlspecialchars($this->session->flashdata('message')); ?>
         </div>
-        <div class="col-sm-4">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31731.931926340734!2d106.55299830392494!3d-6.198701887362597!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fe5b993d64a5%3A0xdc2dde42c09c66e7!2sKec.%20Jatiuwung%2C%20Kota%20Tangerang%2C%20Banten!5e0!3m2!1sid!2sid!4v1734798227528!5m2!1sid!2sid" width="600" height="550" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded-3"></iframe>
+    <?php endif; ?>
+
+    <!-- Tabel untuk menampilkan data pesan -->
+    <?php if (isset($messages) && is_array($messages) && !empty($messages)): ?>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Pesan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $no = 1; ?>
+                <?php foreach ($messages as $message): ?>
+                    <tr>
+                        <td><?= $no++; ?></td>
+                        <td><?= htmlspecialchars($message['name']); ?></td>
+                        <td><?= htmlspecialchars($message['email']); ?></td>
+                        <td><?= nl2br(htmlspecialchars($message['message'])); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+    <?php else: ?>
+        <div class="alert alert-info text-center">
+            Belum ada pesan yang diterima.
         </div>
-    </div>
+    <?php endif; ?>
+     </tbody>
+        </table>
 </div>
+
   <footer style="background-color: #00705a; color: white; padding: 30px 0; text-align: center; margin-top: 50px;">
     <div class="container">
         <div class="row">

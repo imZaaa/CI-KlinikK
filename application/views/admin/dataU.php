@@ -13,6 +13,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Link ke DataTables JS untuk menambah fungsionalitas tabel interaktif -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+      <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <style>
     .nav-link {
@@ -138,6 +139,7 @@
     .btn-warning:hover, .btn-danger:hover {
         opacity: 0.8; /* Efek transparansi saat hover */
     }
+    
 </style>
 <body>
     <nav class="navbar bg-body-light" style="background-color: #00705a; height: 50px; padding: 0 20px;">
@@ -238,47 +240,97 @@
     </div>
   </nav>
     <div class="container mt-5">
-        <h2 class="mb-4">Manajemen User</h2>
+    <h2 class="mb-4">Manajemen User</h2>
 
-        <!-- Pesan sukses atau error -->
-        <?php if ($this->session->flashdata('success')): ?>
-            <div class="alert alert-success"><?= $this->session->flashdata('success'); ?></div>
-        <?php endif; ?>
-        <?php if ($this->session->flashdata('error')): ?>
-            <div class="alert alert-danger"><?= $this->session->flashdata('error'); ?></div>
-        <?php endif; ?>
+    <!-- Pesan sukses atau error -->
+    <?php if ($this->session->flashdata('success')): ?>
+        <div class="alert alert-success"><?= $this->session->flashdata('success'); ?></div>
+    <?php endif; ?>
+    <?php if ($this->session->flashdata('error')): ?>
+        <div class="alert alert-danger"><?= $this->session->flashdata('error'); ?></div>
+    <?php endif; ?>
 
-        <a href="<?= site_url('login/create'); ?>" class="btn btn-primary mb-3">Tambah User</a>
+    <!-- Tombol Tambah User -->
+    <a href="<?= site_url('login/create'); ?>" class="btn btn-primary mb-3">Tambah User</a>
 
-        <table id="dataTable" class="table table-bordered table-hover">
-            <thead style="background-color: #00705a; color: white;">
-                <tr>
-                    <th>ID</th>
-                    <th>Username</th>
-                    <th>Role</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (!empty($users)): ?>
-                    <?php foreach ($users as $user): ?>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="table-responsive">
+    <!-- Tabel Admin -->
+    <h3>Daftar Admin</h3>
+    <table id="dataTableAdmin" class="table table-bordered table-hover" data-aos="fade-right">
+        <thead style="background-color: #00705a; color: white;">
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (!empty($users)): ?>
+                <?php $no_adm = 1; ?>
+                <?php foreach ($users as $user): ?>
+                    <?php if ($user->role == 'admin'): ?>
                         <tr>
-                            <td><?= $user->id; ?></td>
-                            <td><?= $user->username; ?></td>
-                            <td><?= $user->role; ?></td>
+                            <td><?= 'ADM-' . $no_adm++; ?></td>
+                            <td><?= htmlspecialchars($user->username); ?></td>
+                            <td><?= htmlspecialchars($user->role); ?></td>
                             <td>
-                                <a href="<?= base_url('login/edit_user/' . $user->id); ?>" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="<?= base_url('login/delete_user/' . $user->id); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus user ini?');">Hapus</a>
+                                <a href="<?= site_url('login/edit_user/' . $user->id); ?>" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="<?= site_url('login/delete_user/' . $user->id); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus user ini?');">Hapus</a>
                             </td>
                         </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="4" class="text-center">Tidak ada data user.</td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="4" class="text-center">Tidak ada data admin.</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
+</div>
+        </div>
+        <div class="col-sm-6">
+            <div class="table-responsive">
+    <!-- Tabel User -->
+    <h3>Daftar User</h3>
+    <table id="dataTableUser" class="table table-bordered table-hover" data-aos="fade-left">
+        <thead style="background-color: #00705a; color: white;">
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (!empty($users)): ?>
+                <?php $no_usr = 1; ?>
+                <?php foreach ($users as $user): ?>
+                    <?php if ($user->role == 'user'): ?>
+                        <tr>
+                            <td><?= 'USR-' . $no_usr++; ?></td>
+                            <td><?= htmlspecialchars($user->username); ?></td>
+                            <td><?= htmlspecialchars($user->role); ?></td>
+                            <td>
+                                <a href="<?= site_url('login/edit_user/' . $user->id); ?>" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="<?= site_url('login/delete_user/' . $user->id); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus user ini?');">Hapus</a>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="4" class="text-center">Tidak ada data user.</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
     </div>
      <footer style="background-color: #00705a; color: white; padding: 30px 0; text-align: center; margin-top: 50px;">
     <div class="container">
@@ -332,5 +384,9 @@
             });
         });
     </script>
+      <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>

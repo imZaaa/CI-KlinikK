@@ -77,30 +77,31 @@ class Login extends CI_Controller {
 
     // Menambah user baru
     public function add_user() {
-        $this->form_validation->set_rules('username', 'Username', 'required|is_unique[tbl_login.username]');
-        $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[tbl_login.email]');
-        $this->form_validation->set_rules('role', 'Role', 'required');
+    $this->form_validation->set_rules('username', 'Username', 'required|is_unique[tbl_login.username]');
+    $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
+    $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[tbl_login.email]');
+    $this->form_validation->set_rules('role', 'Role', 'required');
 
-        if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('error', validation_errors());
-            redirect('Login/dataU');
+    if ($this->form_validation->run() == FALSE) {
+        $this->session->set_flashdata('error', validation_errors());
+        redirect('Login/dataU');
+    } else {
+        $data = [
+            'username' => $this->input->post('username'),
+            'password' => $this->input->post('password'),
+            'email'    => $this->input->post('email'),
+            'role'     => $this->input->post('role')
+        ];
+
+        if ($this->Login_model->create_user($data)) {
+            $this->session->set_flashdata('success', 'User berhasil ditambahkan!');
         } else {
-            $data = [
-                'username' => $this->input->post('username'),
-                'password' => $this->input->post('password'), // Hash password
-                'email'    => $this->input->post('email'),
-                'role'     => $this->input->post('role')
-            ];
-
-            if ($this->Login_model->create_user($data)) {
-                $this->session->set_flashdata('success', 'User berhasil ditambahkan!');
-            } else {
-                $this->session->set_flashdata('error', 'Gagal menambahkan user!');
-            }
-            redirect('Login/dataU');
+            $this->session->set_flashdata('error', 'Gagal menambahkan user!');
         }
+        redirect('Login/dataU');
     }
+}
+
 
     // Menghapus user
     public function delete_user($id) {

@@ -12,7 +12,8 @@ class Message extends CI_Controller {
     }
 
     public function index() {
-        $this->load->view('admin/contact');
+        $data['messages'] = $this->Message_model->get_data(); // Ambil pesan dari database
+        $this->load->view('admin/contact', $data); // Kirim data ke view
     }
 
     public function submit() {
@@ -22,7 +23,7 @@ class Message extends CI_Controller {
         $this->form_validation->set_rules('message', 'Message', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->load->view('admin/contact');
+            $this->load->view('user/contact');
         } else {
             // Simpan ke database menggunakan model
             $data = [
@@ -33,7 +34,19 @@ class Message extends CI_Controller {
             $this->Message_model->save_message($data);
 
             $this->session->set_flashdata('message', 'Pesan Anda telah berhasil dikirim!');
-$this->load->view('admin/contact');
+            $this->load->view('user/contact');
+        }
     }
+
+public function contact()
+{
+    // Ambil data pesan dari model (misalnya dari database)
+    $this->load->model('Message_model');
+    $messages = $this->Message_model->get_messages(); // Asumsikan ada fungsi get_messages()
+
+    // Kirimkan data ke view
+    $this->load->view('admin/contact', ['messages' => $messages]);
 }
+
 }
+?>
