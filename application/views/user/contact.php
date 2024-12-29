@@ -288,7 +288,7 @@
                         alert("<?php echo $this->session->flashdata('message'); ?>");
                     </script>
                 <?php endif; ?>
-                <?php echo form_open('message/submit'); ?>
+                <?php echo form_open('Message/submit'); ?>
                 <div class="mb-3">
                     <label for="name" class="form-label">Nama Anda</label>
                     <input 
@@ -322,7 +322,7 @@
                         required><?php echo set_value('message'); ?></textarea>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-custom w-100">Kirim Pesan</button>
+                    <button type="submit" name="submit" class="btn btn-custom w-100">Kirim Pesan</button>
                 </div>
                 <?php echo form_close(); ?>
             </div>

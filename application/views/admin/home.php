@@ -250,14 +250,14 @@
                 </a>
                 <ul class="dropdown-menu">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <li><a class="dropdown-item" href="<?= site_url('login/dataU')?>">User</a></li>
                         </div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col-sm-6">
-                        <li><a class="dropdown-item" href="#">data ppppppppppp</a></li>
+                        <li><a class="dropdown-item" href="<?= site_url('pasien')?>">Data Pasien</a></li>
                         <li><a class="dropdown-item" href="#">data ppppppppppp</a></li>
                         <li><a class="dropdown-item" href="#">data ppppppppppp</a></li>
                         </div>

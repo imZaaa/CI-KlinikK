@@ -8,17 +8,18 @@ class Message_model extends CI_Model {
         $this->load->database();
     }
 
-    public function get_messages()
-    {
-        $query = $this->db->get('messages'); // Ganti 'messages' dengan nama tabel Anda
-        return $query->result_array(); // Mengembalikan data sebagai array
+     // Fungsi untuk mengambil pesan
+    public function get_data() {
+        return $this->db->get('messages')->result(); // Ambil semua pesan dari tabel messages
     }
 
-      public function save_message($data) {
-        // Simpan pesan ke tabel messages
-        $this->db->insert('messages', $data);
+    // Fungsi untuk menyimpan pesan
+    public function save_message($data) {
+        $this->db->insert('messages', $data); // Menyimpan data ke tabel messages
     }
 
-    
-
+    // Fungsi untuk mengambil pesan (untuk admin)
+    public function get_messages() {
+        return $this->db->get('messages')->result(); // Ambil pesan dari tabel messages
+    }
 }

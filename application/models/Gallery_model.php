@@ -29,7 +29,7 @@ class Gallery_model extends CI_Model {
     public function update_upload($id, $data){
         $this->db->where('id', $id);  // Menambahkan kondisi untuk mencari berdasarkan ID
         $upload = $this->db->get('tbl_gallery')->row();  // Mengambil data upload berdasarkan ID
-        unlink('./uploads/' . $upload->gambar);  // Menghapus gambar lama yang ada di folder 'uploads'
+        unlink('./assets/' . $upload->gambar);  // Menghapus gambar lama yang ada di folder 'uploads'
 
         $this->db->where('id', $id);  // Menambahkan kondisi untuk memperbarui berdasarkan ID
         $this->db->update('tbl_gallery', $data);  // Melakukan update data di tabel 'tbl_upload'

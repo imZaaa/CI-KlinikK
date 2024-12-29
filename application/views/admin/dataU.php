@@ -258,7 +258,7 @@
             <div class="table-responsive">
     <!-- Tabel Admin -->
     <h3>Daftar Admin</h3>
-    <table id="dataTableAdmin" class="table table-bordered table-hover" data-aos="fade-right">
+    <table id="dataTableAdmin" class="table table-bordered table-hover" data-aos="fade-down-right">
         <thead style="background-color: #00705a; color: white;">
             <tr>
                 <th>ID</th>
@@ -296,7 +296,7 @@
             <div class="table-responsive">
     <!-- Tabel User -->
     <h3>Daftar User</h3>
-    <table id="dataTableUser" class="table table-bordered table-hover" data-aos="fade-left">
+    <table id="dataTableUser" class="table table-bordered table-hover" data-aos="fade-up-left">
         <thead style="background-color: #00705a; color: white;">
             <tr>
                 <th>ID</th>

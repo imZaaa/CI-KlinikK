@@ -16,13 +16,16 @@ class Message extends CI_Controller {
         $this->load->view('admin/contact', $data); // Kirim data ke view
     }
 
-    public function submit() {
+   public function submit() {
+    // Cek apakah tombol submit sudah ditekan
+    if ($this->input->post('submit')) {
         // Validasi form
         $this->form_validation->set_rules('name', 'Name', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
         $this->form_validation->set_rules('message', 'Message', 'required');
 
         if ($this->form_validation->run() == FALSE) {
+            // Jika validasi gagal, kembalikan ke form contact
             $this->load->view('user/contact');
         } else {
             // Simpan ke database menggunakan model
@@ -33,10 +36,16 @@ class Message extends CI_Controller {
             ];
             $this->Message_model->save_message($data);
 
+            // Set flashdata untuk pesan berhasil
             $this->session->set_flashdata('message', 'Pesan Anda telah berhasil dikirim!');
             $this->load->view('user/contact');
         }
+    } else {
+        // Jika tombol submit tidak ditekan, hanya load form
+        $this->load->view('user/contact');
     }
+}
+
 
 public function contact()
 {
