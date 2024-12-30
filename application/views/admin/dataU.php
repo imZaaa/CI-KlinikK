@@ -13,83 +13,65 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Link ke DataTables JS untuk menambah fungsionalitas tabel interaktif -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-      <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <style>
     .nav-link {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.2rem;
-            margin: 0 10px;
-            color: black !important; /* Warna teks */
-            text-decoration: none; /* Hapus underline default */
-            transition: color 0.3s ease, text-decoration 0.3s ease;
-        }
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1rem;
+        color: white !important;
+        text-decoration: none;
+        margin-bottom: 10px;
+        transition: color 0.3s ease;
+    }
 
-        .nav-link:hover {
-            color: #00705a !important; /* Ubah warna teks saat hover */
-            text-decoration: none; /* Hapus underline default */
-            position: relative;
-        }
+    .nav-link:hover {
+        color: yellow !important;
+        text-decoration: none;
+    }
 
-        .nav-link:hover::after {
-            content: '';
-            position: absolute;
-            bottom: 5px;
-            left: 0;
-            width: 100%;
-            height: 3px; /* Ketebalan underline */
-            background-color: yellow; /* Warna underline */
-            border-radius: 2px; /* Membuat sudut underline lebih halus */
-            transform: scaleX(0);
-            transform-origin: bottom right;
-            transition: transform 0.3s ease; /* Animasi untuk underline */
-        }
+    .nav-link.active {
+        font-weight: bold;
+        color: #ffd700 !important;
+        background-color: transparent !important; /* Menghilangkan background biru */
+    }
 
-        .nav-link:hover::after {
-            transform: scaleX(1); /* Membuat underline muncul saat hover */
-            transform-origin: bottom left; /* Memulai animasi dari kiri */
-        }
+    ::-webkit-scrollbar {
+        display: none;
+    }
 
+    /* Styling untuk container utama */
+    .content-container {
+        margin-left: 280px;
+        padding: 20px;
+    }
 
-        .nav-link.active {
-            font-weight: bold;
-            color: #00705a !important; /* Warna saat aktif */
-        }
+    /* Styling untuk tabel agar lebih rapi */
+    #uploadTable {
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-        .navbar i {
-            margin-left: -20px;
-        }
+    #uploadTable th, #uploadTable td {
+        border-color: #00705a;
+    }
 
-        .dropdown-menu {
-            min-width: 400px; /* Atur ukuran sesuai kebutuhan */
-            margin-left: -150px; /* Posisi sesuai kebutuhan */
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef); /* Gradasi warna */
-            border: 1px solid #dee2e6; /* Border lembut */
-            border-radius: 8px; /* Membulatkan sudut */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan */
-            padding: 10px; /* Memberi ruang di dalam */
-            transition: all 0.3s ease; /* Efek transisi */
-        }
+    #uploadTable tbody tr:hover {
+        background-color: #d1f0e6;
+    }
+    /* Styling untuk sidebar agar tetap di tempat */
+.col-auto {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh; /* Menjaga sidebar sepanjang tinggi viewport */
+    z-index: 1050; /* Agar sidebar tetap di atas konten */
+    padding-top: 20px; /* Memberikan ruang agar tidak terlalu rapat ke atas */
+}
 
-        .dropdown-menu li a {
-            color: #343a40; /* Warna teks */
-            font-weight: 500; /* Tebal teks */
-            padding: 8px 16px; /* Spasi dalam item */
-            border-radius: 5px; /* Membulatkan sudut */
-            transition: background-color 0.3s ease, color 0.3s ease; /* Transisi halus */
-            text-align: center;
-        }
-
-        .dropdown-menu li a:hover {
-            background-color: #343a40; /* Warna latar saat hover */
-            color: #ffffff; /* Warna teks saat hover */
-        }
-
-        .dropdown-divider {
-            border-color: #dee2e6; /* Warna divider */
-            margin: 8px 0; /* Spasi divider */
-        }
-
+/* Mengatur ruang untuk konten utama */
+.col.py-3 {
+    margin-left: 280px; /* Memberikan ruang agar konten utama tidak tertutup sidebar */
+}
         ::-webkit-scrollbar{
             display: none;
         }
@@ -142,103 +124,60 @@
     
 </style>
 <body>
-    <nav class="navbar bg-body-light" style="background-color: #00705a; height: 50px; padding: 0 20px;">
-    <div class="container">
-        <div class="d-flex align-items-center">
-            <b class="text-light"><i class="bi bi-clock"></i> Senin - Sabtu 8:00 - 21:00</b>
-        </div>
-        <div class="d-flex align-items-center ms-auto">
-            <b class="text-light me-3"><i class="bi bi-whatsapp"></i> 083928392392</b>
-            <!-- Button untuk login atau username setelah login -->
-            <?php if ($this->session->userdata('logged_in')): ?> 
-                <!-- Tampilkan Username di Modal -->
-                <button type="button" class="btn btn-link text-light" data-bs-toggle="modal" data-bs-target="#profileModal" style="text-decoration: none; margin-left: 20px;">
-                <i class="bi bi-person-circle"></i>
-                    <?php echo $this->session->userdata('username'); ?>
-                </button>
-            <?php else: ?>
-                <!-- Tampilkan Tombol Login di Modal -->
-                <a href="<?= site_url('Login/index')?>" type="button" class="btn btn-link text-light">
-                    Login
-                </a>
-            <?php endif; ?>
-        </div>
-    </div>
-</nav>
-
-<!-- Modal Profile -->
-<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="profileModalLabel">Profile</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Username: <?php echo $this->session->userdata('username'); ?></p>
-                <p>Sebagai: <?php echo $this->session->userdata('role'); ?></p>
-                <a href="<?php echo site_url('login/logout'); ?>" class="btn btn-danger w-100">Logout</a>
-            </div>
-        </div>
-    </div>
-</div>
-  <!-- Navbar bawah -->
-  <nav class="navbar navbar-expand-lg border sticky sticky-top" style="background-color: #ffffff; height: 40px;">
     <div class="container-fluid">
-      <!-- Toggler untuk tampilan mobile -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <!-- Navbar Items -->
-      <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav w-100 d-flex justify-content-center">
-          <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('Home/admin')?>">Beranda</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('welcome/aboutA')?>">About</a>
-          </li>
-          <li class="nav-item dropdown">
-                <a class="nav-link active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Data
-                </a>
-                <ul class="dropdown-menu">
-                    <div class="row">
-                      
-                        <div class="col-sm-12">
-                            <li><a class="dropdown-item active" href="#">User</a></li>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm-6">
-                        <li><a class="dropdown-item" href="#">data ppppppppppp</a></li>
-                        <li><a class="dropdown-item" href="#">data ppppppppppp</a></li>
-                        <li><a class="dropdown-item" href="#">data ppppppppppp</a></li>
-                        </div>
-                        <div class="col-sm-6">
-                        <li><a class="dropdown-item" href="#">data ppppppppppp</a></li>
-                        <li><a class="dropdown-item" href="#">data ppppppppppp</a></li>
-                        <li><a class="dropdown-item" href="#">data ppppppppppp</a></li>
-                        </div>
-                      
-                    </div>
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" style="background-color: #00705a;">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+               <img src="<?= base_url('assets/logo.png')?>" width="130px">
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li>
+                        <a href="<?= site_url('Dokter/admin')?>" class="nav-link px-0 align-middle">
+                           <i class="fs-4 bi-person-fill-add"></i> <span class="ms-1 d-none d-sm-inline">Dokter</span> </a>
+                    </li>
+                    <li>
+                        <a href="<?= site_url('Gallery/admin')?>" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-image-fill"></i> <span class="ms-1 d-none d-sm-inline">Gallery</span></a>
+                    </li>
+                    <li>
+                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle active">
+                            <i class="fs-4 bi-folder-fill"></i> <span class="ms-1 d-none d-sm-inline">Data</span></a>
+                        <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="<?= site_url('login/dataU')?>" class="nav-link px-0 active"> <span class="d-none d-sm-inline">Data User</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="<?= site_url('pasien')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Data Pasien</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="<?= site_url('penyakit')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Data Penyakit</span></a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Customers</span> </a>
+                    </li>
                 </ul>
-                </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" href="#">Dokter</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('Gallery/admin')?>">Gallery</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('welcome/kontakA')?>">Kontak</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+                <hr>
+                <div class="dropdown pb-4">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                       <i class="bi bi-person-circle"></i>
+                        <span class="d-none d-sm-inline mx-1"><?php echo $this->session->userdata('username'); ?></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                           <center> <?php echo $this->session->userdata('role'); ?></p> </center>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item text-center" href="<?= site_url('login/logout')?>">Sign out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+<div class="col py-3">
     <div class="container mt-5">
     <h2 class="mb-4">Manajemen User</h2>
 
@@ -251,10 +190,10 @@
     <?php endif; ?>
 
     <!-- Tombol Tambah User -->
-    <a href="<?= site_url('login/create'); ?>" class="btn btn-primary mb-3">Tambah User</a>
+    <a href="<?= site_url('login/create'); ?>" class="btn mb-3 text-white" style="background-color: #00705a;"><i class="bi bi-plus-circle"></i> Tambah</a>
 
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-12">
             <div class="table-responsive">
     <!-- Tabel Admin -->
     <h3>Daftar Admin</h3>
@@ -292,7 +231,7 @@
     </table>
 </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-12">
             <div class="table-responsive">
     <!-- Tabel User -->
     <h3>Daftar User</h3>
@@ -332,37 +271,8 @@
         </div>
     </div>
     </div>
-     <footer style="background-color: #00705a; color: white; padding: 30px 0; text-align: center; margin-top: 50px;">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <h4>Kontak Kami</h4>
-                <ul style="list-style-type: none; padding: 0;">
-                    <li><i class="bi bi-telephone"></i> 083928392392</li>
-                    <li><i class="bi bi-envelope"></i> info@klinikvivarta.com</li>
-                    <li><i class="bi bi-geo-alt"></i> Jl. Kesehatan No. 123, Jakarta</li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h4>Ikuti Kami</h4>
-                <div>
-                    <a href="#" class="text-light me-3"><i class="bi bi-facebook" style="font-size: 1.5rem;"></i></a>
-                    <a href="#" class="text-light me-3"><i class="bi bi-twitter" style="font-size: 1.5rem;"></i></a>
-                    <a href="#" class="text-light me-3"><i class="bi bi-instagram" style="font-size: 1.5rem;"></i></a>
-                    <a href="#" class="text-light me-3"><i class="bi bi-linkedin" style="font-size: 1.5rem;"></i></a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <h4>Tentang Kami</h4>
-                <p>
-                    Klinik Vivarta adalah klinik kesehatan yang memberikan pelayanan pengobatan dan pencegahan penyakit untuk masyarakat sekitar. Dengan pelayanan yang terbaik, kami berkomitmen untuk meningkatkan kualitas hidup Anda.
-                </p>
-            </div>
-        </div>
-        <hr style="border-color: #fff;">
-        <p>&copy; 2024 Klinik Vivarta. Semua Hak Dilindungi.</p>
+</div>
     </div>
-</footer>
 </body>
 <script type="text/javascript">
         $(document).ready(function(){
@@ -384,9 +294,5 @@
             });
         });
     </script>
-      <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script>
-    AOS.init();
-  </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>

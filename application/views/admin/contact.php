@@ -272,7 +272,6 @@
     </div>
   </nav>
 
-  <img src="<?= base_url('assets/bannerK.jpg')?>" width=1366px">
 
   <div class="container mt-5">
     <h3 class="text-center" style="color: #00705a;">Data Pesan</h3>

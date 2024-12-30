@@ -12,7 +12,7 @@ class Message extends CI_Controller {
     }
 
     public function index() {
-        $data['messages'] = $this->Message_model->get_data(); // Ambil pesan dari database
+        $data ['messages'] = $this->Message_model->get_data(); // Ambil pesan dari database
         $this->load->view('admin/contact', $data); // Kirim data ke view
     }
 

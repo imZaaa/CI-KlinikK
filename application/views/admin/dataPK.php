@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Pasien</title>
+    <title>Data Penyakit</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -76,6 +76,10 @@
         ::-webkit-scrollbar{
             display: none;
         }
+
+        ::-webkit-scrollbar{
+            display: none;
+        }
 </style>
 <body>
 <div class="container-fluid">
@@ -100,10 +104,10 @@
                                 <a href="<?= site_url('login/dataU')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Data User</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="<?= site_url('pasien')?>" class="nav-link px-0 active"> <span class="d-none d-sm-inline">Data Pasien</span></a>
+                                <a href="<?= site_url('pasien')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Data Pasien</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="<?= site_url('penyakit')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Data Penyakit</span></a>
+                                <a href="<?= site_url('penyakit')?>" class="nav-link px-0 active"> <span class="d-none d-sm-inline">Data Penyakit</span></a>
                             </li>
                             <li>
                                 <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a>
@@ -136,9 +140,9 @@
         
         <!-- Judul dan tombol untuk menambah data -->
         <div class="mb-4">
-            <h2 class="text-center text-primary">Data Pasien</h2>
+            <h2 class="text-center text-primary">Data Penyakit</h2>
             <!-- Tombol untuk menambah data baru, mengarah ke halaman create -->
-            <a href="<?= site_url('pasien/create'); ?>" class="btn btn-success btn-sm mt-3">
+            <a href="<?= site_url('penyakit/create'); ?>" class="btn btn-success btn-sm mt-3">
                 <i class="bi bi-plus-circle"></i> Tambah Data
             </a>
         </div>
@@ -149,61 +153,64 @@
    <thead class="table-primary" style="background-color: #00705a; color: #ffffff; border-top-left-radius: 10px; border-top-right-radius: 10px;">
     <tr>
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 5%;">ID</th>
-        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 10%;">Gambar</th>
-        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 15%;">Nama</th>
-        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 10%;">Tanggal Lahir</th>
-        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 10%;">Jenis Kelamin</th>
-        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 15%;">Alamat</th>
-        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 10%;">Golongan Darah</th>
-        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 10%;">No. Telepon</th>
-        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 20%;">Riwayat Penyakit</th>
+        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 20%;">Nama Penyakit</th>
+        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 20%;">Deskripsi</th>
+        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 15%;">Penyebab</th>
+        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 20%;">Gejala</th>
+        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 20%;">Ciri-ciri</th>
+        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 20%;">Pengobatan</th>
+        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 10%;">Kategori</th>
+        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 15%;">Tanggal Ditambahkan</th>
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 15%;">Aksi</th>
     </tr>
 </thead>
+<tbody>
+    <?php if (!empty($penyakit)): ?>
+    <?php $no = 1; ?>
+    <?php foreach ($penyakit as $data): ?>
+        <tr style="background-color: #eaf7f3; border-color: #00705a; border-radius: 8px; transition: all 0.3s ease-in-out;" 
+            onmouseover="this.style.backgroundColor='#d5efe5';" 
+            onmouseout="this.style.backgroundColor='#eaf7f3';">
+            <td style="border-color: #00705a; text-align: center;"><?= $no++; ?></td>
+            <td style="border-color: #00705a;"><?= $data->nama_penyakit ?: '-'; ?></td> <!-- Perubahan di sini -->
+            <td style="border-color: #00705a;"><?= $data->deskripsi ?: '-'; ?></td> <!-- Perubahan di sini -->
+            <td style="border-color: #00705a;"><?= $data->penyebab ?: '-'; ?></td> <!-- Perubahan di sini -->
+            <td style="border-color: #00705a;"><?= $data->gejala ?: '-'; ?></td> <!-- Perubahan di sini -->
+            <td style="border-color: #00705a;"><?= $data->ciri_ciri ?: '-'; ?></td> <!-- Perubahan di sini -->
+            <td style="border-color: #00705a;"><?= $data->pengobatan ?: '-'; ?></td> <!-- Perubahan di sini -->
+            <td style="border-color: #00705a; text-align: center;"><?= $data->kategori ?: '-'; ?></td> <!-- Perubahan di sini -->
+            <td style="border-color: #00705a; text-align: center;"><?= $data->tanggal_ditambahkan ?: '-'; ?></td> <!-- Perubahan di sini -->
+            <td class="text-center" style="border-color: #00705a;">
+                <a href="<?= site_url('penyakit/edit/' . $data->id); ?>" class="btn btn-warning btn-sm" 
+                   style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;" 
+                   data-toggle="tooltip" title="Edit">
+                    <i class="bi bi-pencil-square"></i>
+                </a>
+                <a href="<?= site_url('penyakit/delete/' . $data->id); ?>" class="btn btn-danger btn-sm" 
+                   style="color: #ffffff; background-color: #00705a; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;" 
+                   onclick="return confirm('Yakin ingin menghapus data ini?');" 
+                   data-toggle="tooltip" title="Hapus">
+                    <i class="bi bi-trash"></i>
+                </a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+<?php else: ?>
+    <tr>
+        <td colspan="10" class="text-center" style="border-color: #00705a; font-style: italic; color: #666;">
+            Tidak ada data tersedia
+        </td>
+    </tr>
+<?php endif; ?>
 
-    <tbody>
-        <?php if (!empty($uploads)): ?>
-            <?php $no = 1; ?>
-            <?php foreach ($uploads as $upload): ?>
-                <tr style="background-color: #eaf7f3; border-color: #00705a; border-radius: 8px; transition: all 0.3s ease-in-out;">
-                    <td style="border-color: #00705a; text-align: center;"><?= $no++; ?></td>
-                    <td class="text-center" style="border-color: #00705a;">
-                        <?php if (!empty($upload['foto_pasien'])): ?>
-                            <img src="<?= base_url('assets/'.$upload['foto_pasien']); ?>" class="img-thumbnail" width="90px" style="border-radius: 8px;">
-                        <?php else: ?>
-                            <span class="text-muted">Tidak ada gambar</span>
-                        <?php endif; ?>
-                    </td>
-                    <td style="border-color: #00705a;"><?= !empty($upload['nama']) ? $upload['nama'] : '-'; ?></td>
-                    <td style="border-color: #00705a;"><?= !empty($upload['tanggal_lahir']) ? $upload['tanggal_lahir'] : '-'; ?></td>
-                    <td style="border-color: #00705a;"><?= !empty($upload['jenis_kelamin']) ? $upload['jenis_kelamin'] : '-'; ?></td>
-                    <td style="border-color: #00705a;"><?= !empty($upload['alamat']) ? $upload['alamat'] : '-'; ?></td>
-                    <td style="border-color: #00705a;"><?= !empty($upload['goldar']) ? $upload['goldar'] : '-'; ?></td>
-                    <td style="border-color: #00705a;"><?= !empty($upload['nomor_telepon']) ? $upload['nomor_telepon'] : '-'; ?></td>
-                    <td style="border-color: #00705a;"><?= !empty($upload['riwayat_penyakit']) ? $upload['riwayat_penyakit'] : '-'; ?></td>
-                    <td class="text-center" style="border-color: #00705a;">
-                        <a href="<?= site_url('pasien/edit/'.$upload['id']); ?>" class="btn btn-warning btn-sm" 
-                           style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;">
-                            <i class="bi bi-pencil-square"></i>
-                        </a>
-                        <a href="<?= site_url('pasien/delete/'.$upload['id']); ?>" class="btn btn-danger btn-sm" 
-                           style="color: #ffffff; background-color: #00705a; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;" 
-                           onclick="return confirm('Yakin ingin menghapus data ini?');">
-                            <i class="bi bi-trash"></i>
-                        </a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <tr>
-                <td colspan="10" class="text-center" style="border-color: #00705a; font-style: italic; color: #666;">Tidak ada data tersedia</td>
-            </tr>
-        <?php endif; ?>
-    </tbody>
+</tbody>
+
+
 </table>
 
     </div>
 </div>
+    </div>
 </body>
 <script type="text/javascript">
         $(document).ready(function(){

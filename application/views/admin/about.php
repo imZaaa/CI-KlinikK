@@ -205,7 +205,7 @@
                     <a class="nav-link text-dark" href="<?= site_url('Gallery/admin') ?>">Gallery</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="<?= site_url('Welcome/contactA')?>">Kontak</a>
+                    <a class="nav-link text-dark" href="<?= site_url('Message')?>">Kontak</a>
                 </li>
             </ul>
         </div>

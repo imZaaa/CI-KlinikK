@@ -10,7 +10,7 @@ class Message_model extends CI_Model {
 
      // Fungsi untuk mengambil pesan
     public function get_data() {
-        return $this->db->get('messages')->result(); // Ambil semua pesan dari tabel messages
+        return $this->db->get('messages')->result_array(); // Ambil semua pesan dari tabel messages
     }
 
     // Fungsi untuk menyimpan pesan
