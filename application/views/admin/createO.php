@@ -18,98 +18,64 @@
                     </div>
                     <div class="card-body"> <!-- Isi dari card -->
                         <!-- Form untuk mengupload data -->
-                        <?php echo form_open_multipart('pasien/create'); ?> <!-- Membuka form dengan action ke 'upload/create' untuk mengirim data via POST dan mendukung pengunggahan file -->
+                        <?php echo form_open_multipart('obat/create'); ?> <!-- Membuka form dengan action ke 'upload/create' untuk mengirim data via POST dan mendukung pengunggahan file -->
                             
-                         <div class="mb-3"> <!-- Membuat div untuk input pertama (Kode Dosen) dengan margin bawah -->
-                            <label for="id" class="form-label">Kode Pasien</label> <!-- Label untuk input kode dosen -->
-                            <input type="text" id="id" name="id" class="form-control" value="<?= $id ?>" readonly> <!-- Input untuk kode dosen, value diambil dari variabel PHP, hanya dapat dibaca (readonly) -->
-                        </div>
                            
                                 <!-- Input untuk deskripsi -->
                                 <div class="mb-3"> <!-- Margin bawah 3 untuk memberi jarak antar elemen -->
-                                <label for="nama" class="form-label">Nama</label> <!-- Label untuk input deskripsi -->
+                                <label for="nama_obat" class="form-label">Nama Obat</label> <!-- Label untuk input deskripsi -->
                                 <input 
                                     type="text" 
-                                    name="nama" 
-                                    id="nama" 
+                                    name="nama_obat" 
+                                    id="nama_obat" 
                                     class="form-control"
-                                    placeholder="Masukkan nama" 
+                                    placeholder="Masukkan Nama Obat" 
                                     required> <!-- Menandakan input ini wajib diisi -->
                             </div>                            
                                 <div class="mb-3"> <!-- Margin bawah 3 untuk memberi jarak antar elemen -->
-                                <label for="tgl" class="form-label">Tanggal Lahir</label> <!-- Label untuk input deskripsi -->
-                                <input 
-                                    type="date" 
-                                    name="tanggal_lahir" 
-                                    id="tgl" 
-                                    class="form-control"
-                                    placeholder="Masukkan Tnggal Lahir" 
-                                    required> <!-- Menandakan input ini wajib diisi -->
-                            </div>                            
-                                <div class="mb-3"> <!-- Margin bawah 3 untuk memberi jarak antar elemen -->
-                                <label for="jk" class="form-label">Jenis Kelamin</label> <!-- Label untuk input deskripsi -->
+                                <label for="komposisi" class="form-label">Komposisi</label> <!-- Label untuk input deskripsi -->
                                 <input 
                                     type="text" 
-                                    name="jenis_kelamin" 
-                                    id="jk" 
+                                    name="komposisi" 
+                                    id="komposisi" 
                                     class="form-control"
-                                    placeholder="Masukkan Jenis Kelamin" 
+                                    placeholder="Masukkan Komposisi" 
                                     required> <!-- Menandakan input ini wajib diisi -->
                             </div>                            
                                 <div class="mb-3"> <!-- Margin bawah 3 untuk memberi jarak antar elemen -->
-                                <label for="alamat" class="form-label">Alamat</label> <!-- Label untuk input deskripsi -->
+                                <label for="guna_obat" class="form-label">Guna Obat</label> <!-- Label untuk input deskripsi -->
                                 <input 
                                     type="text" 
-                                    name="alamat" 
-                                    id="alamat" 
+                                    name="guna_obat" 
+                                    id="guna_obat" 
                                     class="form-control"
-                                    placeholder="Masukkan Alamat" 
+                                    placeholder="Masukkan Guna Obat" 
                                     required> <!-- Menandakan input ini wajib diisi -->
                             </div>                            
                                 <div class="mb-3"> <!-- Margin bawah 3 untuk memberi jarak antar elemen -->
-                                <label for="goldar" class="form-label">Golongan Darah</label> <!-- Label untuk input deskripsi -->
+                                <label for="dosis" class="form-label">Dosis</label> <!-- Label untuk input deskripsi -->
                                 <input 
                                     type="text" 
-                                    name="goldar" 
-                                    id="goldar" 
+                                    name="dosis" 
+                                    id="dosis" 
                                     class="form-control"
-                                    placeholder="Masukkan Golongan Darah" 
-                                    required> <!-- Menandakan input ini wajib diisi -->
-                            </div>                            
-                                <div class="mb-3"> <!-- Margin bawah 3 untuk memberi jarak antar elemen -->
-                                <label for="no_telp" class="form-label">Nomor Telepon</label> <!-- Label untuk input deskripsi -->
-                                <input 
-                                    type="number" 
-                                    name="nomor_telepon" 
-                                    id="no_telp" 
-                                    class="form-control"
-                                    placeholder="Masukkan Nomor Telepon" 
-                                    required> <!-- Menandakan input ini wajib diisi -->
-                            </div>                            
-                                <div class="mb-3"> <!-- Margin bawah 3 untuk memberi jarak antar elemen -->
-                                <label for="riwayat" class="form-label">Riwayat Penyakit</label> <!-- Label untuk input deskripsi -->
-                                <input 
-                                    type="text" 
-                                    name="riwayat_penyakit" 
-                                    id="riwayat"
-                                    class="form-control"
-                                    placeholder="Masukkan Riwayat" 
+                                    placeholder="Masukkan Dosis" 
                                     required> <!-- Menandakan input ini wajib diisi -->
                             </div>                            
                             <!-- Input untuk mengupload gambar -->
                             <div class="mb-3">
-                                <label for="foto_pasien" class="form-label">Upload Foto</label> <!-- Label untuk input gambar -->
+                                <label for="gambar" class="form-label">Upload Gambar</label> <!-- Label untuk input gambar -->
                                 <input 
                                     type="file" 
-                                    name="foto_pasien" 
-                                    id="foto_pasien" 
+                                    name="gambar" 
+                                    id="gambar" 
                                     class="form-control" 
                                     required> <!-- Menandakan input ini wajib diisi -->
                             </div>
 
                             <!-- Tombol submit dan tombol kembali -->
                             <div class="text-center"> <!-- Menyusun tombol secara terpusat -->
-                                <button type="submit" name="submit" value="Simpan" class="btn btn-success"> <!-- Tombol simpan dengan kelas success dari Bootstrap -->
+                                <button type="submit" name="Submit" value="Simpan" class="btn btn-success"> <!-- Tombol simpan dengan kelas success dari Bootstrap -->
                                     Simpan
                                 </button>
                                 <a href="<?= site_url('upload'); ?>" class="btn btn-secondary"> <!-- Tombol kembali dengan link ke halaman daftar upload -->

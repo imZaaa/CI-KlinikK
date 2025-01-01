@@ -18,34 +18,49 @@ Class Pasien extends CI_Controller {
     }
 
     // Membuat upload baru
-    public function create(){
-        if ($this->input->post('submit')){  // Mengecek apakah form telah disubmit
-            $config['upload_path'] = './assets/';  // Direktori tempat file akan disimpan
-            $config['allowed_types'] = 'gif|jpg|png|jpeg';  // Jenis file yang diperbolehkan (gambar)
-            $config['file_name'] = 'upload_' . rand(1, 1000); // Nama file di-generate secara otomatis dengan angka acak
-            $this->upload->initialize($config);  // Menginisialisasi library upload dengan konfigurasi di atas
+   public function create()
+{
+    if ($this->input->post('submit')) { // Mengecek apakah form telah disubmit
+        $config['upload_path'] = './assets/'; // Direktori tempat file akan disimpan
+        $config['allowed_types'] = 'gif|jpg|png|jpeg'; // Jenis file yang diperbolehkan (gambar)
+        $config['file_name'] = 'upload_' . rand(1, 1000); // Nama file di-generate secara otomatis dengan angka acak
+        $this->upload->initialize($config); // Menginisialisasi library upload dengan konfigurasi di atas
 
-            if ($this->upload->do_upload('foto_pasien')){  // Melakukan upload jika form disubmit
-                $upload_data = $this->upload->data();  // Mengambil data file setelah upload berhasil
-                $data = array(
-                    'foto_pasien' => $upload_data['file_name'],  // Menyimpan nama file yang diupload
-                    'nama' => $this->input->post('nama'),
-                    'tanggal_lahir' => $this->input->post('tanggal_lahir'),
-                    'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-                    'alamat' => $this->input->post('alamat'),
-                    'goldar' => $this->input->post('goldar'),
-                    'nomor_telepon' => $this->input->post('nomor_telepon'),
-                    'riwayat_penyakit' => $this->input->post('riwayat_penyakit')
-                );
-                $this->Pasien_model->insert_upload($data);  // Menyimpan data pasien ke database
-                redirect('Pasien/index');  // Redirect ke halaman data pasien setelah sukses
-            } else {
-                $error = array('error' => $this->upload->display_errors());  // Menangkap error jika upload gagal
-                $this->load->view('admin/createP', $error);  // Memuat tampilan 'create' dengan pesan error
-            }
+        if ($this->upload->do_upload('foto_pasien')) { // Melakukan upload jika form disubmit
+            $upload_data = $this->upload->data(); // Mengambil data file setelah upload berhasil
+            $data = array(
+                'id' => $this->input->post('id'),
+                'foto_pasien' => $upload_data['file_name'], // Menyimpan nama file yang diupload
+                'nama' => $this->input->post('nama'),
+                'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+                'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+                'alamat' => $this->input->post('alamat'),
+                'goldar' => $this->input->post('goldar'),
+                'nomor_telepon' => $this->input->post('nomor_telepon'),
+                'riwayat_penyakit' => $this->input->post('riwayat_penyakit')
+            );
+            $this->Pasien_model->insert_upload($data); // Menyimpan data pasien ke database
+            redirect('Pasien/index'); // Redirect ke halaman data pasien setelah sukses
         } else {
-            $this->load->view('admin/createP');  // Memuat tampilan 'create' jika form belum disubmit
+            $error = array('error' => $this->upload->display_errors()); // Menangkap error jika upload gagal
+            $id = $this->generate_next_code(); // Tambahkan ID baru jika upload gagal
+            $error['id'] = $id;
+            $this->load->view('admin/createP', $error); // Memuat tampilan 'create' dengan pesan error
         }
+    } else {
+        $id = $this->generate_next_code(); // Generate ID otomatis
+        $data['id'] = $id;
+        $this->load->view('admin/createP', $data); // Kirimkan data ID ke view
+    }
+}
+
+
+    private function generate_next_code()
+    {
+        $latest_code = $this->Pasien_model->get_last_id();
+        $last_number = (int) substr($latest_code, -4);
+        $next_number = $last_number + 1;
+        return 'PSN-' . str_pad($next_number, 4, '0', STR_PAD_LEFT);
     }
 
     // Mengedit data pasien
@@ -101,9 +116,16 @@ Class Pasien extends CI_Controller {
     }
 
     // Menghapus data pasien
-    public function delete($id){
-        $this->Pasien_model->delete_upload($id);  // Menghapus data pasien dari database
-        redirect('Pasien/index');  // Redirect ke halaman data pasien setelah penghapusan
+   public function delete($id)
+    {
+        if ($this->Pasien_model->delete_pasien($id)) {
+            $this->session->set_flashdata('message', 'Data berhasil dihapus!');
+        } else {
+            $this->session->set_flashdata('message', 'Gagal menghapus data!');
+        }
+        redirect('pasien');
     }
+
+
 }
 ?>

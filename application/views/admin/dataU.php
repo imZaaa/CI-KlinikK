@@ -151,6 +151,9 @@
                             <li class="w-100">
                                 <a href="<?= site_url('penyakit')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Data Penyakit</span></a>
                             </li>
+                            <li class="w-100">
+                                <a href="<?= site_url('obat')?>" class="nav-link px-0 "> <span class="d-none d-sm-inline">Data Obat</span></a>
+                            </li>
                             <li>
                                 <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a>
                             </li>
@@ -216,8 +219,8 @@
                             <td><?= htmlspecialchars($user->username); ?></td>
                             <td><?= htmlspecialchars($user->role); ?></td>
                             <td>
-                                <a href="<?= site_url('login/edit_user/' . $user->id); ?>" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="<?= site_url('login/delete_user/' . $user->id); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus user ini?');">Hapus</a>
+                                <a href="<?= site_url('login/edit_user/' . $user->id); ?>" class="btn btn-sm" style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;" >Edit</a>
+                                <a href="<?= site_url('login/delete_user/' . $user->id); ?>" class="btn btn-sm" onclick="return confirm('Yakin ingin menghapus user ini?');" style="color: #ffffff; background-color: #00705a; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;">Hapus</a>
                             </td>
                         </tr>
                     <?php endif; ?>
@@ -254,8 +257,8 @@
                             <td><?= htmlspecialchars($user->username); ?></td>
                             <td><?= htmlspecialchars($user->role); ?></td>
                             <td>
-                                <a href="<?= site_url('login/edit_user/' . $user->id); ?>" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="<?= site_url('login/delete_user/' . $user->id); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus user ini?');">Hapus</a>
+                                <a href="<?= site_url('login/edit_user/' . $user->id); ?>" class="btn btn-sm" style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;" >Edit</a>
+                                <a href="<?= site_url('login/delete_user/' . $user->id); ?>" class="btn btn-sm" onclick="return confirm('Yakin ingin menghapus user ini?');" style="color: #ffffff; background-color: #00705a; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;">Hapus</a>
                             </td>
                         </tr>
                     <?php endif; ?>

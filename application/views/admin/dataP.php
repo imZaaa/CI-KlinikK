@@ -105,6 +105,9 @@
                             <li class="w-100">
                                 <a href="<?= site_url('penyakit')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Data Penyakit</span></a>
                             </li>
+                            <li class="w-100">
+                                <a href="<?= site_url('obat')?>" class="nav-link px-0 "> <span class="d-none d-sm-inline">Data Obat</span></a>
+                            </li>
                             <li>
                                 <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a>
                             </li>
@@ -151,7 +154,7 @@
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 5%;">ID</th>
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 10%;">Gambar</th>
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 15%;">Nama</th>
-        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 10%;">Tanggal Lahir</th>
+        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 15%;">Tanggal Lahir</th>
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 10%;">Jenis Kelamin</th>
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 15%;">Alamat</th>
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 10%;">Golongan Darah</th>
@@ -163,10 +166,9 @@
 
     <tbody>
         <?php if (!empty($uploads)): ?>
-            <?php $no = 1; ?>
             <?php foreach ($uploads as $upload): ?>
                 <tr style="background-color: #eaf7f3; border-color: #00705a; border-radius: 8px; transition: all 0.3s ease-in-out;">
-                    <td style="border-color: #00705a; text-align: center;"><?= $no++; ?></td>
+                 <td style="border-color: #00705a;"><?= !empty($upload['id']) ? $upload['id'] : '-'; ?></td>
                     <td class="text-center" style="border-color: #00705a;">
                         <?php if (!empty($upload['foto_pasien'])): ?>
                             <img src="<?= base_url('assets/'.$upload['foto_pasien']); ?>" class="img-thumbnail" width="90px" style="border-radius: 8px;">

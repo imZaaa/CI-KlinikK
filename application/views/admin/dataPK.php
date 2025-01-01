@@ -109,6 +109,9 @@
                             <li class="w-100">
                                 <a href="<?= site_url('penyakit')?>" class="nav-link px-0 active"> <span class="d-none d-sm-inline">Data Penyakit</span></a>
                             </li>
+                            <li class="w-100">
+                                <a href="<?= site_url('obat')?>" class="nav-link px-0 "> <span class="d-none d-sm-inline">Data Obat</span></a>
+                            </li>
                             <li>
                                 <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a>
                             </li>
@@ -157,10 +160,9 @@
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 20%;">Deskripsi</th>
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 15%;">Penyebab</th>
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 20%;">Gejala</th>
-        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 20%;">Ciri-ciri</th>
+        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 25%;">Ciri-ciri</th>
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 20%;">Pengobatan</th>
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 10%;">Kategori</th>
-        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 15%;">Tanggal Ditambahkan</th>
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 15%;">Aksi</th>
     </tr>
 </thead>
@@ -179,7 +181,6 @@
             <td style="border-color: #00705a;"><?= $data->ciri_ciri ?: '-'; ?></td> <!-- Perubahan di sini -->
             <td style="border-color: #00705a;"><?= $data->pengobatan ?: '-'; ?></td> <!-- Perubahan di sini -->
             <td style="border-color: #00705a; text-align: center;"><?= $data->kategori ?: '-'; ?></td> <!-- Perubahan di sini -->
-            <td style="border-color: #00705a; text-align: center;"><?= $data->tanggal_ditambahkan ?: '-'; ?></td> <!-- Perubahan di sini -->
             <td class="text-center" style="border-color: #00705a;">
                 <a href="<?= site_url('penyakit/edit/' . $data->id); ?>" class="btn btn-warning btn-sm" 
                    style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;" 
