@@ -15,7 +15,7 @@ class Login extends CI_Controller {
         if ($this->session->userdata('logged_in')) {
             $role = $this->session->userdata('role');
             if ($role === 'admin') {
-                redirect('admin/home');
+                redirect('admin/dashboard');
             } elseif ($role === 'user') {
                 redirect('user/home');
             }
@@ -24,7 +24,7 @@ class Login extends CI_Controller {
     }
 
     public function admin() {
-        $this->load->view('admin/home');
+        $this->load->view('admin/dashboard');
     }
 
     public function user() {
@@ -57,7 +57,7 @@ class Login extends CI_Controller {
 
             if ($user->role === 'admin') {
                 $this->session->set_flashdata('success', 'Login berhasil sebagai Admin!');
-                redirect('Login/admin');
+                redirect('dashboard');
             } elseif ($user->role === 'user') {
                 $this->session->set_flashdata('success', 'Login berhasil sebagai User!');
                 redirect('Login/user');

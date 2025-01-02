@@ -88,6 +88,10 @@
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                <img src="<?= base_url('assets/logo.png')?>" width="130px">
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                   <li>
+                        <a href="<?= site_url('dashboard')?>" class="nav-link px-0 align-middle fs-5">
+                           <i class="bi bi-clipboard-data-fill"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+                    </li>
                     <li>
                         <a href="<?= site_url('Dokter/admin')?>" class="nav-link px-0 align-middle">
                            <i class="fs-4 bi-person-fill-add"></i> <span class="ms-1 d-none d-sm-inline">Dokter</span> </a>
@@ -112,8 +116,8 @@
                             <li class="w-100">
                                 <a href="<?= site_url('obat')?>" class="nav-link px-0 "> <span class="d-none d-sm-inline">Data Obat</span></a>
                             </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a>
+                            <li class="w-100">
+                                <a href="<?= site_url('message')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Message</span></a>
                             </li>
                         </ul>
                     </li>
@@ -140,7 +144,12 @@
         </div>
 <div class="col py-3">
   <div class="container my-5">
-        
+        <?php if ($this->session->flashdata('success')): ?>
+    <div class="alert alert-success">
+        <?= $this->session->flashdata('success'); ?>
+    </div>
+<?php endif; ?>
+
         <!-- Judul dan tombol untuk menambah data -->
         <div class="mb-4">
             <h2 class="text-center text-primary">Data Penyakit</h2>
@@ -168,12 +177,11 @@
 </thead>
 <tbody>
     <?php if (!empty($penyakit)): ?>
-    <?php $no = 1; ?>
     <?php foreach ($penyakit as $data): ?>
         <tr style="background-color: #eaf7f3; border-color: #00705a; border-radius: 8px; transition: all 0.3s ease-in-out;" 
             onmouseover="this.style.backgroundColor='#d5efe5';" 
             onmouseout="this.style.backgroundColor='#eaf7f3';">
-            <td style="border-color: #00705a; text-align: center;"><?= $no++; ?></td>
+            <td style="border-color: #00705a;"><?= $data->id ?: '-'; ?></td> <!-- Perubahan di sini -->
             <td style="border-color: #00705a;"><?= $data->nama_penyakit ?: '-'; ?></td> <!-- Perubahan di sini -->
             <td style="border-color: #00705a;"><?= $data->deskripsi ?: '-'; ?></td> <!-- Perubahan di sini -->
             <td style="border-color: #00705a;"><?= $data->penyebab ?: '-'; ?></td> <!-- Perubahan di sini -->

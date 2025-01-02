@@ -6,6 +6,8 @@
     <title>Edit Data</title> <!-- Judul halaman yang muncul di tab browser -->
     <!-- Menyertakan file CSS Bootstrap dari CDN untuk styling halaman -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/logo.png')?>">
+
 </head>
 <body class="bg-light">
     <!-- Membuat container utama dengan margin atas untuk memberi ruang -->
@@ -70,6 +72,17 @@
                                     placeholder="Masukkan dosis baru" 
                                     required>
                             </div>
+                            <div class="mb-3">
+                                <label for="harga" class="form-label">Harga</label>
+                                <input 
+                                    type="number" 
+                                    name="harga" 
+                                    id="harga" 
+                                    class="form-control" 
+                                    value="<?php echo $upload->harga; ?>" 
+                                    placeholder="Masukkan harga baru" 
+                                    required>
+                            </div>
                             <!-- Menampilkan gambar yang sebelumnya diupload -->
                             <div class="mb-3">
                                 <label class="form-label">Gambar Sebelumnya</label>
@@ -87,7 +100,7 @@
                             </div>
                             <!-- Tombol untuk submit form dan tombol untuk kembali ke halaman sebelumnya -->
                             <div class="text-center">
-                                <button type="submit" name="submit" value="Update" class="btn btn-success">
+                                <button type="submit" name="Submit" value="Update" class="btn btn-success">
                                     Update
                                 </button>
                                 <a href="<?= site_url('upload'); ?>" class="btn btn-secondary">

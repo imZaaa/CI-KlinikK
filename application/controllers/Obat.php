@@ -38,26 +38,40 @@ Class Obat extends CI_Controller {
             if ($this->upload->do_upload('gambar')){  // Melakukan upload jika form disubmit
                 $upload_data = $this->upload->data();  // Mengambil data file setelah upload berhasil
                 $data = array(
+                    'id' => $this->input->post('id'),
                     'gambar' => $upload_data['file_name'],  // Menyimpan nama file yang diupload
                     'nama_obat' => $this->input->post('nama_obat'),
                     'komposisi' => $this->input->post('komposisi'),
                     'guna_obat' => $this->input->post('guna_obat'),
-                    'dosis' => $this->input->post('dosis')
+                    'dosis' => $this->input->post('dosis'),
+                    'harga' => $this->input->post('harga')
                 );
                 $this->Obat_model->insert_upload($data);  // Menyimpan data upload ke database
                 redirect('obat');  // Redirect ke halaman 'upload' setelah sukses
             } else {
-                $error = array('error' => $this->upload->display_errors());  // Menangkap error jika upload gagal
-                $this->load->view('admin/createO', $error);  // Memuat tampilan 'create' dengan pesan error
+                $error = array('error' => $this->upload->display_errors()); // Menangkap error jika upload gagal
+                $id = $this->generate_next_code(); // Tambahkan ID baru jika upload gagal
+                $error['id'] = $id;
+                $this->load->view('admin/createO', $error);
             }
         } else {
-            $this->load->view('admin/createO');  // Memuat tampilan 'create' jika form belum disubmit
+            $id = $this->generate_next_code(); // Generate ID otomatis
+            $data['id'] = $id;
+            $this->load->view('admin/createO', $data);  // Memuat tampilan 'create' jika form belum disubmit
         }
+    }
+
+    private function generate_next_code()
+    {
+        $latest_code = $this->Obat_model->get_last_id();
+        $last_number = (int) substr($latest_code, -4);
+        $next_number = $last_number + 1;
+        return 'OBT-' . str_pad($next_number, 4, '0', STR_PAD_LEFT);
     }
 
     // Mengedit upload yang sudah ada
     public function edit($id){
-        if ($this->input->post('submit')){  // Mengecek apakah form telah disubmit
+        if ($this->input->post('Submit')){  // Mengecek apakah form telah disubmit
             $config['upload_path'] = './assets/';  // Direktori tempat file akan disimpan
             $config['allowed_types'] = 'gif|jpg|png|jpeg|webp';  // Jenis file yang diperbolehkan (gambar)
             $config['file_name'] = 'upload_' . rand(1, 1000); // Nama file di-generate secara otomatis dengan angka acak
@@ -70,7 +84,9 @@ Class Obat extends CI_Controller {
                     'nama_obat' => $this->input->post('nama_obat'),
                     'komposisi' => $this->input->post('komposisi'),
                     'guna_obat' => $this->input->post('guna_obat'),
-                    'dosis' => $this->input->post('dosis')                );
+                    'dosis' => $this->input->post('dosis'), 
+                    'harga' => $this->input->post('harga')
+                );
                 $this->Obat_model->update_upload($id, $data);  // Memperbarui data upload yang ada di database
                 redirect('obat');  // Redirect ke halaman 'upload' setelah sukses
             }
@@ -81,9 +97,15 @@ Class Obat extends CI_Controller {
     }
 
     // Menghapus upload
-    public function delete($id){
-        $this->Obat_model->delete_upload($id);  // Menghapus data upload dari database
-        redirect('obat');  // Redirect ke halaman 'upload' setelah penghapusan
+    public function delete($id)
+    {
+        if ($this->Obat_model->delete_obat($id)) {
+            $this->session->set_flashdata('message', 'Data berhasil dihapus!');
+        } else {
+            $this->session->set_flashdata('message', 'Gagal menghapus data!');
+        }
+        redirect('obat');
     }
+
 }
 ?>

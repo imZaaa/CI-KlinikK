@@ -86,6 +86,10 @@
                <img src="<?= base_url('assets/logo.png')?>" width="130px">
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li>
+                        <a href="<?= site_url('dashboard')?>" class="nav-link px-0 align-middle fs-5">
+                           <i class="bi bi-clipboard-data-fill"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+                    </li>
+                    <li>
                         <a href="#" class="nav-link px-0 align-middle active">
                            <i class="fs-4 bi-person-fill-add"></i> <span class="ms-1 d-none d-sm-inline">Dokter</span> </a>
                     </li>
@@ -109,8 +113,8 @@
                             <li class="w-100">
                                 <a href="<?= site_url('obat')?>" class="nav-link px-0 "> <span class="d-none d-sm-inline">Data Obat</span></a>
                             </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a>
+                            <li class="w-100">
+                                <a href="<?= site_url('message')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Message</span></a>
                             </li>
                         </ul>
                     </li>
@@ -179,12 +183,12 @@
                     <td class="text-center" style="border-color: #00705a;">
                         <a href="<?= site_url('dokter/edit/'.$upload['id']); ?>" class="btn btn-warning btn-sm" 
                            style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;">
-                            <i class="bi bi-pencil-square"></i> Edit
+                            <i class="bi bi-pencil-square"></i>
                         </a>
                         <a href="<?= site_url('dokter/delete/'.$upload['id']); ?>" class="btn btn-danger btn-sm" 
                            style="color: #ffffff; background-color: #00705a; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;" 
                            onclick="return confirm('Yakin ingin menghapus data ini?');">
-                            <i class="bi bi-trash"></i> Hapus
+                            <i class="bi bi-trash"></i>
                         </a>
                     </td>
                 </tr>

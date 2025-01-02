@@ -6,6 +6,8 @@
     <title>Edit Penyakit</title>
     <!-- Optional: Include Bootstrap CSS or Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/logo.png')?>">
+
 </head>
 <body class="bg-gray-50">
 

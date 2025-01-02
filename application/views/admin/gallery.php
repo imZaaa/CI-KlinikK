@@ -82,6 +82,10 @@
                <img src="<?= base_url('assets/logo.png')?>" width="130px">
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li>
+                        <a href="<?= site_url('dashboard')?>" class="nav-link px-0 align-middle fs-5">
+                           <i class="bi bi-clipboard-data-fill"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+                    </li>
+                    <li>
                         <a href="<?= site_url('Dokter/admin')?>" class="nav-link px-0 align-middle">
                            <i class="fs-4 bi-person-fill-add"></i> <span class="ms-1 d-none d-sm-inline">Dokter</span> </a>
                     </li>
@@ -105,9 +109,8 @@
                             <li class="w-100">
                                 <a href="<?= site_url('obat')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Data Obat</span></a>
                             </li>
-                            
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a>
+                            <li class="w-100">
+                                <a href="<?= site_url('message')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Message</span></a>
                             </li>
                         </ul>
                     </li>
@@ -165,11 +168,11 @@
                             </td>
                             <td><?= !empty($upload['deskripsi']) ? $upload['deskripsi'] : '-'; ?></td>
                             <td class="text-center">
-                                <a href="<?= site_url('gallery/edit/'.$upload['id']); ?>" class="btn btn-warning btn-sm">
-                                    <i class="bi bi-pencil-square"></i> Edit
+                                <a href="<?= site_url('gallery/edit/'.$upload['id']); ?>" class="btn btn-sm">
+                                    <i class="bi bi-pencil-square" style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;"></i>
                                 </a>
-                                <a href="<?= site_url('gallery/delete/'.$upload['id']); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus data ini?');">
-                                    <i class="bi bi-trash"></i> Hapus
+                                <a href="<?= site_url('gallery/delete/'.$upload['id']); ?>" class="btn btn-sm" onclick="return confirm('Yakin ingin menghapus data ini?');" style="color: #ffffff; background-color: #00705a; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;">
+                                    <i class="bi bi-trash"></i>
                                 </a>
                             </td>
                         </tr>

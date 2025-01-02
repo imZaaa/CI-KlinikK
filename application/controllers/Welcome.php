@@ -28,11 +28,18 @@ class Welcome extends CI_Controller {
 	public function aboutU(){
 		$this->load->view('user/about');
 	}
+	public function about(){
+		$this->load->view('about');
+	}
+	
 	public function kontakA(){
 		$this->load->view('admin/contact');
 	}
 	public function kontakU(){
 		$this->load->view('user/contact');
+	}
+	public function kontak(){
+		$this->load->view('contact');
 	}
 
 

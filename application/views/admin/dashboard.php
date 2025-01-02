@@ -3,16 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Obat</title>
+    <title>Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/logo.png')?>">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-</head>
 
+
+</head>
 <style>
     .nav-link {
         font-family: 'Montserrat', sans-serif;
@@ -72,8 +69,26 @@
     margin-left: 280px; /* Memberikan ruang agar konten utama tidak tertutup sidebar */
 }
 
-</style>
+.bg-gradient-primary {
+            background: linear-gradient(135deg, #007bff, #00aaff);
+        }
+        .bg-gradient-secondary {
+            background: linear-gradient(135deg, #6c757d, #adb5bd);
+        }
+        .bg-gradient-success {
+            background: linear-gradient(135deg, #28a745, #34d058);
+        }
+        .bg-gradient-info {
+            background: linear-gradient(135deg, #17a2b8, #20c997);
+        }
+        .card {
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
 
+</style>
 <body>
     <div class="container-fluid">
     <div class="row flex-nowrap">
@@ -82,7 +97,7 @@
                <img src="<?= base_url('assets/logo.png')?>" width="130px">
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li>
-                        <a href="<?= site_url('dashboard')?>" class="nav-link px-0 align-middle fs-5">
+                        <a href="#" class="nav-link px-0 align-middle active fs-5">
                            <i class="bi bi-clipboard-data-fill"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
                     </li>
                     <li>
@@ -94,7 +109,7 @@
                             <i class="fs-4 bi-image-fill"></i> <span class="ms-1 d-none d-sm-inline">Gallery</span></a>
                     </li>
                     <li>
-                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle active">
+                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
                             <i class="fs-4 bi-folder-fill"></i> <span class="ms-1 d-none d-sm-inline">Data</span></a>
                         <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                             <li class="w-100">
@@ -107,10 +122,10 @@
                                 <a href="<?= site_url('penyakit')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Data Penyakit</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="#" class="nav-link px-0 active"> <span class="d-none d-sm-inline">Data Obat</span></a>
+                                <a href="<?= site_url('obat')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Data Obat</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="<?= site_url('message')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Contact</span></a>
+                                <a href="<?= site_url('message')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Message</span></a>
                             </li>
                         </ul>
                     </li>
@@ -136,72 +151,54 @@
             </div>
         </div>
 <div class="col py-3">
-    <!-- Konten Utama -->
-             <div class="mb-4">
-            <h2 class="text-center text-primary">Data Obat</h2>
-            <a href="<?= site_url('obat/create'); ?>" class="btn btn-success btn-sm mt-3">
-                <i class="bi bi-plus-circle"></i> Tambah Data
-            </a>
+    <div class="container mt-5">
+    <div class="row g-4">
+        <!-- Card Total Admin -->
+        <div class="col-md-3">
+            <div class="card text-white bg-gradient-primary shadow">
+                <div class="card-body text-center">
+                    <i class="bi bi-person-badge-fill fs-1 mb-3"></i>
+                    <h5 class="card-title">Total Admin</h5>
+                    <p class="card-text fs-3 fw-bold"><?= $admin_count; ?></p>
+                </div>
+            </div>
         </div>
-
-        <table id="uploadTable" class="table table-bordered table-striped table-hover">
-            <thead class="table-primary" style="background-color: #00705a; color: #ffffff;">
-                <tr>
-                    <th style="text-align: center;">ID</th>
-                    <th style="text-align: center;">Gambar</th>
-                    <th style="text-align: center;">Nama Obat</th>
-                    <th style="text-align: center;">Komposisi</th>
-                    <th style="text-align: center;">Guna Obat</th>
-                    <th style="text-align: center;">Dosis</th>
-                    <th style="text-align: center;">Harga</th>
-                    <th style="text-align: center;">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (!empty($uploads)): ?>
-                    <?php foreach ($uploads as $upload): ?>
-                        <tr>
-                 <td style="border-color: #00705a;"><?= !empty($upload['id']) ? $upload['id'] : '-'; ?></td>
-                            <td class="text-center">
-                                <?php if (!empty($upload['gambar'])): ?>
-                                    <img src="<?= base_url('assets/'.$upload['gambar']); ?>" class="img-thumbnail" width="90px">
-                                <?php else: ?>
-                                    <span class="text-muted">Tidak ada gambar</span>
-                                <?php endif; ?>
-                            </td>
-                            <td><?= !empty($upload['nama_obat']) ? $upload['nama_obat'] : '-'; ?></td>
-                            <td><?= !empty($upload['komposisi']) ? $upload['komposisi'] : '-'; ?></td>
-                            <td><?= !empty($upload['guna_obat']) ? $upload['guna_obat'] : '-'; ?></td>
-                            <td><?= !empty($upload['dosis']) ? $upload['dosis'] : '-'; ?></td>
-                            <td><?= !empty($upload['harga']) ? $upload['harga'] : '-'; ?></td>
-                            <td class="text-center">
-                                <a href="<?= site_url('obat/edit/'.$upload['id']); ?>" class="btn btn-sm"style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;" 
->
-                                    <i class="bi bi-pencil-square"></i>
-                                </a>
-                                <a href="<?= site_url('obat/delete/'.$upload['id']); ?>" class="btn btn-sm" onclick="return confirm('Yakin ingin menghapus data ini?');" style="color: #ffffff; background-color: #00705a; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;" 
->
-                                    <i class="bi bi-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="4" class="text-center">Tidak ada data tersedia</td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+        <!-- Card Total User -->
+        <div class="col-md-3">
+            <div class="card text-white bg-gradient-secondary shadow">
+                <div class="card-body text-center">
+                    <i class="bi bi-people-fill fs-1 mb-3"></i>
+                    <h5 class="card-title">Total User</h5>
+                    <p class="card-text fs-3 fw-bold"><?= $user_count; ?></p>
+                </div>
+            </div>
+        </div>
+        <!-- Card Total Pasien -->
+        <div class="col-md-3">
+            <div class="card text-white bg-gradient-success shadow">
+                <div class="card-body text-center">
+                    <i class="bi bi-person-lines-fill fs-1 mb-3"></i>
+                    <h5 class="card-title">Total Pasien</h5>
+                    <p class="card-text fs-3 fw-bold"><?= $patient_count; ?></p>
+                </div>
+            </div>
+        </div>
+        <!-- Card Total Dokter -->
+        <div class="col-md-3">
+            <div class="card text-white bg-gradient-info shadow">
+                <div class="card-body text-center">
+                    <i class="bi bi-heart-pulse-fill fs-1 mb-3"></i>
+                    <h5 class="card-title">Total Dokter</h5>
+                    <p class="card-text fs-3 fw-bold"><?= $doctor_count; ?></p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-    </div>
-    <script>
-        $(document).ready(function() {
-            $('#uploadTable').DataTable();
-        });
-    </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</div>
+    </div>
 </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </html>

@@ -85,6 +85,10 @@
                <img src="<?= base_url('assets/logo.png')?>" width="130px">
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li>
+                        <a href="<?= site_url('dashboard')?>" class="nav-link px-0 align-middle fs-5">
+                           <i class="bi bi-clipboard-data-fill"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+                    </li>
+                    <li>
                         <a href="<?= site_url('Dokter/admin')?>" class="nav-link px-0 align-middle">
                            <i class="fs-4 bi-person-fill-add"></i> <span class="ms-1 d-none d-sm-inline">Dokter</span> </a>
                     </li>
@@ -108,8 +112,8 @@
                             <li class="w-100">
                                 <a href="<?= site_url('obat')?>" class="nav-link px-0 "> <span class="d-none d-sm-inline">Data Obat</span></a>
                             </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a>
+                            <li class="w-100">
+                                <a href="<?= site_url('message')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Contact</span></a>
                             </li>
                         </ul>
                     </li>

@@ -6,6 +6,8 @@
     <title>Edit Pasien</title> <!-- Judul halaman yang muncul di tab browser -->
     <!-- Menyertakan file CSS Bootstrap dari CDN untuk styling halaman -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/logo.png')?>">
+
 </head>
 <body class="bg-light">
     <!-- Membuat container utama dengan margin atas untuk memberi ruang -->

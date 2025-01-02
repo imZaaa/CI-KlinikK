@@ -19,7 +19,10 @@
                     <div class="card-body"> <!-- Isi dari card -->
                         <!-- Form untuk mengupload data -->
                         <?php echo form_open_multipart('obat/create'); ?> <!-- Membuka form dengan action ke 'upload/create' untuk mengirim data via POST dan mendukung pengunggahan file -->
-                            
+                            <div class="mb-3"> <!-- Membuat div untuk input pertama (Kode Dosen) dengan margin bawah -->
+                            <label for="id" class="form-label">Kode Obat</label> <!-- Label untuk input kode dosen -->
+                            <input type="text" id="id" name="id" class="form-control" value="<?= $id ?>" readonly> <!-- Input untuk kode dosen, value diambil dari variabel PHP, hanya dapat dibaca (readonly) -->
+                        </div>
                            
                                 <!-- Input untuk deskripsi -->
                                 <div class="mb-3"> <!-- Margin bawah 3 untuk memberi jarak antar elemen -->
@@ -60,6 +63,16 @@
                                     id="dosis" 
                                     class="form-control"
                                     placeholder="Masukkan Dosis" 
+                                    required> <!-- Menandakan input ini wajib diisi -->
+                            </div>                            
+                                <div class="mb-3"> <!-- Margin bawah 3 untuk memberi jarak antar elemen -->
+                                <label for="harga" class="form-label">Harga</label> <!-- Label untuk input deskripsi -->
+                                <input 
+                                    type="number" 
+                                    name="harga" 
+                                    id="harga" 
+                                    class="form-control"
+                                    placeholder="Masukkan Harga" 
                                     required> <!-- Menandakan input ini wajib diisi -->
                             </div>                            
                             <!-- Input untuk mengupload gambar -->
