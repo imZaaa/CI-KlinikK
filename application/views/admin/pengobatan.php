@@ -167,7 +167,9 @@
                         <td><p class="text-danger"><?= $p['status_bayar'] ?></p></td>
                     <?php endif; ?>
                 <td>
-                    <a href="<?= site_url('pengobatan/delete/' . $p['id_pengobatan']) ?>" class="btn btn-danger btn-sm">Hapus</a>
+                    <a href="<?= site_url('pengobatan/edit/' . $p['id_pengobatan']) ?>" class="btn btn-sm" style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;"> <i class="bi bi-pencil-square" ></i></a>
+               
+                    <a href="<?= site_url('pengobatan/delete/' . $p['id_pengobatan']) ?>" class="btn btn-sm" style="color: #ffffff; background-color: #00705a; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;"><i class="bi bi-trash" ></i></a>
                 </td>
             </tr>
         <?php endforeach; ?>

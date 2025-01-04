@@ -49,27 +49,47 @@ Class Gallery extends CI_Controller {
     }
 
     // Mengedit upload yang sudah ada
-    public function edit($id){
-        if ($this->input->post('submit')){  // Mengecek apakah form telah disubmit
-            $config['upload_path'] = './assets/';  // Direktori tempat file akan disimpan
-            $config['allowed_types'] = 'gif|jpg|png';  // Jenis file yang diperbolehkan (gambar)
-            $config['file_name'] = 'upload_' . rand(1, 1000); // Nama file di-generate secara otomatis dengan angka acak
-            $this->upload->initialize($config);  // Menginisialisasi library upload dengan konfigurasi di atas
+    public function edit($id) {
+    if ($this->input->post('submit')) { // Mengecek apakah form telah disubmit
+        $data = array(
+            'deskripsi' => $this->input->post('deskripsi')
+        );
 
-            if ($this->upload->do_upload('gambar')){  // Melakukan upload jika form disubmit
-                $upload_data = $this->upload->data();  // Mengambil data file setelah upload berhasil
-                $data = array(
-                    'gambar' => $upload_data['file_name'],  // Menyimpan nama file yang diupload
-                    'deskripsi' => $this->input->post('deskripsi')
-                );
-                $this->Gallery_model->update_upload($id, $data);  // Memperbarui data upload yang ada di database
-                redirect('gallery/admin');  // Redirect ke halaman 'upload' setelah sukses
+        // Mengecek apakah ada file gambar yang diunggah
+        if (!empty($_FILES['gambar']['name'])) {
+            $config['upload_path'] = './assets/'; // Direktori tempat file akan disimpan
+            $config['allowed_types'] = 'gif|jpg|png'; // Jenis file yang diperbolehkan
+            $config['file_name'] = 'upload_' . rand(1, 1000); // Nama file di-generate otomatis
+            $this->upload->initialize($config); // Inisialisasi library upload
+
+            if ($this->upload->do_upload('gambar')) { // Jika upload berhasil
+                $upload_data = $this->upload->data(); // Mengambil data file yang diunggah
+                $data['gambar'] = $upload_data['file_name']; // Tambahkan nama file ke array data
+            } else {
+                // Jika upload gagal, set pesan error dan redirect kembali ke halaman edit
+                $error = $this->upload->display_errors();
+                $this->session->set_flashdata('error', $error);
+                redirect('gallery/edit/' . $id);
             }
-        } else {
-            $data['upload'] = $this->Gallery_model->get_upload_by_id($id);  // Mengambil data upload berdasarkan ID
-            $this->load->view('admin/editG', $data);  // Memuat tampilan 'edit' dengan data upload yang ada
         }
+
+        // Memperbarui data di database
+        $this->Gallery_model->update_upload($id, $data);
+        redirect('gallery/admin'); // Redirect ke halaman admin setelah sukses
+    } else {
+        // Ambil data berdasarkan ID
+        $data['upload'] = $this->Gallery_model->get_upload_by_id($id);
+
+        // Jika data tidak ditemukan, tampilkan halaman 404
+        if (empty($data['upload'])) {
+            show_404();
+        }
+
+        // Memuat tampilan edit dengan data yang ada
+        $this->load->view('admin/editG', $data);
     }
+}
+
 
     // Menghapus upload
     public function delete($id){

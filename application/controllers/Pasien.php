@@ -64,56 +64,54 @@ Class Pasien extends CI_Controller {
     }
 
     // Mengedit data pasien
-    public function edit($id){
-        if ($this->input->post('Submit')){  // Mengecek apakah form telah disubmit
-            // Mengatur konfigurasi upload gambar
-            $config['upload_path'] = './assets/';  // Direktori tempat file akan disimpan
-            $config['allowed_types'] = 'gif|jpg|png|jpeg';  // Jenis file yang diperbolehkan (gambar)
-            $config['file_name'] = 'upload_' . rand(1, 1000);  // Nama file di-generate secara otomatis dengan angka acak
-            $this->upload->initialize($config);  // Menginisialisasi library upload dengan konfigurasi di atas
+    public function edit($id) {
+    if ($this->input->post('Submit')) { // Mengecek apakah form telah disubmit
+        // Array data default
+        $data = array(
+            'nama' => $this->input->post('nama'),
+            'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+            'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+            'alamat' => $this->input->post('alamat'),
+            'goldar' => $this->input->post('goldar'),
+            'nomor_telepon' => $this->input->post('nomor_telepon'),
+            'riwayat_penyakit' => $this->input->post('riwayat_penyakit')
+        );
 
-            // Memeriksa apakah ada file gambar yang di-upload
-            if ($this->upload->do_upload('foto_pasien')){  // Melakukan upload jika form disubmit
-                $upload_data = $this->upload->data();  // Mengambil data file setelah upload berhasil
-                $data = array(
-                    'foto_pasien' => $upload_data['file_name'],  // Menyimpan nama file yang diupload
-                    'nama' => $this->input->post('nama'),
-                    'tanggal_lahir' => $this->input->post('tanggal_lahir'),
-                    'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-                    'alamat' => $this->input->post('alamat'),
-                    'goldar' => $this->input->post('goldar'),
-                    'nomor_telepon' => $this->input->post('nomor_telepon'),
-                    'riwayat_penyakit' => $this->input->post('riwayat_penyakit')
-                );
+        // Mengecek apakah ada file gambar yang diunggah
+        if (!empty($_FILES['foto_pasien']['name'])) {
+            $config['upload_path'] = './assets/'; // Direktori tempat file akan disimpan
+            $config['allowed_types'] = 'gif|jpg|png|jpeg'; // Jenis file yang diperbolehkan
+            $config['file_name'] = 'upload_' . rand(1, 1000); // Nama file di-generate otomatis
+            $this->upload->initialize($config); // Inisialisasi library upload
+
+            if ($this->upload->do_upload('foto_pasien')) { // Jika upload berhasil
+                $upload_data = $this->upload->data(); // Mengambil data file yang diunggah
+                $data['foto_pasien'] = $upload_data['file_name']; // Tambahkan nama file ke array data
             } else {
-                // Jika tidak ada file gambar yang diupload, gunakan data lama
-                $data = array(
-                    'nama' => $this->input->post('nama'),
-                    'tanggal_lahir' => $this->input->post('tanggal_lahir'),
-                    'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-                    'alamat' => $this->input->post('alamat'),
-                    'goldar' => $this->input->post('goldar'),
-                    'nomor_telepon' => $this->input->post('nomor_telepon'),
-                    'riwayat_penyakit' => $this->input->post('riwayat_penyakit')
-                );
+                // Jika upload gagal, set pesan error dan redirect ke halaman edit
+                $error = $this->upload->display_errors();
+                $this->session->set_flashdata('error', $error);
+                redirect('pasien/edit/' . $id);
             }
-
-            // Memperbarui data pasien di database
-            $this->Pasien_model->update_upload($id, $data);  
-            redirect('pasien');  // Redirect ke halaman 'pasien' setelah sukses
-        } else {
-            // Ambil data pasien berdasarkan ID
-            $data['upload'] = $this->Pasien_model->get_upload_by_id($id);
-            
-            // Jika data pasien tidak ditemukan, tampilkan halaman 404
-            if (empty($data['upload'])) {
-                show_404();
-            }
-
-            // Memuat tampilan 'editP' dengan data pasien
-            $this->load->view('admin/editP', $data);
         }
+
+        // Memperbarui data pasien di database
+        $this->Pasien_model->update_upload($id, $data);
+        redirect('pasien'); // Redirect ke halaman 'pasien' setelah sukses
+    } else {
+        // Ambil data pasien berdasarkan ID
+        $data['upload'] = $this->Pasien_model->get_upload_by_id($id);
+
+        // Jika data pasien tidak ditemukan, tampilkan halaman 404
+        if (empty($data['upload'])) {
+            show_404();
+        }
+
+        // Memuat tampilan 'editP' dengan data pasien
+        $this->load->view('admin/editP', $data);
     }
+}
+
 
     // Menghapus data pasien
    public function delete($id)

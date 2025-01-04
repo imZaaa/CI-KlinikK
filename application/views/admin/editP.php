@@ -10,6 +10,12 @@
 
 </head>
 <body class="bg-light">
+    <?php if ($this->session->flashdata('error')): ?>
+    <div class="alert alert-danger">
+        <?= $this->session->flashdata('error'); ?>
+    </div>
+<?php endif; ?>
+
     <!-- Membuat container utama dengan margin atas untuk memberi ruang -->
     <div class="container mt-5">
         <!-- Membuat baris dengan pengaturan agar elemen di dalamnya terpusat secara horizontal -->

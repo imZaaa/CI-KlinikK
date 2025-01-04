@@ -24,4 +24,14 @@ class Pengobatan_model extends CI_Model {
         $this->db->where('id_pengobatan', $id);
         $this->db->delete('tbl_pengobatan');
     }
+
+    public function update_pengobatan($id, $data) {
+    $this->db->where('id_pengobatan', $id);
+    return $this->db->update('tbl_pengobatan', $data);
+}
+
+    public function get_pengobatan_by_id($id) {
+    return $this->db->get_where('tbl_pengobatan', ['id_pengobatan' => $id])->row();
+}
+
 }
