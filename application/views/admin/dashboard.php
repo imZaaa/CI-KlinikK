@@ -66,7 +66,7 @@
 
 /* Mengatur ruang untuk konten utama */
 .col.py-3 {
-    margin-left: 280px; /* Memberikan ruang agar konten utama tidak tertutup sidebar */
+    margin-left: 250px; /* Memberikan ruang agar konten utama tidak tertutup sidebar */
 }
 
 .bg-gradient-primary {
@@ -92,7 +92,7 @@
 <body>
     <div class="container-fluid">
     <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" style="background-color: #00705a;">
+<div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" style="background-color: #00705a; height: 100vh; overflow-y: auto;">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                <img src="<?= base_url('assets/logo.png')?>" width="130px">
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
@@ -125,6 +125,9 @@
                                 <a href="<?= site_url('obat')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Data Obat</span></a>
                             </li>
                             <li class="w-100">
+                                <a href="<?= site_url('pengobatan')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Data Pengobatan</span></a>
+                            </li>
+                            <li class="w-100">
                                 <a href="<?= site_url('message')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Message</span></a>
                             </li>
                         </ul>
@@ -155,6 +158,7 @@
     <div class="row g-4">
         <!-- Card Total Admin -->
         <div class="col-md-3">
+            <a href="<?= site_url('login/dataU')?>">
             <div class="card text-white bg-gradient-primary shadow">
                 <div class="card-body text-center">
                     <i class="bi bi-person-badge-fill fs-1 mb-3"></i>
@@ -162,6 +166,7 @@
                     <p class="card-text fs-3 fw-bold"><?= $admin_count; ?></p>
                 </div>
             </div>
+            </a>
         </div>
         <!-- Card Total User -->
         <div class="col-md-3">

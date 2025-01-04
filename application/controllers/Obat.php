@@ -70,31 +70,41 @@ Class Obat extends CI_Controller {
     }
 
     // Mengedit upload yang sudah ada
-    public function edit($id){
-        if ($this->input->post('Submit')){  // Mengecek apakah form telah disubmit
-            $config['upload_path'] = './assets/';  // Direktori tempat file akan disimpan
-            $config['allowed_types'] = 'gif|jpg|png|jpeg|webp';  // Jenis file yang diperbolehkan (gambar)
-            $config['file_name'] = 'upload_' . rand(1, 1000); // Nama file di-generate secara otomatis dengan angka acak
-            $this->upload->initialize($config);  // Menginisialisasi library upload dengan konfigurasi di atas
+   public function edit($id) {
+    if ($this->input->post('Submit')) { // Mengecek apakah form telah disubmit
+        $data = array(
+            'nama_obat' => $this->input->post('nama_obat'),
+            'komposisi' => $this->input->post('komposisi'),
+            'guna_obat' => $this->input->post('guna_obat'),
+            'dosis' => $this->input->post('dosis'),
+            'harga' => $this->input->post('harga'),
+        );
 
-            if ($this->upload->do_upload('gambar')){  // Melakukan upload jika form disubmit
-                $upload_data = $this->upload->data();  // Mengambil data file setelah upload berhasil
-                $data = array(
-                    'gambar' => $upload_data['file_name'],  // Menyimpan nama file yang diupload
-                    'nama_obat' => $this->input->post('nama_obat'),
-                    'komposisi' => $this->input->post('komposisi'),
-                    'guna_obat' => $this->input->post('guna_obat'),
-                    'dosis' => $this->input->post('dosis'), 
-                    'harga' => $this->input->post('harga')
-                );
-                $this->Obat_model->update_upload($id, $data);  // Memperbarui data upload yang ada di database
-                redirect('obat');  // Redirect ke halaman 'upload' setelah sukses
+        // Mengecek apakah ada file gambar yang diunggah
+        if (!empty($_FILES['gambar']['name'])) {
+            $config['upload_path'] = './assets/'; // Direktori tempat file akan disimpan
+            $config['allowed_types'] = 'gif|jpg|png|jpeg|webp'; // Jenis file yang diperbolehkan
+            $config['file_name'] = 'upload_' . rand(1, 1000); // Nama file dengan angka acak
+            $this->upload->initialize($config); // Inisialisasi library upload
+
+            if ($this->upload->do_upload('gambar')) { // Jika file berhasil diunggah
+                $upload_data = $this->upload->data(); // Mengambil data file yang diunggah
+                $data['gambar'] = $upload_data['file_name']; // Menyimpan nama file ke array data
+            } else {
+                $error = $this->upload->display_errors();
+                $this->session->set_flashdata('error', $error);
+                redirect('obat/edit/' . $id);
             }
-        } else {
-            $data['upload'] = $this->Obat_model->get_upload_by_id($id);  // Mengambil data upload berdasarkan ID
-            $this->load->view('admin/editO', $data);  // Memuat tampilan 'edit' dengan data upload yang ada
         }
+
+        $this->Obat_model->update_upload($id, $data); // Memperbarui data ke database
+        redirect('obat'); // Redirect ke halaman 'obat' setelah sukses
+    } else {
+        $data['upload'] = $this->Obat_model->get_upload_by_id($id); // Mengambil data berdasarkan ID
+        $this->load->view('admin/editO', $data); // Memuat tampilan 'edit' dengan data yang ada
     }
+}
+
 
     // Menghapus upload
     public function delete($id)

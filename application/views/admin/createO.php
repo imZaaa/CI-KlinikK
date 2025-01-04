@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Menyesuaikan tampilan di perangkat mobile agar responsif -->
     <title>Tambah Data</title> <!-- Menampilkan judul halaman "Tambah Data" di tab browser -->
     <!-- Bootstrap CSS -->
+             <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/logo.png')?>">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Mengimpor CSS Bootstrap untuk styling halaman -->
 </head>
 <body class="bg-light"> <!-- Menambahkan kelas 'bg-light' pada body untuk memberikan latar belakang terang -->
