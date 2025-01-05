@@ -70,7 +70,7 @@
 
 /* Mengatur ruang untuk konten utama */
 .col.py-3 {
-    margin-left: 280px; /* Memberikan ruang agar konten utama tidak tertutup sidebar */
+    margin-left: 230px; /* Memberikan ruang agar konten utama tidak tertutup sidebar */
 }
         ::-webkit-scrollbar{
             display: none;

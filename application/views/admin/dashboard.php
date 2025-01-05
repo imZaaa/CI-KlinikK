@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/logo.png')?>">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 </head>
@@ -66,7 +67,7 @@
 
 /* Mengatur ruang untuk konten utama */
 .col.py-3 {
-    margin-left: 250px; /* Memberikan ruang agar konten utama tidak tertutup sidebar */
+    margin-left: 230px; /* Memberikan ruang agar konten utama tidak tertutup sidebar */
 }
 
 .bg-gradient-primary {
@@ -87,7 +88,23 @@
         .card:hover {
             transform: scale(1.05);
         }
-
+ .card {
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #3c3c3c;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .chart-container {
+            position: relative;
+            height: 400px;
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
 </style>
 <body>
     <div class="container-fluid">
@@ -154,11 +171,11 @@
             </div>
         </div>
 <div class="col py-3">
-    <div class="container mt-5">
+    <div class="container">
     <div class="row g-4">
         <!-- Card Total Admin -->
         <div class="col-md-3">
-            <a href="<?= site_url('login/dataU')?>">
+            <a href="<?= site_url('login/dataU')?>" style="text-decoration: none;">
             <div class="card text-white bg-gradient-primary shadow">
                 <div class="card-body text-center">
                     <i class="bi bi-person-badge-fill fs-1 mb-3"></i>
@@ -170,6 +187,7 @@
         </div>
         <!-- Card Total User -->
         <div class="col-md-3">
+        <a href="<?= site_url('login/dataU')?>" style="text-decoration: none;">
             <div class="card text-white bg-gradient-secondary shadow">
                 <div class="card-body text-center">
                     <i class="bi bi-people-fill fs-1 mb-3"></i>
@@ -177,9 +195,11 @@
                     <p class="card-text fs-3 fw-bold"><?= $user_count; ?></p>
                 </div>
             </div>
+        </a>
         </div>
         <!-- Card Total Pasien -->
         <div class="col-md-3">
+            <a href="<?= site_url('pasien')?>" style="text-decoration: none;">
             <div class="card text-white bg-gradient-success shadow">
                 <div class="card-body text-center">
                     <i class="bi bi-person-lines-fill fs-1 mb-3"></i>
@@ -187,14 +207,26 @@
                     <p class="card-text fs-3 fw-bold"><?= $patient_count; ?></p>
                 </div>
             </div>
+            </a>
         </div>
         <!-- Card Total Dokter -->
         <div class="col-md-3">
+        <a href="<?= site_url('dokter/admin')?>" style="text-decoration: none;">
             <div class="card text-white bg-gradient-info shadow">
                 <div class="card-body text-center">
                     <i class="bi bi-heart-pulse-fill fs-1 mb-3"></i>
                     <h5 class="card-title">Total Dokter</h5>
                     <p class="card-text fs-3 fw-bold"><?= $doctor_count; ?></p>
+                </div>
+            </div>
+        </a>
+        </div>
+    </div>
+     <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="chart-container">
+                    <canvas id="myChart"></canvas>
                 </div>
             </div>
         </div>
@@ -204,6 +236,76 @@
 </div>
     </div>
 </body>
+ <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Admin', 'User', 'Pasien', 'Dokter'],
+                datasets: [{
+                    label: 'Jumlah Data',
+                    data: [
+                        <?= $admin_count; ?>,
+                        <?= $user_count; ?>,
+                        <?= $patient_count; ?>,
+                        <?= $doctor_count; ?>
+                    ],
+                    backgroundColor: [
+                        'rgba(93, 173, 226, 0.7)',
+                        'rgba(88, 214, 141, 0.7)',
+                        'rgba(245, 176, 65, 0.7)',
+                        'rgba(165, 105, 189, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(93, 173, 226, 1)',
+                        'rgba(88, 214, 141, 1)',
+                        'rgba(245, 176, 65, 1)',
+                        'rgba(165, 105, 189, 1)'
+                    ],
+                    borderWidth: 2,
+                    hoverBackgroundColor: [
+                        'rgba(93, 173, 226, 1)',
+                        'rgba(88, 214, 141, 1)',
+                        'rgba(245, 176, 65, 1)',
+                        'rgba(165, 105, 189, 1)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            color: '#333',
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: '#555',
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#555',
+                            font: {
+                                size: 12
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>

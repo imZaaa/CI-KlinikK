@@ -14,6 +14,14 @@
     public function get_doctor_count() {
         return $this->db->count_all('tbl_dokter');
     }
+
+     public function countData($table, $column = null, $value = null)
+    {
+        if ($column && $value) {
+            $this->db->where($column, $value);
+        }
+        return $this->db->count_all_results($table);
+    }
 }
 
 ?>

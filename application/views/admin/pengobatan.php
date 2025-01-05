@@ -68,7 +68,7 @@
 
 /* Mengatur ruang untuk konten utama */
 .col.py-3 {
-    margin-left: 250px; /* Memberikan ruang agar konten utama tidak tertutup sidebar */
+    margin-left: 230px; /* Memberikan ruang agar konten utama tidak tertutup sidebar */
 }
 </style>
 <body>
@@ -87,7 +87,7 @@
                            <i class="fs-4 bi-person-fill-add"></i> <span class="ms-1 d-none d-sm-inline">Dokter</span> </a>
                     </li>
                     <li>
-                        <a href="<?= site_url('Gallery')?>" class="nav-link px-0 align-middle">
+                        <a href="<?= site_url('Gallery/admin')?>" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-image-fill"></i> <span class="ms-1 d-none d-sm-inline">Gallery</span></a>
                     </li>
                     <li>

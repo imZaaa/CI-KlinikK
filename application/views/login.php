@@ -98,10 +98,7 @@
             <button type="submit" class="btn-login fw-bold">Login</button>
             <div class="mt-3 text-center">
                 <a href="#" class="forgot-password" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot your password?</a>
-            </div>
-            <div class="mt-3 text-center">
-                <a href="#" class="forgot-password" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Change Password</a>
-            </div>            
+            </div>       
         </form>
     </div>
 
@@ -161,6 +158,9 @@
                     <div class="text-end">
                         <button type="submit" class="btn btn-primary">Show Password</button>
                     </div>
+                     <div class="mt-3 text-center">
+                <a href="#" class="forgot-password" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Change Password</a>
+            </div>   
                 </form>
             </div>
         </div>
