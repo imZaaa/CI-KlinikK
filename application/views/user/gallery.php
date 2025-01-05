@@ -249,40 +249,11 @@
       <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav w-100 d-flex justify-content-center">
           <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('home/user')?>">Beranda</a>
+            <a class="nav-link text-light" href="<?= site_url('home')?>">Beranda</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-light" href="<?= site_url('welcome/aboutU')?>">About</a>
           </li>
-          <li class="nav-item dropdown">
-                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Data
-                </a>
-                <ul class="dropdown-menu">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <li><a class="dropdown-item" href="#">Admin</a></li>
-                        </div>
-                        <div class="col-sm-6">
-                            <li><a class="dropdown-item" href="#">User</a></li>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm-6">
-                        <li><a class="dropdown-item" href="#">data ppppppppppp</a></li>
-                        <li><a class="dropdown-item" href="#">data ppppppppppp</a></li>
-                        <li><a class="dropdown-item" href="#">data ppppppppppp</a></li>
-                        </div>
-                        <div class="col-sm-6">
-                        <li><a class="dropdown-item" href="#">data ppppppppppp</a></li>
-                        <li><a class="dropdown-item" href="#">data ppppppppppp</a></li>
-                        <li><a class="dropdown-item" href="#">data ppppppppppp</a></li>
-                        </div>
-                      
-                    </div>
-                </ul>
-                </li>
           <li class="nav-item">
             <a class="nav-link text-light" href="<?= site_url('dokter/user')?>">Dokter</a>
           </li>
