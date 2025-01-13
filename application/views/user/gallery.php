@@ -267,7 +267,7 @@
       </div>
     </div>
   </nav>
-  <img src="<?= base_url('assets/bannerG.jpg')?>" width=1366px">
+  <img src="<?= base_url('assets/bannerG.jpg')?>" width="100%">
 
   <div class="container" >
     <h1 class="gallery-header mt-3">Gallery</h1>

@@ -18,6 +18,13 @@ class Welcome extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
+
+	public function __construct()
+	{
+		parent::__construct();
+        $this->load->model('Profile_model');
+	}
+
 	public function index()
 	{
 		$this->load->view('welcome_message');
@@ -26,6 +33,7 @@ class Welcome extends CI_Controller {
 		$this->load->view('admin/about');
 	}
 	public function aboutU(){
+		$data['about_image'] = $this->Profile_model->get_value(); 
 		$this->load->view('user/about');
 	}
 	public function about(){

@@ -14,8 +14,8 @@ class Resep extends CI_Controller {
     // Menampilkan daftar resep
     public function index()
     {
-        $data['resep'] = $this->Resep_model->get_all();
-        $this->load->view('admin/resep_list', $data);
+        $data['resep'] = $this->Resep_model->get_all_resep();
+        $this->load->view('admin/dataR', $data);
     }
 
     // Form tambah resep
@@ -35,10 +35,10 @@ class Resep extends CI_Controller {
             ];
 
             $this->Resep_model->insert($insert_data);
-            redirect('resep');
+            redirect('Resep');
         }
 
-        $this->load->view('admin/resep_create', $data);
+        $this->load->view('admin/create_resep', $data);
     }
 
     // Form edit resep
@@ -62,7 +62,7 @@ class Resep extends CI_Controller {
             redirect('resep');
         }
 
-        $this->load->view('admin/resep_edit', $data);
+        $this->load->view('admin/editR', $data);
     }
 
     // Hapus resep

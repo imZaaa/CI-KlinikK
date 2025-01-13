@@ -3,18 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Obat</title>
+    <title>About</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/logo.png')?>">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 </head>
-
 <style>
-    .nav-link {
+   .nav-link {
         font-family: 'Montserrat', sans-serif;
         font-size: 1rem;
         color: white !important;
@@ -72,14 +68,38 @@
     margin-left: 230px; /* Memberikan ruang agar konten utama tidak tertutup sidebar */
 }
 
-</style>
 
+      
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        .btn-custom {
+            margin-left: 10px; /* Jarak antara tombol dan nomor telepon */
+            background-color:rgb(44, 113, 100);
+            
+        }
+        .btn-custom:hover {
+            margin-left: 10px; /* Jarak antara tombol dan nomor telepon */
+            background-color: yellow;
+            
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        
+</style>
 <body>
-    <div class="container-fluid">
-    <div class="row flex-nowrap">
-<div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" style="background-color: #00705a; height: 100vh; overflow-y: auto;">
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-               <img src="<?= base_url('assets/logo.png')?>" width="130px">
+<div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" style="background-color: #00705a; height: 100vh; overflow-y: auto;">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                    <img src="<?= base_url('assets/logo.png')?>" width="130px">
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li>
                         <a href="<?= site_url('dashboard')?>" class="nav-link px-0 align-middle fs-5">
@@ -107,10 +127,10 @@
                                 <a href="<?= site_url('penyakit')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Data Penyakit</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="#" class="nav-link px-0 active"> <span class="d-none d-sm-inline">Data Obat</span></a>
+                                <a href="<?= site_url('obat')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Data Obat</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="<?= site_url('pengobatan')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Data Pengobatan</span></a>
+                                <a href="#" class="nav-link px-0 active"> <span class="d-none d-sm-inline">Data Pengobatan</span></a>
                             </li>
                             <li class="w-100">
                                 <a href="<?= site_url('resep')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Data Resep</span></a>
@@ -142,72 +162,55 @@
             </div>
         </div>
 <div class="col py-3">
-    <!-- Konten Utama -->
-             <div class="mb-4">
-            <h2 class="text-center text-primary">Data Obat</h2>
-            <a href="<?= site_url('obat/create'); ?>" class="btn btn-success btn-sm mt-3">
-                <i class="bi bi-plus-circle"></i> Tambah Data
-            </a>
-        </div>
-
-        <table id="uploadTable" class="table table-bordered table-striped table-hover">
-            <thead class="table-primary" style="background-color: #00705a; color: #ffffff;">
-                <tr>
-                    <th style="text-align: center;">ID</th>
-                    <th style="text-align: center;">Gambar</th>
-                    <th style="text-align: center;">Nama Obat</th>
-                    <th style="text-align: center;">Komposisi</th>
-                    <th style="text-align: center;">Guna Obat</th>
-                    <th style="text-align: center;">Dosis</th>
-                    <th style="text-align: center;">Harga</th>
-                    <th style="text-align: center;">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (!empty($uploads)): ?>
-                    <?php foreach ($uploads as $upload): ?>
-                        <tr>
-                 <td style="border-color: #00705a;"><?= !empty($upload['id']) ? $upload['id'] : '-'; ?></td>
-                            <td class="text-center">
-                                <?php if (!empty($upload['gambar'])): ?>
-                                    <img src="<?= base_url('assets/'.$upload['gambar']); ?>" class="img-thumbnail" width="90px">
-                                <?php else: ?>
-                                    <span class="text-muted">Tidak ada gambar</span>
-                                <?php endif; ?>
-                            </td>
-                            <td><?= !empty($upload['nama_obat']) ? $upload['nama_obat'] : '-'; ?></td>
-                            <td><?= !empty($upload['komposisi']) ? $upload['komposisi'] : '-'; ?></td>
-                            <td><?= !empty($upload['guna_obat']) ? $upload['guna_obat'] : '-'; ?></td>
-                            <td><?= !empty($upload['dosis']) ? $upload['dosis'] : '-'; ?></td>
-                            <td><?= !empty($upload['harga']) ? $upload['harga'] : '-'; ?></td>
-                            <td class="text-center">
-                                <a href="<?= site_url('obat/edit/'.$upload['id']); ?>" class="btn btn-sm"style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;" 
->
-                                    <i class="bi bi-pencil-square"></i>
-                                </a>
-                                <a href="<?= site_url('obat/delete/'.$upload['id']); ?>" class="btn btn-sm" onclick="return confirm('Yakin ingin menghapus data ini?');" style="color: #ffffff; background-color: #00705a; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;" 
->
-                                    <i class="bi bi-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
+<div class="container mt-5">
+    <form action="<?= site_url('profile/update') ?>" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="gambar1" class="form-label">Gambar</label>
+                <input type="file" name="gambar1" id="gambar1" class="form-control">
+                <?php if (!empty($about_us['gambar1'])): ?>
+                    <img src="<?= base_url('uploads/' . $about_us['gambar1']); ?>" 
+                         alt="About Image" class="img-fluid rounded mt-3">
                 <?php else: ?>
-                    <tr>
-                        <td colspan="4" class="text-center">Tidak ada data tersedia</td>
-                    </tr>
+                    <p class="text-danger mt-3">Gambar tidak tersedia.</p>
                 <?php endif; ?>
-            </tbody>
-        </table>
-    </div>
+            </div>
+            <div class="col-md-6">
+                <label for="about_title" class="form-label">Judul</label>
+                <input type="text" name="about_title" id="about_title" 
+                       value="<?= isset($about_us['about_title']) ? $about_us['about_title'] : ''; ?>" 
+                       class="form-control">
+                <label for="about_description" class="form-label mt-3">Deskripsi</label>
+                <textarea name="about_description" id="about_description" 
+                          class="form-control" rows="4"><?= isset($about_us['about_description']) ? $about_us['about_description'] : ''; ?></textarea>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <label for="about_vision" class="form-label">Visi</label>
+                <textarea name="about_vision" id="about_vision" 
+                          class="form-control" rows="4"><?= isset($about_us['about_vision']) ? $about_us['about_vision'] : ''; ?></textarea>
+            </div>
+            <div class="col-md-6">
+                <label for="about_mission" class="form-label">Misi</label>
+                <textarea name="about_mission" id="about_mission" 
+                          class="form-control" rows="4"><?= isset($about_us['about_mission']) ? $about_us['about_mission'] : ''; ?></textarea>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col text-center">
+                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+            </div>
+        </div>
+    </form>
 </div>
-    </div>
-    <script>
-        $(document).ready(function() {
-            $('#uploadTable').DataTable();
-        });
-    </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    </div>
+
+
+
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </html>

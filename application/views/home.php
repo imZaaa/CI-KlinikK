@@ -242,10 +242,10 @@
             <a class="nav-link text-light active" href="#">Beranda</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('welcome/aboutU')?>">About</a>
+            <a class="nav-link text-light" href="<?= site_url('Profile/user')?>">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="#">Dokter</a>
+            <a class="nav-link text-light" href="<?= site_url('dokter/user')?>">Dokter</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-light" href="<?= site_url('gallery/user')?>">Gallery</a>

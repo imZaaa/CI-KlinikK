@@ -249,10 +249,10 @@
                 <p><b>3. Memastikan Kepuasan Pasien:</b> <br>
                 Menyediakan pelayanan ramah, cepat, dan efisien untuk memenuhi kebutuhan kesehatan setiap individu.
                 </p>
-                <p><b>4.Meningkatkan Edukasi Kesehatan:</b> <br>
+                <p><b>4. Meningkatkan Edukasi Kesehatan:</b> <br>
                 Membantu masyarakat memahami pentingnya gaya hidup sehat melalui informasi kesehatan dan program pencegahan.
                 </p>
-                <p><b>5.Bekerja Secara Profesional dan Berintegritas:</b> <br>
+                <p><b>5. Bekerja Secara Profesional dan Berintegritas:</b> <br>
                 Melibatkan tim medis dan staf yang kompeten dengan standar etika tinggi dalam setiap pelayanan.                </p>
             </div>
         </div>

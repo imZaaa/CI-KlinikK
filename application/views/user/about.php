@@ -186,49 +186,31 @@
     </div>
 </nav>
 
-<img src="<?= base_url('assets/bannerA.jpg')?>" width=1366px">
-  <div class="container mt-5">
+<img src="<?= base_url('assets/bannerA.jpg')?>" width="100%">
+<div class="container mt-5">
     <div class="row align-items-center">
-        <!-- Kolom Gambar -->
-        <div class="col-md-6 text-center mb-4 mb-md-0">
-            <img src="<?= base_url('assets/about.jpg') ?>" alt="About Vivarta Klinik" class="img-fluid rounded" style="max-width: 100%; height: auto;">
-        </div>
         <!-- Kolom Teks -->
-        <div class="col-md-6">
+        <div class="col-md">
             <h3 class="mb-3">Selamat Datang di Vivarta Klinik</h3>
-            <p class="text-justify">
-                Solusi kesehatan terpercaya Anda. Kami hadir dengan komitmen untuk memberikan layanan kesehatan terbaik, modern, dan mudah diakses bagi semua lapisan masyarakat. 
-            </p>
-            <p class="text-justify">
-                Vivarta Klinik menggabungkan teknologi terkini dengan pelayanan medis profesional untuk memastikan kenyamanan dan kepuasan pasien. Dengan tenaga medis yang berpengalaman dan fasilitas yang lengkap, kami siap membantu Anda menjaga kesehatan dan memberikan solusi terbaik untuk setiap kebutuhan medis Anda.
+            <img src="<?= base_url('assets/'.$about_us['gambar1']) ?>" class="img-fluid rounded">
+            <p class="text-justify mt-4">
+                <?= nl2br($about_us['deskripsi1']) ?>
             </p>
         </div>
         
         <div class="row mt-3">
             <div class="col-sm-6">
-                <h3 class="text-center">Visi</h3>
-                <p class="text-justify">Menjadi klinik kesehatan terpercaya dan terdepan di Indonesia dengan memberikan pelayanan kesehatan yang unggul, inovatif, dan berorientasi pada kebutuhan pasien. Kami berkomitmen untuk mengintegrasikan teknologi modern dengan keahlian medis terbaik guna menciptakan pengalaman pelayanan kesehatan yang aman, nyaman, dan mudah diakses oleh semua kalangan masyarakat.</p>
+                <h3 class="text-center">VISI</h3>
+                <p class="text-justify"><?= $about_us['visi'] ?></p>
             </div>
             <div class="col-sm-6">
                 <h3 class="text-center">Misi</h3>
-                <p><b>1. Memberikan Layanan Berkualitas Tinggi:</b> <br>
-                Menyediakan layanan kesehatan yang komprehensif dan profesional dengan mengutamakan kenyamanan pasien.
-                </p>
-                <p><b>2. Menerapkan Teknologi Modern:</b> <br>
-                Mengintegrasikan teknologi digital untuk mempermudah akses layanan kesehatan, seperti reservasi online dan telemedicine.
-                </p>
-                <p><b>3. Memastikan Kepuasan Pasien:</b> <br>
-                Menyediakan pelayanan ramah, cepat, dan efisien untuk memenuhi kebutuhan kesehatan setiap individu.
-                </p>
-                <p><b>4.Meningkatkan Edukasi Kesehatan:</b> <br>
-                Membantu masyarakat memahami pentingnya gaya hidup sehat melalui informasi kesehatan dan program pencegahan.
-                </p>
-                <p><b>5.Bekerja Secara Profesional dan Berintegritas:</b> <br>
-                Melibatkan tim medis dan staf yang kompeten dengan standar etika tinggi dalam setiap pelayanan.                </p>
+                <p class="text-justify"><?= nl2br($about_us['misi']) ?></p>
             </div>
         </div>
     </div>
-    </div>
+</div>
+
 
 <h3 class="mt-5 text-center">Vivarta Klinik adalah mitra kesehatan Anda untuk hidup yang lebih baik. <br> Kesehatan Anda, Prioritas Kami.</h3>
 

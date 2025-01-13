@@ -243,7 +243,7 @@
             <a class="nav-link text-light active" href="#">Beranda</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('welcome/aboutU')?>">About</a>
+            <a class="nav-link text-light" href="<?= site_url('Profile/user')?>">About</a>
           </li>
           <li class="nav-item dropdown">
                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

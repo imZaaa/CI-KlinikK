@@ -276,7 +276,7 @@
       </div>
     </div>
   </nav>
-    <img src="<?= base_url('assets/bannerD.jpg')?>" width=1366px">
+    <img src="<?= base_url('assets/bannerD.jpg')?>" width="100%">
 
   <div class="container">
     <h1 class="text-center my-4" style="font-family: 'Poppins', sans-serif; font-weight: bold; color: #00705a;">Dokter Kami</h1>
