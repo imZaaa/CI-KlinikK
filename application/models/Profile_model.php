@@ -6,56 +6,44 @@ class Profile_model extends CI_Model
     public function __construct()
     {
         parent::__construct();
-        $this->load->database();
+        $this->load->database(); // Pastikan database terhubung
     }
 
     /**
      * Mengambil data 'About Us' dari tabel 'tbl_profile'.
-     * @return array Data 'About Us' dalam bentuk array asosiatif.
+     * @return array|null Data 'About Us' dalam bentuk array asosiatif, atau null jika tidak ada.
      */
     public function get_about()
     {
-        $query = $this->db->get('tbl_profile'); // Ambil semua data dari tabel 'tbl_profile'
-        return $query->row_array(); // Mengembalikan hasil sebagai array asosiatif (baris pertama)
-    }
-
-    /**
-     * Mengambil nilai tertentu berdasarkan kunci (key).
-     * @param string $key Nama kolom/kunci yang ingin diambil.
-     * @return string|null Nilai dari kolom tersebut, atau null jika tidak ditemukan.
-     */
-    public function get_value($key)
-    {
-        $this->db->select('value'); // Ambil hanya kolom 'value'
-        $this->db->from('tbl_profile'); // Dari tabel 'tbl_profile'
-        $this->db->where('key', $key); // Berdasarkan key
-        $query = $this->db->get();
-        $result = $query->row();
-        return $result ? $result->value : null; // Mengembalikan nilai atau null jika tidak ditemukan
-    }
-
-    /**
-     * Memperbarui nilai tertentu berdasarkan kunci (key).
-     * @param string $key Nama kolom/kunci yang akan diperbarui.
-     * @param string $value Nilai baru untuk kunci tersebut.
-     * @return void
-     */
-    public function update_value($key, $value)
-    {
-        $this->db->where('key', $key); // Cari berdasarkan key
-        $this->db->update('tbl_profile', ['value' => $value]); // Perbarui kolom 'value'
+        $query = $this->db->get_where('tbl_profile', ['id' => 1]);  // Asumsikan ID adalah 1
+        return $query->row_array();
     }
 
     /**
      * Memperbarui data lengkap 'About Us'.
      * @param array $data Data baru untuk diupdate, berupa key-value pair.
-     * @return void
+     * @return bool True jika berhasil, False jika gagal.
      */
     public function update_about($data)
     {
-        foreach ($data as $key => $value) {
-            $this->db->where('key', $key);
-            $this->db->update('tbl_profile', ['value' => $value]);
+        if (isset($data['id'])) {
+            // Periksa apakah ada perubahan gambar
+            if (empty($data['gambar1'])) {
+                // Jika gambar tidak diubah, kita bisa hapus key gambar1 untuk tetap mempertahankan gambar lama
+                unset($data['gambar1']);
+            }
+            
+            // Update data tanpa mengganti gambar jika tidak ada gambar baru
+            $this->db->where('id', $data['id']);
+            $this->db->update('tbl_profile', $data);
+
+            // Cek apakah ada perubahan
+            if ($this->db->affected_rows() > 0) {
+                return true; // Update berhasil
+            } else {
+                return false; // Tidak ada perubahan
+            }
         }
+        return false; // ID tidak ada
     }
 }

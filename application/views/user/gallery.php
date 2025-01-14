@@ -194,6 +194,50 @@
         background-color: yellow;
         color: black;
     }
+   .zoomable {
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .zoomable:hover {
+        transform: scale(1.1);
+    }
+
+    /* Gaya untuk area zoomed image */
+    .zoomed-image-area {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.85); /* Latar belakang lebih gelap */
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        transition: background-color 0.5s ease-in-out; /* Transisi latar belakang yang lebih halus */
+    }
+
+    /* Menambahkan latar belakang gelap saat gambar di-zoom */
+    .zoomed-image-area.show-background {
+        background-color: rgba(0, 0, 0, 0.9); /* Gelap lebih intens saat gambar muncul */
+    }
+
+    /* Gambar yang akan di-zoom */
+    .zoomed-image {
+        max-width: 80%; /* Ukuran gambar zoom yang lebih kecil */
+        max-height: 80%;
+        object-fit: contain;
+        opacity: 0;
+        transform: scale(0.95);
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* Transisi smooth untuk zoom */
+    }
+
+    /* Menambahkan efek transisi saat gambar di-zoom */
+    .zoomed-image.zoom-effect {
+        opacity: 1;
+        transform: scale(1);
+    }
 </style>
 <body>
     <!-- Navbar atas -->
@@ -269,7 +313,7 @@
   </nav>
   <img src="<?= base_url('assets/bannerG.jpg')?>" width="100%">
 
-  <div class="container" >
+  <div class="container">
     <h1 class="gallery-header mt-3">Gallery</h1>
     <div class="row gallery-row">
     <?php if (!empty($uploads)): ?>
@@ -279,10 +323,8 @@
                     data-aos-delay="<?= ($index % 2 == 0) ? 100 : 300; ?>" 
                     data-aos-duration="350"
                     data-aos-easing="ease-in-out"
-                    data-aos-mirror="true"
-                    data-aos-once="false"
                     data-aos-anchor-placement="top-center">
-                    <img src="<?= base_url('assets/' . $upload['gambar']); ?>" class="card-img-top" alt="Gambar">
+                    <img src="<?= base_url('assets/' . $upload['gambar']); ?>" class="card-img-top zoomable" alt="Gambar">
                     <div class="card-body">
                         <p class="card-text fs-4 fw-bold">Deskripsi</p>
                         <p class="card-text"><?= $upload['deskripsi']; ?></p>
@@ -293,9 +335,42 @@
     <?php else: ?>
         <p class="no-uploads">Belum ada data yang diunggah.</p>
     <?php endif; ?>
+    </div>
 </div>
 
+<!-- Area untuk zoomed image -->
+<div id="zoomedImageArea" class="zoomed-image-area" style="display: none;">
+    <img id="zoomedImage" src="" alt="Zoomed Image" class="zoomed-image">
 </div>
+
+<script>
+    // Menangani klik gambar untuk zoom
+    const zoomableImages = document.querySelectorAll('.zoomable');
+    const zoomedImageArea = document.getElementById('zoomedImageArea');
+    const zoomedImage = document.getElementById('zoomedImage');
+
+    zoomableImages.forEach(image => {
+        image.addEventListener('click', function() {
+            // Set src image yang di-klik ke area zoom
+            const src = this.src;
+            zoomedImage.src = src;
+            zoomedImageArea.style.display = 'flex'; // Menampilkan gambar yang di-zoom
+            setTimeout(() => {
+                zoomedImage.classList.add('zoom-effect'); // Menambahkan kelas zoom-effect untuk transisi
+                zoomedImageArea.classList.add('show-background'); // Menambahkan latar belakang yang gelap
+            }, 10);
+        });
+    });
+
+    // Menutup area zoom jika diklik
+    zoomedImageArea.addEventListener('click', function() {
+        zoomedImageArea.classList.remove('show-background'); // Menghapus latar belakang gelap
+        zoomedImage.classList.remove('zoom-effect'); // Menghapus efek zoom
+        setTimeout(() => {
+            zoomedImageArea.style.display = 'none'; // Menyembunyikan gambar zoom setelah transisi
+        }, 500); // Menunggu 500ms sebelum menyembunyikan area zoom
+    });
+</script>
 <footer style="background-color: #00705a; color: white; padding: 30px 0; text-align: center; margin-top: 50px;">
     <div class="container">
         <div class="row">

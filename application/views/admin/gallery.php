@@ -82,8 +82,8 @@
                     <img src="<?= base_url('assets/logo.png')?>" width="130px">
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li>
-                        <a href="<?= site_url('dashboard')?>" class="nav-link px-0 align-middle fs-5">
-                           <i class="bi bi-clipboard-data-fill"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+                        <a href="<?= site_url('dashboard')?>" class="nav-link px-0 align-middle">
+                           <i class="fs-4 bi-clipboard-data-fill"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
                     </li>
                     <li>
                         <a href="<?= site_url('Dokter/admin')?>" class="nav-link px-0 align-middle">
@@ -92,6 +92,10 @@
                     <li>
                         <a href="#" class="nav-link px-0 align-middle active">
                             <i class="fs-4 bi-image-fill"></i> <span class="ms-1 d-none d-sm-inline">Gallery</span></a>
+                    </li>
+                    <li>
+                        <a href="<?= site_url('Profile/admin')?>" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-person-bounding-box"></i></i> <span class="ms-1 d-none d-sm-inline">Profile</span></a>
                     </li>
                     <li>
                         <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
@@ -144,7 +148,7 @@
 <div class="col py-3">
     <!-- Konten Utama -->
              <div class="mb-4">
-            <h2 class="text-center text-primary">Gallery Upload</h2>
+            <h2 class="text-center" style="color: #00705a;">Gallery Upload</h2>
             <a href="<?= site_url('gallery/create'); ?>" class="btn btn-success btn-sm mt-3">
                 <i class="bi bi-plus-circle"></i> Tambah Data
             </a>
@@ -174,8 +178,8 @@
                             </td>
                             <td><?= !empty($upload['deskripsi']) ? $upload['deskripsi'] : '-'; ?></td>
                             <td class="text-center">
-                                <a href="<?= site_url('gallery/edit/'.$upload['id']); ?>" class="btn btn-sm">
-                                    <i class="bi bi-pencil-square" style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;"></i>
+                                <a href="<?= site_url('gallery/edit/'.$upload['id']); ?>" class="btn btn-sm"  style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;">
+                                    <i class="bi bi-pencil-square"></i>
                                 </a>
                                 <a href="<?= site_url('gallery/delete/'.$upload['id']); ?>" class="btn btn-sm" onclick="return confirm('Yakin ingin menghapus data ini?');" style="color: #ffffff; background-color: #00705a; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;">
                                     <i class="bi bi-trash"></i>

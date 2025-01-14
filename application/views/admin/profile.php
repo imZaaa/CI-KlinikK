@@ -10,6 +10,27 @@
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/logo.png')?>">
 </head>
 <style>
+    body {
+    font-family: 'Poppins', sans-serif;
+}
+
+form .card {
+    background: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+form .btn-primary {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border: none;
+    transition: background 0.3s ease-in-out;
+}
+
+form .btn-primary:hover {
+    background: linear-gradient(135deg, #0056b3, #007bff);
+    transform: scale(1.05);
+}
+
    .nav-link {
         font-family: 'Montserrat', sans-serif;
         font-size: 1rem;
@@ -98,8 +119,8 @@
                     <img src="<?= base_url('assets/logo.png')?>" width="130px">
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li>
-                        <a href="<?= site_url('dashboard')?>" class="nav-link px-0 align-middle fs-5">
-                           <i class="bi bi-clipboard-data-fill"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+                        <a href="<?= site_url('dashboard')?>" class="nav-link px-0 align-middle">
+                           <i class="fs-4 bi-clipboard-data-fill"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
                     </li>
                     <li>
                         <a href="<?= site_url('Dokter/admin')?>" class="nav-link px-0 align-middle">
@@ -110,11 +131,11 @@
                             <i class="fs-4 bi-image-fill"></i> <span class="ms-1 d-none d-sm-inline">Gallery</span></a>
                     </li>
                      <li>
-                        <a href="<?= site_url('Profile/admin')?>" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-image-fill"></i> <span class="ms-1 d-none d-sm-inline">Profile</span></a>
+                        <a href="<?= site_url('Profile/admin')?>" class="nav-link px-0 align-middle active">
+                            <i class="fs-4 bi-person-bounding-box"></i></i> <span class="ms-1 d-none d-sm-inline">Profile</span></a>
                     </li>
                     <li>
-                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle active">
+                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-folder-fill"></i> <span class="ms-1 d-none d-sm-inline">Data</span></a>
                         <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                             <li class="w-100">
@@ -162,47 +183,89 @@
             </div>
         </div>
 <div class="col py-3">
-<div class="container mt-5">
-    <form action="<?php echo site_url('profile/update') ?>" method="post" enctype="multipart/form-data">
-        <div class="row">
-            <div class="col-md-6">
-                <label for="gambar1" class="form-label">Gambar</label>
-                <input type="file" name="gambar1" id="gambar1" class="form-control">
-                <?php if (!empty($about_us['gambar1'])): ?>
-                    <img src="<?= base_url('uploads/' . $about_us['gambar1']); ?>" 
-                         alt="About Image" class="img-fluid rounded mt-3">
-                <?php else: ?>
-                    <p class="text-danger mt-3">Gambar tidak tersedia.</p>
-                <?php endif; ?>
-            </div>
-            <div class="col-md-6">
-                <label for="about_title" class="form-label">Judul</label>
-                <input type="text" name="about_title" id="about_title" 
-                       value="<?= isset($about_us['about_title']) ? $about_us['about_title'] : ''; ?>" 
-                       class="form-control">
-                <label for="about_description" class="form-label mt-3">Deskripsi</label>
-                <textarea name="about_description" id="about_description" 
-                          class="form-control" rows="4"><?= isset($about_us['about_description']) ? $about_us['about_description'] : ''; ?></textarea>
+<div class="container">
+   <?php if ($this->session->flashdata('success')): ?>
+    <div class="alert alert-success">
+        <?= $this->session->flashdata('success'); ?>
+    </div>
+<?php endif; ?>
+<?php if ($this->session->flashdata('error')): ?>
+    <div class="alert alert-danger">
+        <?= $this->session->flashdata('error'); ?>
+    </div>
+<?php endif; ?>
+
+      <div class="mb-4">
+        <div class="card text-white border-0 shadow-sm" style="background-color: #00705a;">
+            <div class="card-body text-center">
+                <h2 class="mb-0">Profile</h2>
             </div>
         </div>
-        <div class="row mt-3">
-            <div class="col-md-6">
-                <label for="about_vision" class="form-label">Visi</label>
-                <textarea name="about_vision" id="about_vision" 
-                          class="form-control" rows="4"><?= isset($about_us['about_vision']) ? $about_us['about_vision'] : ''; ?></textarea>
-            </div>
-            <div class="col-md-6">
-                <label for="about_mission" class="form-label">Misi</label>
-                <textarea name="about_mission" id="about_mission" 
-                          class="form-control" rows="4"><?= isset($about_us['about_mission']) ? $about_us['about_mission'] : ''; ?></textarea>
+    </div>
+    <form action="<?php echo site_url('profile/update') ?>" method="post" enctype="multipart/form-data" class="p-5 bg-white rounded-lg shadow-lg">
+    <div class="row gy-4">
+        <!-- Kolom Kiri: Gambar -->
+        <div class="col-md-4">
+            <div class="card h-50 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <label for="gambar1" class="form-label fw-bold text-dark">Gambar</label>
+                    <input type="file" name="gambar1" id="gambar1" class="form-control mb-3">
+                    <?php if (!empty($about_us['gambar1'])): ?>
+                        <div class="text-center">
+                            <img src="<?= base_url('assets/' . $about_us['gambar1']); ?>" 
+                                 alt="About Image" class="img-fluid rounded shadow-sm mt-3">
+                        </div>
+                    <?php else: ?>
+                        <p class="text-danger text-center mt-3">Gambar tidak tersedia.</p>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
-        <div class="row mt-3">
-            <div class="col text-center">
-                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+        
+        <!-- Kolom Kanan: Deskripsi, Visi, Misi -->
+        <div class="col-md-8">
+            <div class="row gy-4">
+                <!-- Deskripsi -->
+                <div class="col-12">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <label for="deskripsi1" class="form-label fw-bold text-dark">Deskripsi</label>
+                            <textarea name="deskripsi1" id="deskripsi1" class="form-control" rows="6"><?= isset($about_us['deskripsi1']) ? $about_us['deskripsi1'] : ''; ?></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Visi -->
+                <div class="col-12">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <label for="visi" class="form-label fw-bold text-dark">Visi</label>
+                            <textarea name="visi" id="visi" class="form-control" rows="6"><?= isset($about_us['visi']) ? $about_us['visi'] : ''; ?></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Misi -->
+                <div class="col-12">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <label for="misi" class="form-label fw-bold text-dark">Misi</label>
+                            <textarea name="misi" id="misi" class="form-control" rows="6"><?= isset($about_us['misi']) ? $about_us['misi'] : ''; ?></textarea>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </form>
+    </div>
+    
+    <!-- Tombol Submit -->
+    <div class="row mt-5">
+        <div class="col text-center">
+            <button type="submit" class="btn btn-primary px-5 py-3 rounded-pill shadow-lg border-0">Simpan Perubahan</button>
+        </div>
+    </div>
+</form>
+
     </div>
 </div>
 

@@ -8,11 +8,21 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/logo.png')?>">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <!-- Link ke jQuery, digunakan untuk DataTables dan interaksi DOM -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Link ke DataTables JS untuk menambah fungsionalitas tabel interaktif -->
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+   <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- DataTables CSS -->
+<link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
 <style>
     .nav-link {
@@ -131,8 +141,8 @@
                <img src="<?= base_url('assets/logo.png')?>" width="130px">
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li>
-                        <a href="<?= site_url('dashboard')?>" class="nav-link px-0 align-middle fs-5">
-                           <i class="bi bi-clipboard-data-fill"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+                        <a href="<?= site_url('dashboard')?>" class="nav-link px-0 align-middle">
+                           <i class="fs-4 bi-clipboard-data-fill"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
                     </li>
                     <li>
                         <a href="<?= site_url('Dokter/admin')?>" class="nav-link px-0 align-middle">
@@ -144,7 +154,7 @@
                     </li>
                      <li>
                         <a href="<?= site_url('Profile/admin')?>" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-image-fill"></i> <span class="ms-1 d-none d-sm-inline">Profile</span></a>
+                            <i class="fs-4 bi-person-bounding-box"></i></i> <span class="ms-1 d-none d-sm-inline">Profile</span></a>
                     </li>
                     <li>
                         <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle active">
@@ -210,106 +220,65 @@
     <a href="<?= site_url('login/create'); ?>" class="btn mb-3 text-white" style="background-color: #00705a;"><i class="bi bi-plus-circle"></i> Tambah</a>
 
     <div class="row">
-        <div class="col-sm-12">
-            <div class="table-responsive">
-    <!-- Tabel Admin -->
-    <h3>Daftar Admin</h3>
-    <table id="dataTableAdmin" class="table table-bordered table-hover" data-aos="fade-down-right">
-        <thead style="background-color: #00705a; color: white;">
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Role</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if (!empty($users)): ?>
-                <?php $no_adm = 1; ?>
-                <?php foreach ($users as $user): ?>
-                    <?php if ($user->role == 'admin'): ?>
+    <div class="col-sm-12">
+        <div class="table-responsive">
+            <!-- Tabel User dan Admin -->
+            <h3>Daftar Pengguna</h3>
+            <table id="dataTable" class="table table-bordered table-hover" data-aos="fade-down-right">
+                <thead style="background-color: #00705a; color: white;">
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($users)): ?>
+                        <?php $no = 1; ?>
+                        <?php foreach ($users as $user): ?>
+                            <tr>
+                                <td><?= ($user->role == 'admin' ? 'ADM-' : 'USR-') . $no++; ?></td>
+                                <td><?= htmlspecialchars($user->username); ?></td>
+                                <td><?= htmlspecialchars($user->role); ?></td>
+                                <td>
+                                    <a href="<?= site_url('login/edit_user/' . $user->id); ?>" class="btn btn-sm" style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;">Edit</a>
+                                    <a href="<?= site_url('login/delete_user/' . $user->id); ?>" class="btn btn-sm" onclick="return confirm('Yakin ingin menghapus user ini?');" style="color: #ffffff; background-color: #00705a; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;">Hapus</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
                         <tr>
-                            <td><?= 'ADM-' . $no_adm++; ?></td>
-                            <td><?= htmlspecialchars($user->username); ?></td>
-                            <td><?= htmlspecialchars($user->role); ?></td>
-                            <td>
-                                <a href="<?= site_url('login/edit_user/' . $user->id); ?>" class="btn btn-sm" style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;" >Edit</a>
-                                <a href="<?= site_url('login/delete_user/' . $user->id); ?>" class="btn btn-sm" onclick="return confirm('Yakin ingin menghapus user ini?');" style="color: #ffffff; background-color: #00705a; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;">Hapus</a>
-                            </td>
+                            <td colspan="4" class="text-center">Tidak ada data pengguna.</td>
                         </tr>
                     <?php endif; ?>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <tr>
-                    <td colspan="4" class="text-center">Tidak ada data admin.</td>
-                </tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
-</div>
-        </div>
-        <div class="col-sm-12">
-            <div class="table-responsive">
-    <!-- Tabel User -->
-    <h3>Daftar User</h3>
-    <table id="dataTableUser" class="table table-bordered table-hover" data-aos="fade-up-left">
-        <thead style="background-color: #00705a; color: white;">
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Role</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if (!empty($users)): ?>
-                <?php $no_usr = 1; ?>
-                <?php foreach ($users as $user): ?>
-                    <?php if ($user->role == 'user'): ?>
-                        <tr>
-                            <td><?= 'USR-' . $no_usr++; ?></td>
-                            <td><?= htmlspecialchars($user->username); ?></td>
-                            <td><?= htmlspecialchars($user->role); ?></td>
-                            <td>
-                                <a href="<?= site_url('login/edit_user/' . $user->id); ?>" class="btn btn-sm" style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;" >Edit</a>
-                                <a href="<?= site_url('login/delete_user/' . $user->id); ?>" class="btn btn-sm" onclick="return confirm('Yakin ingin menghapus user ini?');" style="color: #ffffff; background-color: #00705a; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;">Hapus</a>
-                            </td>
-                        </tr>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <tr>
-                    <td colspan="4" class="text-center">Tidak ada data user.</td>
-                </tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
-</div>
+                </tbody>
+            </table>
         </div>
     </div>
-    </div>
+</div>
+
 </div>
     </div>
 </body>
-<script type="text/javascript">
-        $(document).ready(function(){
-            // Inisialisasi DataTables dengan konfigurasi
-            $('#dataTable').DataTable({
-                responsive: true, // Menyusun ulang tabel agar responsif
-                autoWidth: false, // Menonaktifkan lebar otomatis
-                language: {
-                    search: "Cari:", // Label untuk kolom pencarian
-                    lengthMenu: "Tampilkan _MENU_ entri", // Pilihan jumlah entri yang tampil
-                    info: "Menampilkan _START_ ke _END_ dari _TOTAL_ entri", // Info tentang jumlah entri yang ditampilkan
-                    paginate: {
-                        first: "Pertama", // Label untuk tombol pertama
-                        last: "Terakhir", // Label untuk tombol terakhir
-                        next: "Berikutnya", // Label untuk tombol berikutnya
-                        previous: "Sebelumnya" // Label untuk tombol sebelumnya
-                    }
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable({
+            "paging": true,      // Pagination
+            "lengthChange": true, // Opsi untuk memilih jumlah entri per halaman
+            "searching": true,   // Pencarian data
+            "ordering": true,    // Pengurutan data
+            "info": true,        // Menampilkan informasi jumlah data yang ada
+            "autoWidth": false,  // Menonaktifkan auto-width untuk menyesuaikan lebar kolom
+            "columnDefs": [{
+                "targets": 0,
+                "createdCell": function(td, cellData, rowData, row, col) {
+                    $(td).css('font-weight', 'bold'); // Memberikan font tebal untuk kolom ID
                 }
-            });
+            }]
         });
-    </script>
+    });
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>

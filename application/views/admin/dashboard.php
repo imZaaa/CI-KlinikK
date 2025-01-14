@@ -89,7 +89,6 @@
             transform: scale(1.05);
         }
  .card {
-            border-radius: 15px;
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
         h1 {
@@ -114,8 +113,8 @@
                <img src="<?= base_url('assets/logo.png')?>" width="130px">
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li>
-                        <a href="#" class="nav-link px-0 align-middle active fs-5">
-                           <i class="bi bi-clipboard-data-fill"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+                        <a href="#" class="nav-link px-0 align-middle active">
+                           <i class="fs-4 bi-clipboard-data-fill"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
                     </li>
                     <li>
                         <a href="<?= site_url('Dokter/admin')?>" class="nav-link px-0 align-middle">
@@ -127,7 +126,7 @@
                     </li>
                     <li>
                         <a href="<?= site_url('Profile/admin')?>" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-image-fill"></i> <span class="ms-1 d-none d-sm-inline">Profile</span></a>
+                            <i class="fs-4 bi-person-bounding-box"></i><span class="ms-1 d-none d-sm-inline">Profile</span></a>
                     </li>
                     <li>
                         <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
@@ -182,137 +181,183 @@
     <div class="row g-4">
         <!-- Card Total Admin -->
         <div class="col-md-3">
-            <a href="<?= site_url('login/dataU')?>" style="text-decoration: none;">
-            <div class="card text-white bg-gradient-primary shadow">
-                <div class="card-body text-center">
-                    <i class="bi bi-person-badge-fill fs-1 mb-3"></i>
-                    <h5 class="card-title">Total Admin</h5>
-                    <p class="card-text fs-3 fw-bold"><?= $admin_count; ?></p>
-                </div>
+    <a href="<?= site_url('login/dataU')?>" style="text-decoration: none;">
+        <div class="card text-dark bg-white shadow">
+            <div class="card-body text-center">
+                <i class="bi bi-person-badge-fill fs-1 mb-3"></i>
+                <h5 class="card-title">Total Admin</h5>
+                <p class="card-text fs-3 fw-bold"><?= $admin_count; ?></p>
             </div>
-            </a>
         </div>
-        <!-- Card Total User -->
-        <div class="col-md-3">
-        <a href="<?= site_url('login/dataU')?>" style="text-decoration: none;">
-            <div class="card text-white bg-gradient-secondary shadow">
-                <div class="card-body text-center">
-                    <i class="bi bi-people-fill fs-1 mb-3"></i>
-                    <h5 class="card-title">Total User</h5>
-                    <p class="card-text fs-3 fw-bold"><?= $user_count; ?></p>
-                </div>
+    </a>
+</div>
+
+<!-- Card Total User -->
+<div class="col-md-3">
+    <a href="<?= site_url('login/dataU')?>" style="text-decoration: none;">
+        <div class="card text-dark bg-white shadow">
+            <div class="card-body text-center">
+                <i class="bi bi-people-fill fs-1 mb-3"></i>
+                <h5 class="card-title">Total User</h5>
+                <p class="card-text fs-3 fw-bold"><?= $user_count; ?></p>
             </div>
-        </a>
         </div>
-        <!-- Card Total Pasien -->
-        <div class="col-md-3">
-            <a href="<?= site_url('pasien')?>" style="text-decoration: none;">
-            <div class="card text-white bg-gradient-success shadow">
-                <div class="card-body text-center">
-                    <i class="bi bi-person-lines-fill fs-1 mb-3"></i>
-                    <h5 class="card-title">Total Pasien</h5>
-                    <p class="card-text fs-3 fw-bold"><?= $patient_count; ?></p>
-                </div>
+    </a>
+</div>
+
+<!-- Card Total Pasien -->
+<div class="col-md-3">
+    <a href="<?= site_url('pasien')?>" style="text-decoration: none;">
+        <div class="card text-dark bg-white shadow">
+            <div class="card-body text-center">
+                <i class="bi bi-person-lines-fill fs-1 mb-3"></i>
+                <h5 class="card-title">Total Pasien</h5>
+                <p class="card-text fs-3 fw-bold"><?= $patient_count; ?></p>
             </div>
-            </a>
         </div>
-        <!-- Card Total Dokter -->
-        <div class="col-md-3">
-        <a href="<?= site_url('dokter/admin')?>" style="text-decoration: none;">
-            <div class="card text-white bg-gradient-info shadow">
-                <div class="card-body text-center">
-                    <i class="bi bi-heart-pulse-fill fs-1 mb-3"></i>
-                    <h5 class="card-title">Total Dokter</h5>
-                    <p class="card-text fs-3 fw-bold"><?= $doctor_count; ?></p>
-                </div>
+    </a>
+</div>
+
+<!-- Card Total Dokter -->
+<div class="col-md-3">
+    <a href="<?= site_url('dokter/admin')?>" style="text-decoration: none;">
+        <div class="card text-dark bg-white shadow">
+            <div class="card-body text-center">
+                <i class="bi bi-heart-pulse-fill fs-1 mb-3"></i>
+                <h5 class="card-title">Total Dokter</h5>
+                <p class="card-text fs-3 fw-bold"><?= $doctor_count; ?></p>
             </div>
-        </a>
         </div>
-    </div>
+    </a>
+</div>
+
      <div class="container mt-5">
-        <div class="row justify-content-center">
+        <div class="row">
             <div class="col-md-8">
                 <div class="chart-container">
                     <canvas id="myChart"></canvas>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="chart-container">
+                    <canvas id="myPieChart"></canvas>
+                </div>
+            </div>
+            </div>
         </div>
     </div>
 </div>
-
-</div>
     </div>
+</div>
 </body>
  <script>
-        const ctx = document.getElementById('myChart').getContext('2d');
-        const myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Admin', 'User', 'Pasien', 'Dokter'],
-                datasets: [{
-                    label: 'Jumlah Data',
-                    data: [
-                        <?= $admin_count; ?>,
-                        <?= $user_count; ?>,
-                        <?= $patient_count; ?>,
-                        <?= $doctor_count; ?>
-                    ],
-                    backgroundColor: [
-                        'rgba(93, 173, 226, 0.7)',
-                        'rgba(88, 214, 141, 0.7)',
-                        'rgba(245, 176, 65, 0.7)',
-                        'rgba(165, 105, 189, 0.7)'
-                    ],
-                    borderColor: [
-                        'rgba(93, 173, 226, 1)',
-                        'rgba(88, 214, 141, 1)',
-                        'rgba(245, 176, 65, 1)',
-                        'rgba(165, 105, 189, 1)'
-                    ],
-                    borderWidth: 2,
-                    hoverBackgroundColor: [
-                        'rgba(93, 173, 226, 1)',
-                        'rgba(88, 214, 141, 1)',
-                        'rgba(245, 176, 65, 1)',
-                        'rgba(165, 105, 189, 1)'
-                    ]
-                }]
+    // Chart untuk Line
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'line', // Mengubah tipe grafik menjadi line
+        data: {
+            labels: ['Admin', 'User', 'Pasien', 'Dokter'],
+            datasets: [{
+                label: 'Jumlah Data',
+                data: [
+                    <?= $admin_count; ?>,
+                    <?= $user_count; ?>,
+                    <?= $patient_count; ?>,
+                    <?= $doctor_count; ?>
+                ],
+                fill: true, // Mengisi area di bawah garis
+                backgroundColor: 'rgba(93, 173, 226, 0.2)', // Warna latar belakang area
+                borderColor: 'rgba(93, 173, 226, 1)', // Warna garis
+                borderWidth: 2,
+                tension: 0.4, // Menambahkan kelengkungan pada garis (lebih bergelombang)
+                pointBackgroundColor: 'rgba(93, 173, 226, 1)', // Warna titik data
+                pointRadius: 5, // Ukuran titik
+                pointHoverRadius: 7, // Ukuran titik saat hover
+                pointBorderWidth: 2, // Ketebalan border titik
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: '#333',
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
             },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: true,
-                        labels: {
-                            color: '#333',
-                            font: {
-                                size: 14
-                            }
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#555',
+                        font: {
+                            size: 12
                         }
                     }
                 },
-                scales: {
-                    x: {
-                        ticks: {
-                            color: '#555',
-                            font: {
-                                size: 12
-                            }
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            color: '#555',
-                            font: {
-                                size: 12
-                            }
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: '#555',
+                        font: {
+                            size: 12
                         }
                     }
                 }
             }
-        });
-    </script>
+        }
+    });
+
+    // Chart untuk Pie
+    const ctxPieChart = document.getElementById('myPieChart').getContext('2d');
+    const myPieChart = new Chart(ctxPieChart, {
+        type: 'pie',  // Mengubah tipe menjadi pie chart
+        data: {
+            labels: ['Admin', 'User', 'Pasien', 'Dokter'],
+            datasets: [{
+                label: 'Jumlah Data',
+                data: [
+                    <?= $admin_count; ?>,
+                    <?= $user_count; ?>,
+                    <?= $patient_count; ?>,
+                    <?= $doctor_count; ?>
+                ],
+                backgroundColor: [
+                    'rgba(93, 173, 226, 0.7)',  // Warna untuk Admin
+                    'rgba(88, 214, 141, 0.7)',  // Warna untuk User
+                    'rgba(245, 176, 65, 0.7)',  // Warna untuk Pasien
+                    'rgba(165, 105, 189, 0.7)'  // Warna untuk Dokter
+                ],
+                borderColor: [
+                    'rgba(93, 173, 226, 1)',
+                    'rgba(88, 214, 141, 1)',
+                    'rgba(245, 176, 65, 1)',
+                    'rgba(165, 105, 189, 1)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: '#333',
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>

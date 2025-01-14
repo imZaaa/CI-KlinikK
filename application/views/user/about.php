@@ -189,27 +189,41 @@
 <img src="<?= base_url('assets/bannerA.jpg')?>" width="100%">
 <div class="container mt-5">
     <div class="row align-items-center">
-        <!-- Kolom Teks -->
-        <div class="col-md">
-            <h3 class="mb-3">Selamat Datang di Vivarta Klinik</h3>
-            <img src="<?= base_url('assets/'.$about_us['gambar1']) ?>" class="img-fluid rounded">
-            <p class="text-justify mt-4">
+            <h2 class="mb-4 text-center" style="color: #00705a;">Selamat Datang di Vivarta Klinik</h2>
+        <!-- Kolom Teks dan Gambar -->
+        <div class="col-md-6">
+            <img src="<?= base_url('assets/'.$about_us['gambar1']) ?>" class="img-fluid rounded shadow-lg" alt="Vivarta Klinik">
+        </div>
+        <div class="col-md-6">
+            <p class="text-justify mt-4 lead text-muted">
                 <?= nl2br($about_us['deskripsi1']) ?>
             </p>
         </div>
-        
-        <div class="row mt-3">
-            <div class="col-sm-6">
-                <h3 class="text-center">VISI</h3>
-                <p class="text-justify"><?= $about_us['visi'] ?></p>
+    </div>
+
+    <div class="row mt-5">
+        <!-- Kolom Visi -->
+        <div class="col-sm-6 mb-4">
+            <div class="card shadow-sm border-light">
+                <div class="card-body">
+                    <h4 class="card-title text-center text-info">VISI</h4>
+                    <p class="card-text text-justify"><?= $about_us['visi'] ?></p>
+                </div>
             </div>
-            <div class="col-sm-6">
-                <h3 class="text-center">Misi</h3>
-                <p class="text-justify"><?= nl2br($about_us['misi']) ?></p>
+        </div>
+
+        <!-- Kolom Misi -->
+        <div class="col-sm-6 mb-4">
+            <div class="card shadow-sm border-light">
+                <div class="card-body">
+                    <h4 class="card-title text-center text-info">MISI</h4>
+                    <p class="card-text text-justify"><?= nl2br($about_us['misi']) ?></p>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 
 
 <h3 class="mt-5 text-center">Vivarta Klinik adalah mitra kesehatan Anda untuk hidup yang lebih baik. <br> Kesehatan Anda, Prioritas Kami.</h3>

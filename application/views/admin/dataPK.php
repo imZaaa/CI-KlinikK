@@ -89,8 +89,8 @@
                <img src="<?= base_url('assets/logo.png')?>" width="130px">
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                    <li>
-                        <a href="<?= site_url('dashboard')?>" class="nav-link px-0 align-middle fs-5">
-                           <i class="bi bi-clipboard-data-fill"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+                        <a href="<?= site_url('dashboard')?>" class="nav-link px-0 align-middle">
+                           <i class="fs-4 bi-clipboard-data-fill"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
                     </li>
                     <li>
                         <a href="<?= site_url('Dokter/admin')?>" class="nav-link px-0 align-middle">
@@ -102,7 +102,7 @@
                     </li>
                      <li>
                         <a href="<?= site_url('Profile/admin')?>" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-image-fill"></i> <span class="ms-1 d-none d-sm-inline">Profile</span></a>
+                             <i class="fs-4 bi-person-bounding-box"></i> <span class="ms-1 d-none d-sm-inline">Profile</span></a>
                     </li>
                     <li>
                         <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle active">
