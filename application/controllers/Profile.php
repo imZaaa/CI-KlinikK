@@ -53,7 +53,7 @@ class Profile extends CI_Controller
                 $data_update['gambar1'] = $upload_data['file_name'];
             } else {
                 $this->session->set_flashdata('error', $this->upload->display_errors());
-                redirect('profile'); // Kembali ke halaman form jika gagal upload
+                redirect('admin/profile'); // Kembali ke halaman form jika gagal upload
             }
         }
     
@@ -65,7 +65,7 @@ class Profile extends CI_Controller
             $this->session->set_flashdata('error', 'Terjadi kesalahan saat menyimpan data.');
         }
     
-        redirect('profile/admin');
+        redirect('admin/profile');
     }
     
 }

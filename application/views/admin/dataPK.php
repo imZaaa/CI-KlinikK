@@ -100,6 +100,10 @@
                         <a href="<?= site_url('Gallery/admin')?>" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-image-fill"></i> <span class="ms-1 d-none d-sm-inline">Gallery</span></a>
                     </li>
+                     <li>
+                        <a href="<?= site_url('Profile/admin')?>" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-image-fill"></i> <span class="ms-1 d-none d-sm-inline">Profile</span></a>
+                    </li>
                     <li>
                         <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle active">
                             <i class="fs-4 bi-folder-fill"></i> <span class="ms-1 d-none d-sm-inline">Data</span></a>

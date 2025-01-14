@@ -130,10 +130,6 @@
                             <i class="fs-4 bi-image-fill"></i> <span class="ms-1 d-none d-sm-inline">Profile</span></a>
                     </li>
                     <li>
-                        <a href="<?= site_url('Resep')?>" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-image-fill"></i> <span class="ms-1 d-none d-sm-inline">Data Resep</span></a>
-                    </li>
-                    <li>
                         <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
                             <i class="fs-4 bi-folder-fill"></i> <span class="ms-1 d-none d-sm-inline">Data</span></a>
                         <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">

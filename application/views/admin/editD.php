@@ -65,7 +65,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Gambar Sebelumnya</label>
                                 <br>
-                                <img src="<?php echo base_url('assets/' . $upload->foto_pasien); ?>" width="150px" class="rounded shadow-sm">
+                                <img src="<?php echo base_url('assets/' . $upload->gambar); ?>" width="150px" class="rounded shadow-sm">
                             </div>
                             <!-- Input field untuk upload gambar baru -->
                             <div class="mb-3">

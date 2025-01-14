@@ -79,6 +79,7 @@
         }
 </style>
 <body>
+  
 <div class="container-fluid">
     <div class="row flex-nowrap">
 <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" style="background-color: #00705a; height: 100vh; overflow-y: auto;">
@@ -96,6 +97,10 @@
                     <li>
                         <a href="<?= site_url('gallery/admin')?>" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-image-fill"></i> <span class="ms-1 d-none d-sm-inline">Gallery</span></a>
+                    </li>
+                     <li>
+                        <a href="<?= site_url('Profile/admin')?>" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-image-fill"></i> <span class="ms-1 d-none d-sm-inline">Profile</span></a>
                     </li>
                     <li>
                         <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
@@ -146,8 +151,12 @@
             </div>
         </div>
         <div class="col py-3">
-  <div class="container my-5">
-        
+  <div class="container">
+          <?php if (!empty($message)): ?>
+    <div class="alert alert-success">
+        <?= $message; ?>
+    </div>
+<?php endif; ?>
         <!-- Judul dan tombol untuk menambah data -->
         <div class="mb-4">
             <h2 class="text-center" style="color: #00705a;">Data Dokter</h2>

@@ -54,23 +54,19 @@
         background-color: #d1f0e6;
     }
     /* Styling untuk sidebar agar tetap di tempat */
-.col-auto {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh; /* Menjaga sidebar sepanjang tinggi viewport */
-    z-index: 1050; /* Agar sidebar tetap di atas konten */
-    padding-top: 20px; /* Memberikan ruang agar tidak terlalu rapat ke atas */
-}
+        .col-auto {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh; /* Menjaga sidebar sepanjang tinggi viewport */
+            z-index: 1050; /* Agar sidebar tetap di atas konten */
+            padding-top: 20px; /* Memberikan ruang agar tidak terlalu rapat ke atas */
+        }
 
-/* Mengatur ruang untuk konten utama */
-.col.py-3 {
-    margin-left: 230px; /* Memberikan ruang agar konten utama tidak tertutup sidebar */
-}
-
-
-      
-
+        /* Mengatur ruang untuk konten utama */
+        .col.py-3 {
+            margin-left: 230px; /* Memberikan ruang agar konten utama tidak tertutup sidebar */
+        }
         ::-webkit-scrollbar {
             display: none;
         }
@@ -113,6 +109,10 @@
                         <a href="<?= site_url('Gallery/admin')?>" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-image-fill"></i> <span class="ms-1 d-none d-sm-inline">Gallery</span></a>
                     </li>
+                     <li>
+                        <a href="<?= site_url('Profile/admin')?>" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-image-fill"></i> <span class="ms-1 d-none d-sm-inline">Profile</span></a>
+                    </li>
                     <li>
                         <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle active">
                             <i class="fs-4 bi-folder-fill"></i> <span class="ms-1 d-none d-sm-inline">Data</span></a>
@@ -130,7 +130,7 @@
                                 <a href="<?= site_url('obat')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Data Obat</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="#" class="nav-link px-0 active"> <span class="d-none d-sm-inline">Data Pengobatan</span></a>
+                                <a href="<?= site_url('pengobatan')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Data Pengobatan</span></a>
                             </li>
                             <li class="w-100">
                                 <a href="<?= site_url('resep')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Data Resep</span></a>
@@ -163,7 +163,7 @@
         </div>
 <div class="col py-3">
 <div class="container mt-5">
-    <form action="<?= site_url('profile/update') ?>" method="post" enctype="multipart/form-data">
+    <form action="<?php echo site_url('profile/update') ?>" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="col-md-6">
                 <label for="gambar1" class="form-label">Gambar</label>
@@ -203,10 +203,8 @@
             </div>
         </div>
     </form>
-</div>
-
-
     </div>
+</div>
 
 
 
