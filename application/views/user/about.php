@@ -179,7 +179,7 @@
                     <a class="nav-link text-dark" href="<?= site_url('Gallery/user') ?>">Gallery</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="<?= site_url('Welcome/contactU')?>">Kontak</a>
+                    <a class="nav-link text-dark" href="<?= site_url('Welcome/kontakU')?>">Kontak</a>
                 </li>
             </ul>
         </div>

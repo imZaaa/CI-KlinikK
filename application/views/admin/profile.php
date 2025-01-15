@@ -92,17 +92,14 @@ form .btn-primary:hover {
             display: none;
         }
 
-        .btn-custom {
+        .btn {
             margin-left: 10px; /* Jarak antara tombol dan nomor telepon */
-            background-color:rgb(44, 113, 100);
-            
+            background-color: #00705a;            
         }
-        .btn-custom:hover {
+        .btn:hover {
             margin-left: 10px; /* Jarak antara tombol dan nomor telepon */
             background-color: yellow;
-            
         }
-
         .navbar .container {
             display: flex;
             justify-content: space-between;
@@ -261,7 +258,7 @@ form .btn-primary:hover {
     <!-- Tombol Submit -->
     <div class="row mt-5">
         <div class="col text-center">
-            <button type="submit" class="btn btn-primary px-5 py-3 rounded-pill shadow-lg border-0">Simpan Perubahan</button>
+            <button type="submit" class="btn px-5 py-3 text-white fw-bold rounded-pill shadow-lg border-0">Simpan Perubahan</button>
         </div>
     </div>
 </form>
