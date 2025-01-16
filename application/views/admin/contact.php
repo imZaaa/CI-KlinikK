@@ -8,6 +8,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/logo.png')?>">
+    <!-- DataTables CSS -->
+<link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 </head>
 <style>
     .nav-link {
@@ -41,16 +49,16 @@
     }
 
     /* Styling untuk tabel agar lebih rapi */
-    #uploadTable {
+    #dataTable {
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    #uploadTable th, #uploadTable td {
+    #dataTable th, #dataTable td {
         border-color: #00705a;
     }
 
-    #uploadTable tbody tr:hover {
+    #dataTable tbody tr:hover {
         background-color: #d1f0e6;
     }
     /* Styling untuk sidebar agar tetap di tempat */
@@ -228,7 +236,7 @@
 
     <!-- Tabel untuk menampilkan data pesan -->
     <?php if (isset($messages) && is_array($messages) && !empty($messages)): ?>
-        <table class="table table-bordered table-striped" style="border-color: #00705a;">
+        <table id="dataTable" class="table table-bordered table-striped" style="border-color: #00705a;">
     <thead style="background-color: #00705a; color: white;">
         <tr>
             <th>No</th>
@@ -264,5 +272,22 @@
   
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable({
+            "paging": true,      // Pagination
+            "lengthChange": true, // Opsi untuk memilih jumlah entri per halaman
+            "searching": true,   // Pencarian data
+            "ordering": true,    // Pengurutan data
+            "info": true,        // Menampilkan informasi jumlah data yang ada
+            "autoWidth": false,  // Menonaktifkan auto-width untuk menyesuaikan lebar kolom
+            "columnDefs": [{
+                "targets": 0,
+                "createdCell": function(td, cellData, rowData, row, col) {
+                    $(td).css('font-weight', 'bold'); // Memberikan font tebal untuk kolom ID
+                }
+            }]
+        });
+    });
+</script>
 </html>

@@ -9,7 +9,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/logo.png')?>">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-//PUSH BY RHEZA16-01-2025 0:32
+<!-- PUSH BY RHEZA16-01-2025 0:32 -->
 </head>
 <style>
     .nav-link {
@@ -252,109 +252,106 @@
 </body>
  <script>
     // Chart untuk Line
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const myChart = new Chart(ctx, {
-        type: 'line', // Mengubah tipe grafik menjadi line
-        data: {
-            labels: ['Admin', 'User', 'Pasien', 'Dokter'],
-            datasets: [{
-                label: 'Jumlah Data',
-                data: [
-                    <?= $admin_count; ?>,
-                    <?= $user_count; ?>,
-                    <?= $patient_count; ?>,
-                    <?= $doctor_count; ?>
-                ],
-                fill: true, // Mengisi area di bawah garis
-                backgroundColor: 'rgba(93, 173, 226, 0.2)', // Warna latar belakang area
-                borderColor: 'rgba(93, 173, 226, 1)', // Warna garis
-                borderWidth: 2,
-                tension: 0.4, // Menambahkan kelengkungan pada garis (lebih bergelombang)
-                pointBackgroundColor: 'rgba(93, 173, 226, 1)', // Warna titik data
-                pointRadius: 5, // Ukuran titik
-                pointHoverRadius: 7, // Ukuran titik saat hover
-                pointBorderWidth: 2, // Ketebalan border titik
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: true,
-                    labels: {
-                        color: '#333',
-                        font: {
-                            size: 14
-                        }
-                    }
-                }
+    // Chart untuk Line
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'line', // Mengubah tipe grafik menjadi line
+    data: {
+        labels: ['Admin', 'User', 'Pasien', 'Dokter'],
+        datasets: [{
+            label: 'Jumlah Data',
+            data: [
+                <?= $admin_count; ?>,
+                <?= $user_count; ?>,
+                <?= $patient_count; ?>,
+                <?= $doctor_count; ?>
+            ],
+            fill: true, // Mengisi area di bawah garis
+            backgroundColor: 'rgba(93, 173, 226, 0.2)', // Warna latar belakang area
+            borderColor: 'rgba(93, 173, 226, 1)', // Warna garis
+            borderWidth: 2
+        }]
+    },
+    options: {
+    responsive: true,
+    plugins: {
+        title: {
+            display: true,
+            text: 'Jumlah Data Berdasarkan Kategori',
+            font: {
+                size: 16,
+                family: 'Montserrat',
+                weight: 'bold',
             },
-            scales: {
-                x: {
-                    ticks: {
-                        color: '#555',
-                        font: {
-                            size: 12
-                        }
-                    }
-                },
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: '#555',
-                        font: {
-                            size: 12
-                        }
-                    }
-                }
+            padding: {
+                top: 10,
+                bottom: 30
             }
         }
-    });
+    },
+    scales: {
+        y: {
+            beginAtZero: false, // Tidak mulai dari 0
+            min: 1, // Mulai dari 1
+            max: 4, // Berakhir di 4
+            ticks: {
+                stepSize: 1 // Setiap langkahnya 1
+            }
+        }
+    }
+}
 
-    // Chart untuk Pie
-    const ctxPieChart = document.getElementById('myPieChart').getContext('2d');
-    const myPieChart = new Chart(ctxPieChart, {
-        type: 'pie',  // Mengubah tipe menjadi pie chart
-        data: {
-            labels: ['Admin', 'User', 'Pasien', 'Dokter'],
-            datasets: [{
-                label: 'Jumlah Data',
-                data: [
-                    <?= $admin_count; ?>,
-                    <?= $user_count; ?>,
-                    <?= $patient_count; ?>,
-                    <?= $doctor_count; ?>
-                ],
-                backgroundColor: [
-                    'rgba(93, 173, 226, 0.7)',  // Warna untuk Admin
-                    'rgba(88, 214, 141, 0.7)',  // Warna untuk User
-                    'rgba(245, 176, 65, 0.7)',  // Warna untuk Pasien
-                    'rgba(165, 105, 189, 0.7)'  // Warna untuk Dokter
-                ],
-                borderColor: [
-                    'rgba(93, 173, 226, 1)',
-                    'rgba(88, 214, 141, 1)',
-                    'rgba(245, 176, 65, 1)',
-                    'rgba(165, 105, 189, 1)'
-                ],
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: true,
-                    labels: {
-                        color: '#333',
-                        font: {
-                            size: 14
-                        }
-                    }
+});
+
+// Chart untuk Pie
+const ctxPie = document.getElementById('myPieChart').getContext('2d');
+const myPieChart = new Chart(ctxPie, {
+    type: 'pie',
+    data: {
+        labels: ['Admin', 'User', 'Pasien', 'Dokter'],
+        datasets: [{
+            label: 'Distribusi Data',
+            data: [
+                <?= $admin_count; ?>,
+                <?= $user_count; ?>,
+                <?= $patient_count; ?>,
+                <?= $doctor_count; ?>
+            ],
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(255, 99, 132, 0.7)'
+            ],
+            borderColor: [
+                'rgba(54, 162, 235, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 99, 132, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Distribusi Data Pengguna Berdasarkan Kategori',
+                font: {
+                    size: 16,
+                    family: 'Montserrat',
+                    weight: 'bold',
+                },
+                padding: {
+                    top: 10,
+                    bottom: 30
                 }
             }
         }
-    });
+    }
+});
+
 </script>
 
 

@@ -23,17 +23,25 @@ class Login_model extends CI_Model {
     }
 
     // Fungsi untuk mendapatkan user berdasarkan ID dengan prefix
-    public function get_user_by_id($user_id) {
-        // Menambahkan logika untuk mendeteksi prefix
-        $prefix = substr($user_id, 0, 3); // Menangkap prefix pertama (ADM atau USR)
-        
-        // Memeriksa apakah ID sesuai dengan prefix yang diharapkan
-        if ($prefix === 'ADM' || $prefix === 'USR') {
-            $this->db->where('id', $user_id);
-            return $this->db->get('tbl_login')->row(); // Mengembalikan satu baris data user
+  public function get_user_by_id($id) {
+    // Menambahkan logika untuk mendeteksi prefix
+    $prefix = substr($id, 0, 3); // Menangkap prefix pertama (ADM atau USR)    
+    // Memeriksa apakah ID sesuai dengan prefix yang diharapkan
+    if ($prefix === 'ADM' || $prefix === 'USR') {
+        $this->db->where('id', $id);
+        $query = $this->db->get('tbl_login');
+
+        if ($query->num_rows() > 0) {
+            return $query->row(); // Mengembalikan satu baris data user
+        } else {
+            echo "Tidak ada data yang ditemukan"; // Jika tidak ada data
+            return false;
         }
-        return false; // Jika prefix tidak sesuai
     }
+    return false; // Jika prefix tidak sesuai
+}
+
+
 
     // Fungsi untuk mengambil semua user
     public function get_all_users() {

@@ -13,6 +13,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Link ke DataTables JS untuk menambah fungsionalitas tabel interaktif -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <!-- Tambahkan ini di dalam <head> untuk memuat CSS SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">
+    <!-- Tambahkan ini sebelum penutupan </body> untuk memuat JavaScript SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js"></script>
+
 </head>
 <style>
     .nav-link {
@@ -152,11 +157,26 @@
         </div>
         <div class="col py-3">
   <div class="container">
-          <?php if (!empty($message)): ?>
-    <div class="alert alert-success">
-        <?= $message; ?>
-    </div>
+         <?php if ($this->session->flashdata('success')): ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Sukses!',
+            text: '<?= $this->session->flashdata('success'); ?>'
+        });
+    </script>
 <?php endif; ?>
+
+<?php if ($this->session->flashdata('error')): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: '<?= $this->session->flashdata('error'); ?>'
+        });
+    </script>
+<?php endif; ?>
+
         <!-- Judul dan tombol untuk menambah data -->
         <div class="mb-4">
             <h2 class="text-center" style="color: #00705a;">Data Dokter</h2>
@@ -176,6 +196,7 @@
             <th style="border-color: #00705a; text-align: center; font-weight: bold;">Nama</th>
             <th style="border-color: #00705a; text-align: center; font-weight: bold;">Spesialis</th>
             <th style="border-color: #00705a; text-align: center; font-weight: bold;">Jadwal</th>
+            <th style="border-color: #00705a; text-align: center; font-weight: bold;">Jam Praktek</th>
             <th style="border-color: #00705a; text-align: center; font-weight: bold;">Aksi</th>
         </tr>
     </thead>
@@ -194,7 +215,20 @@
                     </td>
                     <td style="border-color: #00705a;"><?= !empty($upload['nama']) ? $upload['nama'] : '-'; ?></td>
                     <td style="border-color: #00705a;"><?= !empty($upload['spesialis']) ? $upload['spesialis'] : '-'; ?></td>
-                    <td style="border-color: #00705a;"><?= !empty($upload['jadwal']) ? $upload['jadwal'] : '-'; ?></td>
+                    <td style="border-color: #00705a;">
+                       <?php 
+                            if (!empty($upload['jadwal'])) {
+                                // Mengubah string jadwal yang dipisahkan koma menjadi array
+                                $jadwal_array = explode(',', $upload['jadwal']);
+                                // Menggabungkan jadwal hari yang dipilih menjadi satu string dengan koma sebagai pemisah
+                                echo implode(', ', $jadwal_array);
+                            } else {
+                                echo '-'; // Menampilkan tanda '-' jika jadwal hari kosong
+                            }
+                        ?>
+                    </td>
+                    <td style="border-color: #00705a;"><?= !empty($upload['jam_praktek']) ? $upload['jam_praktek'] : '-'; ?></td>
+
                     <td class="text-center" style="border-color: #00705a;">
                         <a href="<?= site_url('dokter/edit/'.$upload['id']); ?>" class="btn btn-warning btn-sm" 
                            style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;">

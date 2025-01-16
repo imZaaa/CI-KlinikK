@@ -59,7 +59,7 @@
                                 <button type="submit" name="submit" value="Update" class="btn btn-success">
                                     Update
                                 </button>
-                                <a href="<?= site_url('upload'); ?>" class="btn btn-secondary">
+                                <a href="<?= site_url('gallery/admin'); ?>" class="btn btn-secondary">
                                     Kembali
                                 </a>
                             </div>

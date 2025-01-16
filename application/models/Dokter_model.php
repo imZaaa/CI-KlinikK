@@ -26,14 +26,25 @@ class Dokter_model extends CI_Model {
     }
 
     // Memperbarui data upload berdasarkan ID
-    public function update_upload($id, $data){
-        $this->db->where('id', $id);  // Menambahkan kondisi untuk mencari berdasarkan ID
-        $upload = $this->db->get('tbl_dokter')->row();  // Mengambil data upload berdasarkan ID
-        unlink('./assets/' . $upload->gambar);  // Menghapus gambar lama yang ada di folder 'uploads'
+    public function update_upload($id, $data)
+{
+    $this->db->where('id', $id);
+    $this->db->update('tbl_dokter', $data);
 
-        $this->db->where('id', $id);  // Menambahkan kondisi untuk memperbarui berdasarkan ID
-        $this->db->update('tbl_dokter', $data);  // Melakukan update data di tabel 'tbl_upload'
+    // Mengembalikan true jika ada baris yang diperbarui
+    if ($this->db->affected_rows() > 0) {
+        return true;
     }
+    // Jika tidak ada baris yang diperbarui, cek apakah data memang tidak berubah
+    $existing_data = $this->db->get_where('tbl_dokter', ['id' => $id])->row();
+    foreach ($data as $key => $value) {
+        if ($existing_data->$key !== $value) {
+            return false; // Data baru tidak sama dengan data lama, tetapi tidak berhasil diperbarui
+        }
+    }
+    return true; // Data tidak berubah, tetapi dianggap sukses
+}
+
 
     // Menghapus data upload berdasarkan ID
     public function delete_upload($id){

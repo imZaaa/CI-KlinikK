@@ -87,32 +87,25 @@
             </div>
         <?php endif; ?>
 
-        <form action="<?php echo site_url('login/update_user/' . $user->id); ?>" method="post">
-            <div class="form-group">
-                <label for="username" class="form-label">Username:</label>
-                <input type="text" name="username" id="username" class="form-control" value="<?php echo set_value('username', $user->username); ?>" required>
-            </div>
-
-            <div class="form-group">
-                <label for="password" class="form-label">Password:</label>
-                <input type="password" name="password" id="password" class="form-control">
-            </div>
-
-            <div class="form-group">
-                <label for="email" class="form-label">Email:</label>
-                <input type="email" name="email" id="email" class="form-control" value="<?php echo set_value('email', $user->email); ?>" required>
-            </div>
-
-            <div class="form-group">
-                <label for="role" class="form-label">Role:</label>
-                <select name="role" id="role" class="form-select" required>
-                    <option value="admin" <?php echo $user->role == 'admin' ? 'selected' : ''; ?>>Admin</option>
-                    <option value="user" <?php echo $user->role == 'user' ? 'selected' : ''; ?>>User</option>
-                </select>
-            </div>
-
-            <button type="submit" class="btn btn-primary w-100">Update User</button>
-        </form>
+        <?php if (isset($user) && $user): ?>
+    <form action="<?php echo site_url('login/update_user/' . $user->id); ?>" method="post">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" value="<?php echo set_value('username', $user->username); ?>" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" value="<?php echo set_value('email', $user->email); ?>" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" value="" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+<?php else: ?>
+    <p>User tidak ditemukan.</p>
+<?php endif; ?>
     </div>
 
     <!-- Bootstrap JS (optional, for functionality like modal) -->

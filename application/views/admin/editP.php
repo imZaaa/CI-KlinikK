@@ -131,7 +131,7 @@
                                 <button type="submit" name="Submit" value="Update" class="btn btn-success">
                                     Update
                                 </button>
-                                <a href="<?= site_url('upload'); ?>" class="btn btn-secondary">
+                                <a href="<?= site_url('pasien'); ?>" class="btn btn-secondary">
                                     Kembali
                                 </a>
                             </div>

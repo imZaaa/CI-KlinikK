@@ -62,7 +62,7 @@
                     Update
                 </button>
                 <a href="<?= site_url('penyakit'); ?>" class="bg-gray-300 text-[#00705a] py-2 px-6 rounded-lg shadow-md hover:bg-gray-400 focus:outline-none transition-all">
-                    Cancel
+                    Kembali
                 </a>
             </div>
         </form>

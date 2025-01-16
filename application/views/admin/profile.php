@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About</title>
+    <title>Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/logo.png')?>">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js"></script>
+</head>
 </head>
 <style>
     body {
@@ -181,15 +184,24 @@ form .btn-primary:hover {
         </div>
 <div class="col py-3">
 <div class="container">
-   <?php if ($this->session->flashdata('success')): ?>
-    <div class="alert alert-success">
-        <?= $this->session->flashdata('success'); ?>
-    </div>
+ <?php if ($this->session->flashdata('success')): ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: '<?= $this->session->flashdata('success'); ?>'
+        });
+    </script>
 <?php endif; ?>
+
 <?php if ($this->session->flashdata('error')): ?>
-    <div class="alert alert-danger">
-        <?= $this->session->flashdata('error'); ?>
-    </div>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: '<?= $this->session->flashdata('error'); ?>'
+        });
+    </script>
 <?php endif; ?>
 
       <div class="mb-4">

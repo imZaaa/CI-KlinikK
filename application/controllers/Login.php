@@ -199,44 +199,20 @@ class Login extends CI_Controller {
     }
 }
 
-    public function edit_user($id) {
+   public function edit_user($id) {
     // Ambil data user berdasarkan ID
-    $data['user'] = $this->Login_model->get_user_by_id($id);
-    if (empty($data['user'])) {
-        $this->session->set_flashdata('error', 'User tidak ditemukan!');
-        redirect('Login/dataU');
-    }
-    $this->load->view('admin/editU', $data); // Tampilkan form edit user
-}
-public function update_userr($id) {
-    $this->form_validation->set_rules('username', 'Username', 'required');
-    $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-    $this->form_validation->set_rules('role', 'Role', 'required');
+    $user = $this->Login_model->get_user_by_id($id);
 
-    if ($this->form_validation->run() == FALSE) {
-        $this->session->set_flashdata('error', validation_errors());
-        redirect('Login/dataU');
+    // Cek apakah user ditemukan
+    if ($user) {
+        // Kirim data user ke view
+        $this->load->view('admin/editU', ['user' => $user]);
     } else {
-        $data = [
-            'username' => $this->input->post('username'),
-            'email'    => $this->input->post('email'),
-            'role'     => $this->input->post('role')
-        ];
-
-        // Jika password diisi, update password juga
-        if (!empty($this->input->post('password'))) {
-            $data['password'] = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
-        }
-
-        if ($this->Login_model->update_user($id, $data)) {
-            $this->session->set_flashdata('success', 'User berhasil diperbarui!');
-        } else {
-            $this->session->set_flashdata('error', 'Gagal memperbarui user!');
-        }
-        redirect('Login/dataU');
+        // Redirect atau tampilkan pesan jika user tidak ditemukan
+        $this->session->set_flashdata('error', 'User tidak ditemukan.');
+        redirect('login/dataU'); // Ganti dengan URL yang sesuai jika user tidak ditemukan
     }
 }
-
 
 }
 ?>

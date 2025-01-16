@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js"></script>
 </head>
 
 <style>
@@ -146,6 +148,25 @@
             </div>
         </div>
 <div class="col py-3">
+     <?php if ($this->session->flashdata('success')): ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: '<?= $this->session->flashdata('success'); ?>'
+        });
+    </script>
+<?php endif; ?>
+
+<?php if ($this->session->flashdata('error')): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: '<?= $this->session->flashdata('error'); ?>'
+        });
+    </script>
+<?php endif; ?>
     <!-- Konten Utama -->
              <div class="mb-4">
             <h2 class="text-center text-primary">Data Obat</h2>

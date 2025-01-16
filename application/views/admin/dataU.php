@@ -22,6 +22,8 @@
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js"></script>
 
 </head>
 <style>
@@ -106,11 +108,6 @@
         font-weight: bold;
     }
 
-    /* Style untuk row tabel saat hover */
-    tr:hover {
-        background-color: #e8f5f4; /* Efek hover dengan warna latar belakang cerah */
-    }
-
     /* Style untuk button aksi */
     .btn {
         font-size: 0.9rem;
@@ -190,7 +187,7 @@
                 </ul>
                 <hr>
                 <div class="dropdown pb-4">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+<a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                        <i class="bi bi-person-circle"></i>
                         <span class="d-none d-sm-inline mx-1"><?php echo $this->session->userdata('username'); ?></span>
                     </a>
@@ -205,27 +202,40 @@
             </div>
         </div>
 <div class="col py-3">
-    <div class="container mt-5">
-    <h2 class="mb-4">Manajemen User</h2>
-
+    <div class="container">
+    <div class="card text-white border-0 shadow-sm" style="background-color: #00705a;">
+            <div class="card-body text-center">
+                <h2 class="mb-0">Manajemen User</h2>
+            </div>
+        </div>
     <!-- Pesan sukses atau error -->
     <?php if ($this->session->flashdata('success')): ?>
-        <div class="alert alert-success"><?= $this->session->flashdata('success'); ?></div>
-    <?php endif; ?>
-    <?php if ($this->session->flashdata('error')): ?>
-        <div class="alert alert-danger"><?= $this->session->flashdata('error'); ?></div>
-    <?php endif; ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: '<?= $this->session->flashdata('success'); ?>'
+        });
+    </script>
+<?php endif; ?>
 
-    <!-- Tombol Tambah User -->
-    <a href="<?= site_url('login/create'); ?>" class="btn mb-3 text-white" style="background-color: #00705a;"><i class="bi bi-plus-circle"></i> Tambah</a>
+<?php if ($this->session->flashdata('error')): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: '<?= $this->session->flashdata('error'); ?>'
+        });
+    </script>
+<?php endif; ?>
 
     <div class="row">
     <div class="col-sm-12">
         <div class="table-responsive">
-            <!-- Tabel User dan Admin -->
-            <h3>Daftar Pengguna</h3>
+             <!-- Tombol Tambah User -->
+    <a href="<?= site_url('login/create'); ?>" class="btn mt-3 mb-3 text-white" style="background-color: #00705a;"><i class="bi bi-plus-circle"></i> Tambah</a>
             <table id="dataTable" class="table table-bordered table-hover" data-aos="fade-down-right">
-                <thead style="background-color: #00705a; color: white;">
+                <thead style="background-color: #00705a;">
                     <tr>
                         <th>ID</th>
                         <th>Username</th>

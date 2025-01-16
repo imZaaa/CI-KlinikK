@@ -25,72 +25,104 @@
                     <div class="card-body">
                         <!-- Form untuk mengedit data upload, dengan enctype untuk mendukung upload file -->
                         <?php echo form_open_multipart('Dokter/edit/' . $upload->id); ?>
-                            <!-- Input field untuk deskripsi dengan nilai default dari data yang sudah ada -->
-                            
-                            
-                            <div class="mb-3">
-                                <label for="nama" class="form-label">Nama</label>
-                                <input 
-                                    type="text" 
-                                    name="nama" 
-                                    id="nama" 
-                                    class="form-control" 
-                                    value="<?php echo $upload->nama; ?>" 
-                                    placeholder="Masukkan nama baru" 
-                                    required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="spesialis" class="form-label">Spesialis</label>
-                                <input 
-                                    type="text" 
-                                    name="spesialis" 
-                                    id="spesialis" 
-                                    class="form-control" 
-                                    value="<?php echo $upload->spesialis; ?>" 
-                                    placeholder="Masukkan spesialis baru" 
-                                    required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="jadwal" class="form-label">Jadwal</label>
-                                <input 
-                                    type="text" 
-                                    name="jadwal" 
-                                    id="jadwal" 
-                                    class="form-control" 
-                                    value="<?php echo $upload->jadwal; ?>" 
-                                    placeholder="Masukkan jadwal baru" 
-                                    required>
-                            </div>
-                            <!-- Menampilkan gambar yang sebelumnya diupload -->
-                            <div class="mb-3">
-                                <label class="form-label">Gambar Sebelumnya</label>
-                                <br>
-                                <img src="<?php echo base_url('assets/' . $upload->gambar); ?>" width="150px" class="rounded shadow-sm">
-                            </div>
-                            <!-- Input field untuk upload gambar baru -->
-                            <div class="mb-3">
-                                <label for="gambar" class="form-label">Upload Gambar Baru</label>
-                                <input 
-                                    type="file" 
-                                    name="foto_pasien" 
-                                    id="gambar" 
-                                    class="form-control">
-                            </div>
-                            <!-- Tombol untuk submit form dan tombol untuk kembali ke halaman sebelumnya -->
-                            <div class="text-center">
-                                <button type="submit" name="Submit" value="Update" class="btn btn-success">
-                                    Update
-                                </button>
-                                <a href="<?= site_url('upload'); ?>" class="btn btn-secondary">
-                                    Kembali
-                                </a>
-                            </div>
-                        <?php echo form_close(); ?> <!-- Menutup tag form -->
+                    <!-- Input field untuk deskripsi dengan nilai default dari data yang sudah ada -->
+                    <div class="mb-3">
+                        <label for="nama" class="form-label">Nama</label>
+                        <input 
+                            type="text" 
+                            name="nama" 
+                            id="nama" 
+                            class="form-control" 
+                            value="<?php echo $upload->nama; ?>" 
+                            placeholder="Masukkan nama baru" 
+                            required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="spesialis" class="form-label">Spesialis</label>
+                        <input 
+                            type="text" 
+                            name="spesialis" 
+                            id="spesialis" 
+                            class="form-control" 
+                            value="<?php echo $upload->spesialis; ?>" 
+                            placeholder="Masukkan spesialis baru" 
+                            required>
+                    </div>
+
+                    <div class="mb-3">
+                    <label for="jadwal" class="form-label">Jadwal</label>
+                    <!-- Checkbox untuk jadwal hari -->
+                    <div>
+                <?php 
+                    // Daftar hari dalam seminggu
+                    $hari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+
+                    // Jika jadwal sudah dalam bentuk array, langsung gunakan, jika dalam bentuk string, pisahkan dengan explode()
+                    $selected_days = is_array($upload->jadwal) ? $upload->jadwal : explode(',', $upload->jadwal);
+
+                    // Loop untuk membuat checkbox setiap hari
+                    foreach ($hari as $day) :
+                ?>
+                    <div class="form-check form-check-inline">
+                        <input 
+                            class="form-check-input" 
+                            type="checkbox" 
+                            name="jadwal[]" 
+                            value="<?php echo $day; ?>"
+                            <?php echo in_array($day, $selected_days) ? 'checked' : ''; ?>>
+                        <label class="form-check-label"><?php echo $day; ?></label>
+                    </div>
+                <?php endforeach; ?>
+
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+
+                <div class="mb-3">
+                    <label for="jam_praktek" class="form-label">Jam Praktek</label>
+                    <input 
+                        type="text" 
+                        name="jam_praktek" 
+                        id="jam_praktek" 
+                        class="form-control" 
+                        value="<?php echo is_array($upload->jam_praktek) ? implode(', ', $upload->jam_praktek) : $upload->jam_praktek; ?>"  
+                        placeholder="Masukkan jam praktek (contoh: 08:00 - 12:00)" 
+                        required>
+                </div>
+
+                <!-- Menampilkan gambar yang sebelumnya diupload -->
+                <div class="mb-3">
+                    <label class="form-label">Gambar Sebelumnya</label>
+                    <br>
+                    <img src="<?php echo base_url('assets/' . $upload->gambar); ?>" width="150px" class="rounded shadow-sm">
+                </div>
+
+                <!-- Input field untuk upload gambar baru -->
+                <div class="mb-3">
+                    <label for="gambar" class="form-label">Upload Gambar Baru</label>
+                    <input 
+                        type="file" 
+                        name="gambar" 
+                        id="gambar" 
+                        class="form-control">
+                </div>
+
+                <!-- Tombol untuk submit form dan tombol untuk kembali ke halaman sebelumnya -->
+                <div class="text-center">
+                    <button type="submit" name="Submit" value="Update" class="btn btn-success">
+                        Update
+                    </button>
+                    <a href="<?= site_url('dokter/admin'); ?>" class="btn btn-secondary">
+                        Kembali
+                    </a>
+                </div>
+            <?php echo form_close(); ?>
+            <!-- Menutup tag form -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
     <!-- Menyertakan file JS Bootstrap dari CDN untuk fungsionalitas seperti modal, dropdown, dll. -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
