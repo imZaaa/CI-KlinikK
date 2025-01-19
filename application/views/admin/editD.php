@@ -39,15 +39,12 @@
                     </div>
                     
                     <div class="mb-3">
-                        <label for="spesialis" class="form-label">Spesialis</label>
-                        <input 
-                            type="text" 
-                            name="spesialis" 
-                            id="spesialis" 
-                            class="form-control" 
-                            value="<?php echo $upload->spesialis; ?>" 
-                            placeholder="Masukkan spesialis baru" 
-                            required>
+                        <label for="spesialis" class="form-label">Jenis Dokter</label>
+                        <select name="spesialis" id="spesialis" class="form-control" value="<?php echo $upload->spesialis; ?>" placeholder="Masukkan spesialis baru" required>
+                            <option value="" disabled selected>Pilih jenis dokter</option>
+                            <option value="umum" <?php echo (isset($data['spesialis']) && $data['spesialis'] == 'umum') ? 'selected' : ''; ?>>Umum</option>
+                            <option value="spesialis" <?php echo (isset($data['spesialis']) && $data['spesialis'] == 'spesialis') ? 'selected' : ''; ?>>Spesialis</option>
+                        </select>
                     </div>
 
                     <div class="mb-3">
@@ -89,6 +86,7 @@
                         placeholder="Masukkan jam praktek (contoh: 08:00 - 12:00)" 
                         required>
                 </div>
+                
 
                 <!-- Menampilkan gambar yang sebelumnya diupload -->
                 <div class="mb-3">

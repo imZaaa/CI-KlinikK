@@ -147,41 +147,59 @@
     <h2 class="mb-4">Daftar Pengobatan</h2>
     <a href="<?= site_url('pengobatan/create') ?>" class="btn btn-primary mb-3">Tambah Pengobatan</a>
     <table id="uploadTable" class="table table-bordered">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nama Pasien</th>
-                <th>Penyakit</th>
-                <th>Obat</th>
-                <th>Tanggal Pengobatan</th>
-                <th>Biaya</th>
-                <th>Status Bayar</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nama Pasien</th>
+            <th>Penyakit</th>
+            <th>Obat</th>
+            <th>Dokter</th>
+            <th>Tanggal Pengobatan</th>
+            <th>Biaya</th>
+            <th>Status Bayar</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
         <?php foreach ($pengobatan as $p): ?>
             <tr>
                 <td><?= $p['id_pengobatan'] ?></td>
-                <td><?= $p['nama'] ?></td>
+                <td><?= $p['nama_pasien'] ?></td>
                 <td><?= $p['nama_penyakit'] ?></td>
-                <td><?= $p['nama_obat'] ?></td>
-                <td><?= $p['tgl_pengobatan'] ?></td>
-                <td><?= $p['biaya_pengobatan'] ?></td>
-                <?php if ($p['status_bayar']=='Sudah Dibayar'): ?>
-                        <td><p class="text-success"><?= $p['status_bayar'] ?></p></td>
-                    <?php else: ?>
-                        <td><p class="text-danger"><?= $p['status_bayar'] ?></p></td>
-                    <?php endif; ?>
                 <td>
-                    <a href="<?= site_url('pengobatan/edit/' . $p['id_pengobatan']) ?>" class="btn btn-sm" style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;"> <i class="bi bi-pencil-square" ></i></a>
-               
-                    <a href="<?= site_url('pengobatan/delete/' . $p['id_pengobatan']) ?>" class="btn btn-sm" style="color: #ffffff; background-color: #00705a; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;"><i class="bi bi-trash" ></i></a>
+                    <?php
+                    // Menampilkan obat yang dipilih
+                    $obats = explode(',', $p['id_obat']); // Misalnya, ID obat disimpan dalam format CSV
+                    foreach ($obats as $obat_id):
+                        $obat = getObatById($obat_id); // Fungsi untuk mendapatkan data obat berdasarkan ID
+                        echo $obat['nama_obat'] . "<br>";
+                    endforeach;
+                    ?>
+                </td>
+                <td>
+                    <?php
+                    // Menampilkan dokter berdasarkan ID dokter yang terkait dengan pengobatan
+                    $dokter = getDokterById($p['id_dokter']); // Fungsi untuk mendapatkan data dokter berdasarkan ID
+                    echo $dokter['nama_dokter'];
+                    ?>
+                </td>
+                <td><?= $p['tgl_pengobatan'] ?></td>
+                <td><?= number_format($p['biaya_pengobatan'], 2, ',', '.') ?></td>
+                <?php if ($p['status_bayar'] == 'Sudah Dibayar'): ?>
+                    <td><p class="text-success"><?= $p['status_bayar'] ?></p></td>
+                <?php else: ?>
+                    <td><p class="text-danger"><?= $p['status_bayar'] ?></p></td>
+                <?php endif; ?>
+                <td>
+                    <a href="<?= site_url('pengobatan/edit/' . $p['id_pengobatan']) ?>" class="btn btn-sm" style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;"> <i class="bi bi-pencil-square"></i></a>
+                    <a href="<?= site_url('pengobatan/delete/' . $p['id_pengobatan']) ?>" class="btn btn-sm" style="color: #ffffff; background-color: #00705a; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;"><i class="bi bi-trash"></i></a>
                 </td>
             </tr>
         <?php endforeach; ?>
-        </tbody>
-    </table>
+    </tbody>
+</table>
+
+
 </div>
  </div>
 </body>

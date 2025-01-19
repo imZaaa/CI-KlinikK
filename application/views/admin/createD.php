@@ -36,15 +36,14 @@
 
     <!-- Input untuk spesialis -->
     <div class="mb-3">
-        <label for="spesialis" class="form-label">Spesialis</label>
-        <input 
-            type="text" 
-            name="spesialis" 
-            id="spesialis" 
-            class="form-control" 
-            placeholder="Masukkan spesialis" 
-            required>
-    </div>                            
+    <label for="spesialis" class="form-label">Jenis Dokter</label>
+    <select name="spesialis" id="spesialis" class="form-control" required>
+        <option value="" disabled selected>Pilih jenis dokter</option>
+        <option value="umum" <?php echo (isset($data['spesialis']) && $data['spesialis'] == 'umum') ? 'selected' : ''; ?>>Umum</option>
+        <option value="spesialis" <?php echo (isset($data['spesialis']) && $data['spesialis'] == 'spesialis') ? 'selected' : ''; ?>>Spesialis</option>
+    </select>
+</div>
+                          
 
     <!-- Input untuk jadwal hari (checkbox) -->
     <div class="mb-3">
@@ -77,7 +76,7 @@
             placeholder="Misal: 08:00 - 12:00" 
             required>
     </div>                            
-
+       
     <!-- Input untuk mengupload gambar -->
     <div class="mb-3">
         <label for="gambar" class="form-label">Upload Gambar</label>

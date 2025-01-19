@@ -195,6 +195,7 @@
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 10%;">Golongan Darah</th>
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 10%;">No. Telepon</th>
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 20%;">Riwayat Penyakit</th>
+        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 20%;">Tanggal Pendaftaran</th>
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 15%;">Aksi</th>
     </tr>
 </thead>
@@ -218,6 +219,7 @@
                     <td style="border-color: #00705a;"><?= !empty($upload['goldar']) ? $upload['goldar'] : '-'; ?></td>
                     <td style="border-color: #00705a;"><?= !empty($upload['nomor_telepon']) ? $upload['nomor_telepon'] : '-'; ?></td>
                     <td style="border-color: #00705a;"><?= !empty($upload['riwayat_penyakit']) ? $upload['riwayat_penyakit'] : '-'; ?></td>
+                    <td style="border-color: #00705a;"><?= !empty($upload['tanggal_daftar']) ? $upload['tanggal_daftar'] : '-'; ?></td>
                     <td class="text-center" style="border-color: #00705a;">
                         <a href="<?= site_url('pasien/edit/'.$upload['id']); ?>" class="btn btn-warning btn-sm" 
                            style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;">

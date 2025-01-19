@@ -189,15 +189,16 @@
         <!-- Tabel yang menampilkan data upload, dengan ID untuk DataTables -->
         <table id="uploadTable" class="table table-bordered table-striped table-hover" 
        style="border-color: #00705a; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-    <thead class="table-primary" style="background-color: #00705a; color: #ffffff; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+    <thead style="background-color: #00705a; border-top-left-radius: 10px; border-top-right-radius: 10px;">
         <tr>
-            <th style="border-color: #00705a; text-align: center; font-weight: bold;">Nomor</th>
-            <th style="border-color: #00705a; text-align: center; font-weight: bold;">Gambar</th>
-            <th style="border-color: #00705a; text-align: center; font-weight: bold;">Nama</th>
-            <th style="border-color: #00705a; text-align: center; font-weight: bold;">Spesialis</th>
-            <th style="border-color: #00705a; text-align: center; font-weight: bold;">Jadwal</th>
-            <th style="border-color: #00705a; text-align: center; font-weight: bold;">Jam Praktek</th>
-            <th style="border-color: #00705a; text-align: center; font-weight: bold;">Aksi</th>
+            <th class="text-white" style="background-color: #00705a; text-align: center; font-weight: bold;">Nomor</th>
+            <th class="text-white" style="background-color: #00705a; text-align: center; font-weight: bold;">Gambar</th>
+            <th class="text-white" style="background-color: #00705a; text-align: center; font-weight: bold;">Nama</th>
+            <th class="text-white" style="background-color: #00705a; text-align: center; font-weight: bold;">Pelayanan</th>
+            <th class="text-white" style="background-color: #00705a; text-align: center; font-weight: bold;">Jadwal</th>
+            <th class="text-white" style="background-color: #00705a; text-align: center; font-weight: bold;">Jam Praktek</th>
+            <th  style="background-color: #00705a; text-align: center; font-weight: bold;">Tarif</th>
+            <th style="background-color: #00705a; text-align: center; font-weight: bold;">Aksi</th>
         </tr>
     </thead>
     <tbody>
@@ -228,6 +229,7 @@
                         ?>
                     </td>
                     <td style="border-color: #00705a;"><?= !empty($upload['jam_praktek']) ? $upload['jam_praktek'] : '-'; ?></td>
+                    <td style="border-color: #00705a;"><?= !empty($upload['tarif']) ? $upload['tarif'] : '-'; ?></td>
 
                     <td class="text-center" style="border-color: #00705a;">
                         <a href="<?= site_url('dokter/edit/'.$upload['id']); ?>" class="btn btn-warning btn-sm" 
