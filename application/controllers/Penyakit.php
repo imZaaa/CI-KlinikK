@@ -41,7 +41,7 @@ class Penyakit extends CI_Controller {
             'id' => $this->input->post('id'),
             'nama_penyakit' => $this->input->post('nama_penyakit'),
             'deskripsi' => $this->input->post('deskripsi'),
-            'penyebab' => $this->input->post('penyebab'),
+            'penyebab' => $this->input->post('penyebab'),   
             'gejala' => $this->input->post('gejala'),
             'ciri_ciri' => $this->input->post('ciri_ciri'),
             'pengobatan' => $this->input->post('pengobatan'),

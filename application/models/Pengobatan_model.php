@@ -9,21 +9,28 @@ class Pengobatan_model extends CI_Model {
 
     // Mendapatkan semua pengobatan lengkap dengan data pasien, penyakit, dan obat
     public function get_all() {
-        $this->db->select('p.id_pengobatan, p.tgl_pengobatan, p.biaya_pengobatan, p.status_bayar, pasien.nama AS nama_pasien, GROUP_CONCAT(penyakit.nama_penyakit SEPARATOR ", ") AS penyakit, GROUP_CONCAT(obat.nama_obat SEPARATOR ", ") AS obat');
-        $this->db->from('tbl_pengobatan p');
-        $this->db->join('tbl_pasien pasien', 'p.id_pasien = pasien.id');
-        $this->db->join('tbl_pengobatan_penyakit pp', 'p.id_pengobatan = pp.id_pengobatan');
-        $this->db->join('tbl_penyakit penyakit', 'pp.id_penyakit = penyakit.id');
-        $this->db->join('tbl_pengobatan_obat po', 'p.id_pengobatan = po.id_pengobatan');
-        $this->db->join('tbl_obat obat', 'po.id_obat = obat.id');
-        $this->db->group_by('p.id_pengobatan');  // Group by pengobatan untuk menggabungkan data penyakit dan obat
-        return $this->db->get()->result_array();
+    $this->db->select('tbl_pengobatan.id_pengobatan, tbl_pasien.nama, tbl_penyakit.nama_penyakit, tbl_obat.id, tbl_dokter.nama, tbl_pengobatan.tgl_pengobatan, tbl_pengobatan.biaya_pengobatan, tbl_pengobatan.status_bayar');
+    $this->db->from('tbl_pengobatan');
+    $this->db->join('tbl_pasien', 'tbl_pasien.id = tbl_pengobatan.id_pasien');
+    $this->db->join('tbl_penyakit', 'tbl_penyakit.id = tbl_pengobatan.id_penyakit');
+    $this->db->join('tbl_obat', 'tbl_obat.id = tbl_pengobatan.id_obat', 'left');
+    $this->db->join('tbl_dokter', 'tbl_dokter.id = tbl_pengobatan.id_dokter');
+    $query = $this->db->get();
+
+    // Pastikan query menghasilkan hasil yang benar
+    if ($query->num_rows() > 0) {
+        return $query->result_array();
+    } else {
+        return []; // Kembalikan array kosong jika tidak ada data
     }
+}
 
     // Menambahkan pengobatan baru ke database
-    public function insert_pengobatan($data) {
-        return $this->db->insert('tbl_pengobatan', $data);
-    }
+   public function insert_pengobatan($data)
+{
+    $this->db->insert('tbl_pengobatan', $data);
+    return $this->db->insert_id();
+}
 
     // Menghapus data pengobatan berdasarkan id
     public function delete($id) {
@@ -57,7 +64,7 @@ class Pengobatan_model extends CI_Model {
 
     // Mendapatkan daftar penyakit terkait pengobatan
     public function get_penyakit_by_pengobatan($id) {
-        $this->db->select('penyakit.nama_penyakit');
+        $this->db->select('tbl_penyakit.nama_penyakit');
         $this->db->from('tbl_pengobatan_penyakit pp');
         $this->db->join('tbl_penyakit penyakit', 'pp.id_penyakit = penyakit.id');
         $this->db->where('pp.id_pengobatan', $id);
@@ -66,10 +73,24 @@ class Pengobatan_model extends CI_Model {
 
     // Mendapatkan daftar obat terkait pengobatan
     public function get_obat_by_pengobatan($id) {
-        $this->db->select('obat.nama_obat');
+        $this->db->select('tbl_obat.nama_obat');
         $this->db->from('tbl_pengobatan_obat po');
         $this->db->join('tbl_obat obat', 'po.id_obat = obat.id');
         $this->db->where('po.id_pengobatan', $id);
         return $this->db->get()->result_array();
     }
+   public function insert_penyakit_to_pengobatan($id_pengobatan, $id_penyakit) {
+    $this->db->insert('tbl_pengobatan_penyakit', [
+        'id_pengobatan' => $id_pengobatan,
+        'id_penyakit' => $id_penyakit
+    ]);
+}
+
+public function insert_obat_to_pengobatan($id_pengobatan, $id_obat) {
+    $this->db->insert('tbl_pengobatan_obat', [
+        'id_pengobatan' => $id_pengobatan,
+        'id_obat' => $id_obat
+    ]);
+}
+
 }

@@ -6,6 +6,53 @@
     <title>Tambah Pengobatan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            background-color: #f4f8f7;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 40%;
+        }
+        h2 {
+            color: #00705a;
+            font-weight: bold;
+        }
+        label {
+            color: #00705a;
+        }
+        .form-control, .form-select {
+            border-color: #00705a;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #006047;
+            box-shadow: 0 0 0 0.25rem rgba(0, 96, 71, 0.25);
+        }
+        .btn {
+            background-color: #00705a;
+            color: white;
+            border: none;
+        }
+        .btn:hover {
+            background-color: #006047;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6368;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group input[type="checkbox"] {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
 <div class="container mt-5">
@@ -23,32 +70,34 @@
         <!-- Dokter -->
         <div class="mb-3">
             <label for="id_dokter" class="form-label">Dokter</label>
-            <select name="id_dokter" id="id_dokter" class="form-select" required>
-                <option value="">Pilih Dokter</option>
-                <?php foreach ($data_obat as $d): ?>
-                <option value="<?= $d['id'] ?>" data-biaya="<?= $d['total_biaya'] ?>"><?= $d['nama'] ?></option>
-                <?php endforeach; ?>
+            <select id="id_dokter" name="id_dokter" class="form-select">
+                <option value="" selected>Pilih Dokter</option>
+                <?php if (!empty($dokter)) : ?>
+                    <?php foreach ($dokter as $d): ?>
+                        <option value="<?= $d['id'] ?>" data-total_biaya="<?= $d['tarif'] ?>"><?= $d['nama'] ?></option>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <option value="">Tidak ada data dokter</option>
+                <?php endif; ?>
             </select>
         </div>
 
-        <!-- Penyakit -->
-        <div class="mb-3">
-            <label for="id_penyakit" class="form-label">Penyakit</label>
-            <select name="id_penyakit[]" id="id_penyakit" class="form-select" multiple required>
-                <?php foreach ($penyakit as $pen): ?>
-                    <option value="<?= $pen->id ?>"><?= $pen->nama_penyakit ?></option>
-                <?php endforeach; ?>
-            </select>
+        <!-- Input untuk memilih Penyakit -->
+        <div class="form-group">
+            <label for="id_penyakit">Penyakit</label><br>
+            <?php foreach ($penyakit as $p): ?>
+                <input type="checkbox" name="id_penyakit[]" value="<?= $p->id ?>" id="penyakit_<?= $p->id ?>">
+                <label for="penyakit_<?= $p->id ?>"><?= $p->nama_penyakit ?></label><br>
+            <?php endforeach; ?>
         </div>
 
-        <!-- Obat -->
-        <div class="mb-3">
-            <label for="id_obat" class="form-label">Obat</label>
-            <select name="id_obat[]" id="id_obat" class="form-select" multiple required>
-                <?php foreach ($obat as $o): ?>
-                    <option value="<?= $o['id']?>" data-harga="<?= $o['harga'] ?>"><?= $o['nama_obat'] ?></option>
-                <?php endforeach; ?>
-            </select>
+        <!-- Input untuk memilih Obat -->
+        <div class="form-group">
+            <label for="id_obat">Obat</label><br>
+            <?php foreach ($obat as $o): ?>
+                <input type="checkbox" name="id_obat[]" value="<?= $o['id'] ?>" id="id_obat <?= $o['id'] ?>" data-harga="<?= $o['harga'] ?>">
+                <label for="obat_<?= $o['id'] ?>"><?= $o['nama_obat'] ?> - Rp <?= number_format($o['harga'], 0, ',', '.') ?></label><br>
+            <?php endforeach; ?>
         </div>
 
         <!-- Tanggal Pengobatan -->
@@ -57,10 +106,10 @@
             <input type="date" name="tgl_pengobatan" id="tgl_pengobatan" class="form-control" required>
         </div>
 
-        <!-- Biaya Pengobatan -->
-        <div class="mb-3">
-            <label for="biaya_pengobatan" class="form-label">Biaya Pengobatan</label>
-            <input type="number" name="biaya_pengobatan" id="biaya_pengobatan" class="form-control" readonly>
+        <!-- Input untuk total biaya -->
+        <div class="form-group">
+            <label for="biaya_pengobatan">Total Biaya</label>
+            <input type="text" id="biaya_pengobatan" name="biaya_pengobatan" class="form-control" readonly>
         </div>
 
         <!-- Status Bayar -->
@@ -78,20 +127,19 @@
 </div>
 
 <script>
-// Menghitung biaya pengobatan otomatis
 $(document).ready(function() {
     function calculateCost() {
         let totalBiaya = 0;
 
         // Biaya Dokter
-        let dokterBiaya = $('#id_dokter option:selected').data('total_biaya');  // Ganti ke total_biaya
+        let dokterBiaya = $('#id_dokter option:selected').data('total_biaya');
         if (dokterBiaya) {
             totalBiaya += parseInt(dokterBiaya);
         }
 
-        // Biaya Obat
-        $('#id_obat option:selected').each(function() {
-            let obatHarga = $(this).data('harga');  // Pastikan data-harga ada pada opsi obat
+        // Biaya Obat (gunakan checkbox untuk obat)
+        $("input[name='id_obat[]']:checked").each(function() {
+            let obatHarga = $(this).data('harga');
             if (obatHarga) {
                 totalBiaya += parseInt(obatHarga);
             }
@@ -102,11 +150,10 @@ $(document).ready(function() {
     }
 
     // Hitung ulang setiap kali ada perubahan pada pemilihan dokter atau obat
-    $('#id_dokter, #id_obat').on('change', function() {
+    $('#id_dokter, input[name="id_obat[]"]').on('change', function() {
         calculateCost();
     });
 });
-
 </script>
 
 </body>

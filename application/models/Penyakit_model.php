@@ -5,8 +5,10 @@ class Penyakit_model extends CI_Model {
 
     // Mendapatkan semua data penyakit
     public function get_all_penyakit() {
-        return $this->db->get('tbl_penyakit')->result();
-    }
+    $query = $this->db->get('tbl_penyakit');
+    return $query->result(); // Mengembalikan array objek stdClass
+}
+
 
     // Menambahkan penyakit baru
    public function insert_penyakit($data) {

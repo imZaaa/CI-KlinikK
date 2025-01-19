@@ -77,5 +77,14 @@ class Obat_model extends CI_Model {
         }
         return true;
     }
+
+    public function get_total_obat_cost($obat_ids) {
+        $this->db->select_sum('harga');  // Menjumlahkan harga
+        $this->db->where_in('id', $obat_ids);  // Menyaring berdasarkan id obat yang dipilih
+        $query = $this->db->get('tbl_obat');  // Mengambil data dari tabel 'obat'
+        $result = $query->row();  // Ambil hasil sebagai satu baris
+        return $result->harga;  // Mengembalikan total biaya obat
+    }
+    
 }
 ?>

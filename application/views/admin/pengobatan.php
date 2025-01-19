@@ -147,49 +147,57 @@
     <h2 class="mb-4">Daftar Pengobatan</h2>
     <a href="<?= site_url('pengobatan/create') ?>" class="btn btn-primary mb-3">Tambah Pengobatan</a>
     <table id="uploadTable" class="table table-bordered">
-    <thead>
+     <thead>
         <tr>
-            <th>ID</th>
-            <th>Nama Pasien</th>
+            <th>ID Pengobatan</th>
+            <th>ID Pasien</th>
             <th>Penyakit</th>
             <th>Obat</th>
             <th>Dokter</th>
             <th>Tanggal Pengobatan</th>
-            <th>Biaya</th>
+            <th>Biaya Pengobatan</th>
             <th>Status Bayar</th>
-            <th>Aksi</th>
+            <th>Tarif</th>
+            <th>Total Biaya</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach ($pengobatan as $p): ?>
             <tr>
                 <td><?= $p['id_pengobatan'] ?></td>
-                <td><?= $p['nama_pasien'] ?></td>
-                <td><?= $p['nama_penyakit'] ?></td>
+                <td><?= $p['id_pasien'] ?></td> <!-- Menampilkan id_pasien -->
                 <td>
                     <?php
-                    // Menampilkan obat yang dipilih
-                    $obats = explode(',', $p['id_obat']); // Misalnya, ID obat disimpan dalam format CSV
+                    // Menampilkan penyakit berdasarkan id_penyakit
+                    $penyakits = $this->Pengobatan_model->get_penyakit_by_pengobatan($p['id_pengobatan']);
+                    foreach ($penyakits as $penyakit):
+                        echo $penyakit['nama_penyakit'] . "<br>";
+                    endforeach;
+                    ?>
+                </td>
+                <td>
+                    <?php
+                    // Menampilkan obat yang dipilih berdasarkan id_obat
+                    $obats = explode(',', $p['id']); // Misalnya, ID obat disimpan dalam format CSV
                     foreach ($obats as $obat_id):
-                        $obat = getObatById($obat_id); // Fungsi untuk mendapatkan data obat berdasarkan ID
+                        $obat = $this->Obat_model->get_uploads($id); // Fungsi untuk mendapatkan data obat berdasarkan ID
                         echo $obat['nama_obat'] . "<br>";
                     endforeach;
                     ?>
                 </td>
                 <td>
                     <?php
-                    // Menampilkan dokter berdasarkan ID dokter yang terkait dengan pengobatan
-                    $dokter = getDokterById($p['id_dokter']); // Fungsi untuk mendapatkan data dokter berdasarkan ID
-                    echo $dokter['nama_dokter'];
+                    // Menampilkan dokter berdasarkan id_dokter
+                    $dokter = $this->Dokter_model->get_uploads($p['id']);
+                    echo $dokter['nama'];
                     ?>
                 </td>
-                <td><?= $p['tgl_pengobatan'] ?></td>
-                <td><?= number_format($p['biaya_pengobatan'], 2, ',', '.') ?></td>
-                <?php if ($p['status_bayar'] == 'Sudah Dibayar'): ?>
-                    <td><p class="text-success"><?= $p['status_bayar'] ?></p></td>
-                <?php else: ?>
-                    <td><p class="text-danger"><?= $p['status_bayar'] ?></p></td>
-                <?php endif; ?>
+                <td><?= date('d-m-Y', strtotime($p['tgl_pengobatan'])) ?></td> <!-- Format tanggal pengobatan -->
+                <td><?= number_format($p['biaya_pengobatan'], 2, ',', '.') ?></td> <!-- Biaya pengobatan -->
+                <td><?= $p['status_bayar'] == 'Sudah Dibayar' ? '<p class="text-success">Sudah Dibayar</p>' : '<p class="text-danger">Belum Dibayar</p>' ?></td>
+                <td><?= number_format($p['tarif'], 2, ',', '.') ?></td> <!-- Tarif -->
+                <td><?= number_format($p['total_biaya'], 2, ',', '.') ?></td> <!-- Total biaya -->
                 <td>
                     <a href="<?= site_url('pengobatan/edit/' . $p['id_pengobatan']) ?>" class="btn btn-sm" style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;"> <i class="bi bi-pencil-square"></i></a>
                     <a href="<?= site_url('pengobatan/delete/' . $p['id_pengobatan']) ?>" class="btn btn-sm" style="color: #ffffff; background-color: #00705a; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;"><i class="bi bi-trash"></i></a>
