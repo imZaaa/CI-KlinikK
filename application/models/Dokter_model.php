@@ -7,10 +7,17 @@ class Dokter_model extends CI_Model {
     }
 
     // Mengambil semua data upload dari tabel 'tbl_upload'
-    public function get_uploads(){
-        $query = $this->db->get('tbl_dokter');  // Melakukan query untuk mengambil semua data dari tabel 'tbl_upload'
-        return $query->result_array();  // Mengembalikan hasil query dalam bentuk array objek
+public function get_uploads($id = null)
+{
+    if ($id) {
+        $query = $this->db->get_where('tbl_dokter', ['id' => $id]);
+        return $query->row_array(); // Mengembalikan data baris tunggal
+    } else {
+        $query = $this->db->get('tbl_dokter');
+        return $query->result_array(); // Mengembalikan semua data
     }
+}
+
 
     // Menambahkan data upload baru ke dalam tabel 'tbl_upload'
     public function insert_upload($data){

@@ -22,6 +22,7 @@ class Dokter extends CI_Controller {
     public function user()
     {
         $data['uploads'] = $this->Dokter_model->get_uploads();  
+        $this->load->view('user/dokter', $data);
     }
 
     public function create()

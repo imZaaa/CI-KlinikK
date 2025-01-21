@@ -80,6 +80,27 @@
         </script>
     <?php endif; ?>
 
+    <?php if (!empty($password_message)): ?>
+    <script>
+        Swal.fire({
+            icon: 'info',
+            title: 'Informasi',
+            text: '<?= $password_message; ?>',
+            confirmButtonText: 'OK'
+        });
+    </script>
+<?php elseif (!empty($error_message)): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Kesalahan',
+            text: '<?= $error_message; ?>',
+            confirmButtonText: 'OK'
+        });
+    </script>
+<?php endif; ?>
+
+
     <div class="login-container">
         <center><img src="<?= base_url('assets/logoo.jpg')?>" width="200px"></center> <br>
         <form action="<?= site_url('login/login_process/')?>" method="POST">
@@ -149,12 +170,6 @@
                         <label for="email_forgot" class="form-label">Email</label>
                         <input type="email" class="form-control" id="email_forgot" name="email" required placeholder="Enter your email">
                     </div>
-                    <?php if (!empty($password_message)): ?>
-    <div class="alert alert-info"><?= $password_message; ?></div>
-<?php elseif (!empty($error_message)): ?>
-    <div class="alert alert-danger"><?= $error_message; ?></div>
-<?php endif; ?>
-
                     <div class="text-end">
                         <button type="submit" class="btn btn-primary">Show Password</button>
                     </div>

@@ -277,7 +277,7 @@ const myChart = new Chart(ctx, {
     plugins: {
         title: {
             display: true,
-            text: 'Jumlah Data Berdasarkan Kategori',
+            text: 'Jumlah Data Pengguna Berdasarkan Kategori',
             font: {
                 size: 16,
                 family: 'Montserrat',

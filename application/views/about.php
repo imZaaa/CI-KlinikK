@@ -224,7 +224,7 @@
                 Membantu masyarakat memahami pentingnya gaya hidup sehat melalui informasi kesehatan dan program pencegahan.
                 </p>
                 <p><b>5. Bekerja Secara Profesional dan Berintegritas:</b> <br>
-                Melibatkan tim medis dan staf yang kompeten dengan standar etika tinggi dalam setiap pelayanan.                </p>
+                Melibatkan tim medis dan staf yang kompeten dengan standar etika tinggi dalam setiap pelayanan.</p>
             </div>
         </div>
     </div>

@@ -30,20 +30,18 @@
     .nav-link.active {
         font-weight: bold;
         color: #ffd700 !important;
-        background-color: transparent !important; /* Menghilangkan background biru */
+        background-color: transparent !important;
     }
 
     ::-webkit-scrollbar {
         display: none;
     }
 
-    /* Styling untuk container utama */
     .content-container {
         margin-left: 280px;
         padding: 20px;
     }
 
-    /* Styling untuk tabel agar lebih rapi */
     #uploadTable {
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -56,21 +54,42 @@
     #uploadTable tbody tr:hover {
         background-color: #d1f0e6;
     }
-    /* Styling untuk sidebar agar tetap di tempat */
-.col-auto {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh; /* Menjaga sidebar sepanjang tinggi viewport */
-    z-index: 1050; /* Agar sidebar tetap di atas konten */
-    padding-top: 20px; /* Memberikan ruang agar tidak terlalu rapat ke atas */
-}
 
-/* Mengatur ruang untuk konten utama */
-.col.py-3 {
-    margin-left: 230px; /* Memberikan ruang agar konten utama tidak tertutup sidebar */
-}
+    /* Membuat kontainer tabel bisa di-scroll horizontal */
+    .table-container {
+        overflow-x: auto; /* Hanya tabel yang bisa di-scroll secara horizontal */
+        -webkit-overflow-scrolling: touch; /* Mendukung scroll yang halus di perangkat sentuh */
+        position: relative;
+        max-width: 100%; /* Pastikan kontainer ini tidak lebih besar dari lebar layar */
+    }
+
+    .table-container table {
+        width: 100%; /* Agar tabel memenuhi lebar kontainer */
+    }
+
+    /* Menghindari penggeseran luar tabel */
+    .row.flex-nowrap {
+        overflow-x: hidden; /* Menonaktifkan scroll horizontal pada elemen luar */
+    }
+
+    .col-auto {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 1050;
+        padding-top: 20px;
+    }
+
+    .col.py-3 {
+        margin-left: 230px;
+    }
+
+    tbody{
+        text-align: center;
+    }
 </style>
+
 <body>
     <div class="container-fluid">
         <div class="row flex-nowrap">
@@ -145,7 +164,8 @@
 <div class="col py-3">
 <div class="container mt-5">
     <h2 class="mb-4">Daftar Pengobatan</h2>
-    <a href="<?= site_url('pengobatan/create') ?>" class="btn btn-primary mb-3">Tambah Pengobatan</a>
+    <a href="<?= site_url('pengobatan/create') ?>" class="btn mb-3 text-white" style="background-color:#00705a;">Tambah Pengobatan</a>
+    <div class="table-container">
     <table id="uploadTable" class="table table-bordered">
      <thead>
         <tr>
@@ -177,27 +197,31 @@
                     ?>
                 </td>
                 <td>
-                    <?php
+                   <?php
                     // Menampilkan obat yang dipilih berdasarkan id_obat
-                    $obats = explode(',', $p['id']); // Misalnya, ID obat disimpan dalam format CSV
+                    $obats = explode(',', $p['id_obat']); // Memecah ID obat yang dipisahkan koma
                     foreach ($obats as $obat_id):
-                        $obat = $this->Obat_model->get_uploads($id); // Fungsi untuk mendapatkan data obat berdasarkan ID
-                        echo $obat['nama_obat'] . "<br>";
+                        // Ambil data obat berdasarkan ID
+                        $obat = $this->Obat_model->get_upload_by_id(trim($obat_id)); // Pastikan ada fungsi ini di model
+                        
+                        // Cek apakah obat ditemukan
+                        if ($obat) {
+                            echo $obat->nama_obat . "<br>"; // Tampilkan nama obat
+                        } else {
+                            echo "Obat dengan ID $obat_id tidak ditemukan.<br>";
+                        }
                     endforeach;
                     ?>
+
                 </td>
                 <td>
-                    <?php
-                    // Menampilkan dokter berdasarkan id_dokter
-                    $dokter = $this->Dokter_model->get_uploads($p['id']);
-                    echo $dokter['nama'];
-                    ?>
+                    <?= $p['nama_dokter'] ?>
                 </td>
                 <td><?= date('d-m-Y', strtotime($p['tgl_pengobatan'])) ?></td> <!-- Format tanggal pengobatan -->
-                <td><?= number_format($p['biaya_pengobatan'], 2, ',', '.') ?></td> <!-- Biaya pengobatan -->
+                <td>Rp.<?= number_format($p['biaya_pengobatan'], 2, ',', '.') ?></td> <!-- Biaya pengobatan -->
                 <td><?= $p['status_bayar'] == 'Sudah Dibayar' ? '<p class="text-success">Sudah Dibayar</p>' : '<p class="text-danger">Belum Dibayar</p>' ?></td>
-                <td><?= number_format($p['tarif'], 2, ',', '.') ?></td> <!-- Tarif -->
-                <td><?= number_format($p['total_biaya'], 2, ',', '.') ?></td> <!-- Total biaya -->
+                <td>Rp.<?= number_format($p['tarif'],2, ',', ',') ?></td> <!-- Tarif -->
+                <td>Rp.<?= number_format($p['total_biaya'], 2, ',', '.') ?></td> <!-- Total biaya -->
                 <td>
                     <a href="<?= site_url('pengobatan/edit/' . $p['id_pengobatan']) ?>" class="btn btn-sm" style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;"> <i class="bi bi-pencil-square"></i></a>
                     <a href="<?= site_url('pengobatan/delete/' . $p['id_pengobatan']) ?>" class="btn btn-sm" style="color: #ffffff; background-color: #00705a; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;"><i class="bi bi-trash"></i></a>
@@ -206,8 +230,7 @@
         <?php endforeach; ?>
     </tbody>
 </table>
-
-
+</div>
 </div>
  </div>
 </body>
