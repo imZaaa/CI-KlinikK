@@ -296,7 +296,7 @@
             <a class="nav-link text-light" href="<?= site_url('home')?>">Beranda</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="<?= site_url('welcome/aboutU')?>">About</a>
+            <a class="nav-link text-light" href="<?= site_url('profile/user')?>">About</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-light" href="<?= site_url('dokter/user')?>">Dokter</a>
