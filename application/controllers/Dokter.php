@@ -49,7 +49,7 @@ class Dokter extends CI_Controller {
         // Proses upload gambar jika ada
         if (!empty($_FILES['gambar']['name'])) {
             $config['upload_path'] = './assets/';
-            $config['allowed_types'] = 'gif|jpg|png';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
             $config['file_name'] = 'upload_' . time();
             $config['overwrite'] = true;
             $config['max_size'] = 2048; // Maksimal 2MB

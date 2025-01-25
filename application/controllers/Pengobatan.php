@@ -10,6 +10,7 @@ class Pengobatan extends CI_Controller {
         $this->load->model('Obat_model');
         $this->load->model('Dokter_model');  // Load model dokter
     }
+    public $input;
 
     public function index() {
         // Mengambil data pengobatan beserta nama dokter, penyakit, dan obat
@@ -25,59 +26,56 @@ class Pengobatan extends CI_Controller {
     $data['dokter'] = $this->Dokter_model->get_uploads();
 
     if ($this->input->post()) {
-        // Ambil data dari input form
+        // Mengambil data dari form
         $id_pasien = $this->input->post('id_pasien');
         $id_dokter = $this->input->post('id_dokter');
-        $id_penyakit = $this->input->post('id_penyakit'); // Ini adalah array penyakit
-        $id_obat = $this->input->post('id_obat'); // Multiple obat
-        $tgl_pengobatan = $this->input->post('tgl_pengobatan');
+        $id_obat = $this->input->post('id_obat'); // Obat yang dipilih
         $biaya_pengobatan = $this->input->post('biaya_pengobatan');
         $status_bayar = $this->input->post('status_bayar');
+        $tarif = $this->input->post('tarif');
 
-        // Konversi array menjadi string (dipisahkan dengan koma)
-        $id_penyakit_str = !empty($id_penyakit) ? implode(',', $id_penyakit) : null;
-        $id_obat_str = !empty($id_obat) ? implode(',', $id_obat) : null;
+        $dokter = $this->Dokter_model->get_upload_by_id($id_dokter);
+        $tarif = $dokter->tarif;  // Ambil tarif dokter dari hasil query
 
-        // Menghitung total biaya (tarif dokter + harga obat)
+        // Menghitung total biaya
         $total_biaya = $this->calculate_total_cost($id_obat, $id_dokter);
 
-        // Siapkan data pengobatan untuk disimpan
-        $data_pengobatan = [
+        // Siapkan data pengobatan
+        $pengobatanData = [
             'id_pasien' => $id_pasien,
             'id_dokter' => $id_dokter,
-            'id_penyakit' => $id_penyakit_str, // Simpan sebagai string
-            'id_obat' => $id_obat_str, // Simpan sebagai string
-            'tgl_pengobatan' => $tgl_pengobatan,
+            'tgl_pengobatan' => $this->input->post('tgl_pengobatan'),
             'biaya_pengobatan' => $biaya_pengobatan,
             'status_bayar' => $status_bayar,
+            'tarif' => $tarif,
             'total_biaya' => $total_biaya
         ];
-        
-        // Insert data pengobatan
-        $data_pengobatan['tarif'] = $this->Pengobatan_model->get_tarif($id_dokter);
 
-        $pengobatan_id = $this->Pengobatan_model->insert_pengobatan($data_pengobatan);
+        // Simpan data pengobatan
+        $id_pengobatan = $this->Pengobatan_model->insertPengobatan($pengobatanData);
 
-        // Hubungkan pengobatan dengan penyakit
-        if (!empty($id_penyakit) && is_array($id_penyakit)) {
-            foreach ($id_penyakit as $penyakit_id) {
-                $this->Pengobatan_model->insert_penyakit_to_pengobatan($pengobatan_id, $penyakit_id);
+        if ($id_pengobatan) {
+            // Menyimpan obat yang terkait
+            foreach ($id_obat as $id_obat_item) {
+                $this->Pengobatan_model->insertPengobatanObat([
+                    'id_pengobatan' => $id_pengobatan,
+                    'id_obat' => $id_obat_item
+                ]);
             }
-        }
 
-        // Hubungkan pengobatan dengan obat
-        if (!empty($id_obat) && is_array($id_obat)) {
-            foreach ($id_obat as $obat_id) {
-                $this->Pengobatan_model->insert_obat_to_pengobatan($pengobatan_id, $obat_id);
+            // Menyimpan penyakit yang terkait
+            $penyakitList = $this->input->post('id_penyakit');
+            foreach ($penyakitList as $id_penyakit) {
+                $this->Pengobatan_model->insertPengobatanPenyakit([
+                    'id_pengobatan' => $id_pengobatan,
+                    'id_penyakit' => $id_penyakit
+                ]);
             }
-        }
 
-        // Redirect ke halaman daftar pengobatan
-        redirect('Pengobatan');
-    } else {
-        // Load view untuk form input
-        $this->load->view('admin/createPE', $data);
+            redirect('Pengobatan');
+        }
     }
+    $this->load->view('admin/createPE', $data);
 }
 
     public function edit($id) {
@@ -138,15 +136,18 @@ class Pengobatan extends CI_Controller {
     }
 
     private function calculate_total_cost($id_obat, $id_dokter) {
-        // Mengambil harga obat
-        $harga_obat = $this->Obat_model->get_total_obat_cost($id_obat);
-        
-        // Mengambil tarif dokter
-        $dokter = $this->Dokter_model->get_upload_by_id($id_dokter);
-        $tarif_dokter = $dokter->tarif;
-
-        // Menghitung total biaya
-        $total_biaya = $harga_obat + $tarif_dokter;
-        return $total_biaya;
+    // Mengambil harga obat
+    $harga_obat = 0;
+    foreach ($id_obat as $obat_id) {
+        $harga_obat += $this->Obat_model->get_total_obat_cost($obat_id);
     }
+
+    // Mengambil tarif dokter
+    $dokter = $this->Dokter_model->get_upload_by_id($id_dokter);
+    $tarif_dokter = $dokter->tarif;
+
+    // Menghitung total biaya
+    $total_biaya = $harga_obat + $tarif_dokter; // Total biaya = harga obat + tarif dokter
+    return $total_biaya;
+}
 }

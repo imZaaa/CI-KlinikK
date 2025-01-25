@@ -70,11 +70,11 @@
         <!-- Dokter -->
         <div class="mb-3">
             <label for="id_dokter" class="form-label">Dokter</label>
-            <select id="id_dokter" name="id_dokter" class="form-select">
+            <select id="id_dokter" name="id_dokter" class="form-select" required>
                 <option value="" selected>Pilih Dokter</option>
                 <?php if (!empty($dokter)) : ?>
                     <?php foreach ($dokter as $d): ?>
-                        <option value="<?= $d['id'] ?>" data-total_biaya="<?= $d['tarif'] ?>"><?= $d['nama'] ?></option>
+                        <option value="<?= $d['id'] ?>" data-tarif="<?= $d['tarif'] ?>"><?= $d['nama'] ?></option>
                     <?php endforeach; ?>
                 <?php else : ?>
                     <option value="">Tidak ada data dokter</option>
@@ -95,8 +95,8 @@
         <div class="form-group">
             <label for="id_obat">Obat</label><br>
             <?php foreach ($obat as $o): ?>
-                <input type="checkbox" name="id_obat[]" value="<?= $o['id'] ?>" id="id_obat <?= $o['id'] ?>" data-harga="<?= $o['harga'] ?>">
-                <label for="obat_<?= $o['id'] ?>"><?= $o['nama_obat'] ?> - Rp <?= number_format($o['harga'], 0, ',', '.') ?></label><br>
+                <input type="checkbox" name="id_obat[]" value="<?= $o['id'] ?>" id="id_obat_<?= $o['id'] ?>" data-harga="<?= $o['harga'] ?>">
+                <label for="id_obat_<?= $o['id'] ?>"><?= $o['nama_obat'] ?> - Rp <?= number_format($o['harga'], 0, ',', '.') ?></label><br>
             <?php endforeach; ?>
         </div>
 
@@ -104,6 +104,11 @@
         <div class="mb-3">
             <label for="tgl_pengobatan" class="form-label">Tanggal Pengobatan</label>
             <input type="date" name="tgl_pengobatan" id="tgl_pengobatan" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="tarif_dokter">Tarif Dokter</label>
+            <input type="text" class="form-control" id="tarif_dokter" value="<?= isset($tarif) ? $tarif : '' ?>" readonly>
         </div>
 
         <!-- Input untuk total biaya -->
@@ -132,7 +137,7 @@ $(document).ready(function() {
         let totalBiaya = 0;
 
         // Biaya Dokter
-        let dokterBiaya = $('#id_dokter option:selected').data('total_biaya');
+        let dokterBiaya = $('#id_dokter option:selected').data('tarif');
         if (dokterBiaya) {
             totalBiaya += parseInt(dokterBiaya);
         }
@@ -145,8 +150,11 @@ $(document).ready(function() {
             }
         });
 
-        // Set total biaya pengobatan
+        // Set total biaya pengobatan pada input biaya_pengobatan
         $('#biaya_pengobatan').val(totalBiaya);
+
+        // Set tarif dokter pada input tarif_dokter
+        $('#tarif_dokter').val(dokterBiaya);
     }
 
     // Hitung ulang setiap kali ada perubahan pada pemilihan dokter atau obat

@@ -203,7 +203,7 @@
                 </button>
             <?php else: ?>
                 <!-- Tampilkan Tombol Login di Modal -->
-                <a href="<?= site_url('Login/index')?>" type="button" class="btn btn-link text-light">
+                <a href="<?= site_url('Login')?>" type="button" class="btn btn-link text-light">
                     Login
                 </a>
             <?php endif; ?>

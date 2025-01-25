@@ -1,3 +1,7 @@
+<?php
+    // print_r($pengobatan);
+    // exit;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -196,23 +200,13 @@
                     endforeach;
                     ?>
                 </td>
-                <td>
-                   <?php
-                    // Menampilkan obat yang dipilih berdasarkan id_obat
-                    $obats = explode(',', $p['id_obat']); // Memecah ID obat yang dipisahkan koma
-                    foreach ($obats as $obat_id):
-                        // Ambil data obat berdasarkan ID
-                        $obat = $this->Obat_model->get_upload_by_id(trim($obat_id)); // Pastikan ada fungsi ini di model
-                        
-                        // Cek apakah obat ditemukan
-                        if ($obat) {
-                            echo $obat->nama_obat . "<br>"; // Tampilkan nama obat
-                        } else {
-                            echo "Obat dengan ID $obat_id tidak ditemukan.<br>";
-                        }
+                <td><?php
+                    // Menampilkan penyakit berdasarkan id_penyakit
+                    $obats = $this->Pengobatan_model->get_obat_by_pengobatan($p['id_pengobatan']);
+                    foreach ($obats as $obat):
+                        echo $obat['nama_obat'] . "<br>";
                     endforeach;
                     ?>
-
                 </td>
                 <td>
                     <?= $p['nama_dokter'] ?>
