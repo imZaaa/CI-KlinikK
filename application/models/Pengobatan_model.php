@@ -67,14 +67,23 @@ public function insertPengobatan($data) {
 
     // Mendapatkan detail pengobatan berdasarkan id
     public function get_pengobatan_by_id($id) {
-        $this->db->select('p.*, pasien.nama AS nama_pasien, penyakit.nama_penyakit, obat.nama_obat');
-        $this->db->from('tbl_pengobatan p');
-        $this->db->join('tbl_pasien pasien', 'p.id_pasien = pasien.id');
-        $this->db->join('tbl_penyakit penyakit', 'p.id_penyakit = penyakit.id');
-        $this->db->join('tbl_obat obat', 'p.id_obat = obat.id');
-        $this->db->where('p.id_pengobatan', $id);
-        return $this->db->get()->row();
-    }
+    $this->db->select('
+        p.*, 
+        pasien.nama AS nama_pasien, 
+        GROUP_CONCAT(DISTINCT penyakit.nama_penyakit SEPARATOR ", ") AS nama_penyakit,
+        GROUP_CONCAT(DISTINCT obat.nama_obat SEPARATOR ", ") AS nama_obat
+    ');
+    $this->db->from('tbl_pengobatan p');
+    $this->db->join('tbl_pasien pasien', 'p.id_pasien = pasien.id');
+    $this->db->join('tbl_pengobatan_penyakit pp', 'pp.id_pengobatan = p.id_pengobatan', 'left');
+    $this->db->join('tbl_penyakit penyakit', 'pp.id_penyakit = penyakit.id', 'left');
+    $this->db->join('tbl_pengobatan_obat po', 'po.id_pengobatan = p.id_pengobatan', 'left');
+    $this->db->join('tbl_obat obat', 'po.id_obat = obat.id', 'left');
+    $this->db->where('p.id_pengobatan', $id);
+    $this->db->group_by('p.id_pengobatan'); // Penting untuk mengelompokkan hasil jika menggunakan GROUP_CONCAT
+    return $this->db->get()->row();
+}
+
 
     // Mendapatkan daftar penyakit terkait pengobatan
     public function get_penyakit_by_pengobatan($id) {
@@ -94,24 +103,23 @@ public function insertPengobatan($data) {
         return $this->db->get()->result_array();
     }
 
-// Menambahkan data ke tabel pengobatan_obat
-    public function insertPengobatanObat($data) {
-        $this->db->insert('tbl_pengobatan_obat', $data);
-    }
+// Dalam model Pengobatan_model
+public function insertPengobatanPenyakit($data) {
+    $this->db->insert('tbl_pengobatan_penyakit', $data);
+}
 
-    // Menambahkan data ke tabel pengobatan_penyakit
-    public function insertPengobatanPenyakit($data) {
-        $this->db->insert('tbl_pengobatan_penyakit', $data);
-    }
+
+public function insertPengobatanObat($data) {
+    $this->db->insert('tbl_pengobatan_obat', $data);
+}
+
+
 
 // Menghapus semua penyakit terkait pengobatan
 public function delete_penyakit_to_pengobatan($id_pengobatan) {
     $this->db->where('id_pengobatan', $id_pengobatan);
     $this->db->delete('tbl_pengobatan_penyakit');
 }
-
-// Menghubungkan pengobatan dengan obat
-
 
 // Menghapus semua obat terkait pengobatan
 public function delete_obat_to_pengobatan($id_pengobatan) {

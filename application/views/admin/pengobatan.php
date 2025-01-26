@@ -1,7 +1,3 @@
-<?php
-    // print_r($pengobatan);
-    // exit;
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +11,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <style>
     .nav-link {
@@ -48,50 +45,90 @@
 
     #uploadTable {
         border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #ccc;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    #uploadTable th, #uploadTable td {
-        border-color: #00705a;
+    #uploadTable th {
+        background-color: #00705a;
+        color: white;
+        text-align: center;
+        font-weight: 700;
+    }
+
+    #uploadTable tbody tr:nth-child(odd) {
+        background-color: #f9f9f9;
+    }
+
+    #uploadTable tbody tr:nth-child(even) {
+        background-color: #eafaf4;
     }
 
     #uploadTable tbody tr:hover {
-        background-color: #d1f0e6;
+        background-color: #d4f7e6;
+        transition: background-color 0.3s;
+    }
+
+    .action-buttons .btn {
+        margin-right: 5px;
+    }
+
+    .icon-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .icon-indicator i {
+        color: #ff6347;
     }
 
     /* Membuat kontainer tabel bisa di-scroll horizontal */
     .table-container {
-        overflow-x: auto; /* Hanya tabel yang bisa di-scroll secara horizontal */
-        -webkit-overflow-scrolling: touch; /* Mendukung scroll yang halus di perangkat sentuh */
-        position: relative;
-        max-width: 100%; /* Pastikan kontainer ini tidak lebih besar dari lebar layar */
-    }
+    overflow-x: auto; /* Mengaktifkan scroll horizontal jika tabel terlalu lebar */
+    -webkit-overflow-scrolling: touch; /* Scroll halus pada perangkat sentuh */
+    position: relative;
+    max-width: 100%; /* Membatasi lebar tabel agar tidak melewati batas kontainer */
+}
 
-    .table-container table {
-        width: 100%; /* Agar tabel memenuhi lebar kontainer */
-    }
+.table-container table {
+    width: 100%; /* Memastikan tabel memenuhi lebar kontainer */
+    border-collapse: collapse; /* Menghilangkan jarak antar sel tabel */
+    position: sticky;
+}
 
-    /* Menghindari penggeseran luar tabel */
-    .row.flex-nowrap {
-        overflow-x: hidden; /* Menonaktifkan scroll horizontal pada elemen luar */
-    }
+.row.flex-nowrap {
+    overflow-x: hidden; /* Menyembunyikan scroll horizontal pada elemen luar */
+    white-space: nowrap; /* Mencegah elemen dalam baris terpotong */
+}
 
-    .col-auto {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        z-index: 1050;
-        padding-top: 20px;
-    }
+.col-auto {
+    position: fixed; /* Membuat elemen tetap berada di posisi tertentu saat scroll */
+    top: 0; /* Menempel di bagian atas */
+    left: 0; /* Menempel di bagian kiri */
+    height: 100vh; /* Tinggi penuh layar */
+    z-index: 1050; /* Memastikan elemen ini berada di atas elemen lain */
+    padding-top: 20px; /* Memberikan jarak atas pada elemen */
+    background-color: #fff; /* Tambahkan warna latar belakang agar tidak transparan */
+}
 
-    .col.py-3 {
-        margin-left: 230px;
-    }
+.col.py-3 {
+    margin-left: 230px; /* Memberikan jarak ke kiri, sesuai lebar elemen fixed */
+    padding-top: 20px; /* Memberikan padding atas untuk konten */
+}
 
-    tbody{
-        text-align: center;
-    }
+.table-container th, .table-container td {
+    padding: 10px; /* Jarak di dalam sel tabel */
+    text-align: left; /* Teks rata kiri */
+    border: 1px solid #ddd; /* Batas antar sel tabel */
+}
+
+.table-container th {
+    background-color: #00705a; /* Warna latar belakang untuk header tabel */
+    font-weight: bold; /* Menonjolkan teks header */
+    color: white;
+}
 </style>
 
 <body>
@@ -167,14 +204,33 @@
         </div>
 <div class="col py-3">
 <div class="container mt-5">
+    <?php if ($this->session->flashdata('success')): ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: '<?php echo $this->session->flashdata('success'); ?>'
+        });
+    </script>
+<?php elseif ($this->session->flashdata('error')): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: '<?php echo $this->session->flashdata('error'); ?>'
+        });
+    </script>
+<?php endif; ?>
+
     <h2 class="mb-4">Daftar Pengobatan</h2>
     <a href="<?= site_url('pengobatan/create') ?>" class="btn mb-3 text-white" style="background-color:#00705a;">Tambah Pengobatan</a>
     <div class="table-container">
     <table id="uploadTable" class="table table-bordered">
-     <thead>
+    <thead>
         <tr>
             <th>ID Pengobatan</th>
             <th>ID Pasien</th>
+            <th>Nama Pasien</th>
             <th>Penyakit</th>
             <th>Obat</th>
             <th>Dokter</th>
@@ -189,36 +245,36 @@
     <tbody>
         <?php foreach ($pengobatan as $p): ?>
             <tr>
-                <td><?= $p['id_pengobatan'] ?></td>
-                <td><?= $p['id_pasien'] ?></td> <!-- Menampilkan id_pasien -->
+                <td class="text-center"><?= $p['id_pengobatan'] ?></td>
+                <td class="text-center"><?= $p['id_pasien'] ?></td>
+                <td class="text-center"><?= $p['nama_pasien'] ?></td>
                 <td>
                     <?php
-                    // Menampilkan penyakit berdasarkan id_penyakit
                     $penyakits = $this->Pengobatan_model->get_penyakit_by_pengobatan($p['id_pengobatan']);
-                    foreach ($penyakits as $penyakit):
-                        echo $penyakit['nama_penyakit'] . "<br>";
-                    endforeach;
+                    foreach ($penyakits as $index => $penyakit) {
+                        echo ($index + 1) . '. ' . $penyakit['nama_penyakit'] . "<br>";
+                    }
                     ?>
                 </td>
-                <td><?php
-                    // Menampilkan penyakit berdasarkan id_penyakit
+                <td>
+                    <?php
                     $obats = $this->Pengobatan_model->get_obat_by_pengobatan($p['id_pengobatan']);
-                    foreach ($obats as $obat):
-                        echo $obat['nama_obat'] . "<br>";
-                    endforeach;
+                    foreach ($obats as $index => $obat) {
+                        echo ($index + 1) . '. ' . $obat['nama_obat'] . "<br>";
+                    }
                     ?>
                 </td>
-                <td>
-                    <?= $p['nama_dokter'] ?>
-                </td>
-                <td><?= date('d-m-Y', strtotime($p['tgl_pengobatan'])) ?></td> <!-- Format tanggal pengobatan -->
-                <td>Rp.<?= number_format($p['biaya_pengobatan'], 2, ',', '.') ?></td> <!-- Biaya pengobatan -->
-                <td><?= $p['status_bayar'] == 'Sudah Dibayar' ? '<p class="text-success">Sudah Dibayar</p>' : '<p class="text-danger">Belum Dibayar</p>' ?></td>
-                <td>Rp.<?= number_format($p['tarif'],2, ',', ',') ?></td> <!-- Tarif -->
-                <td>Rp.<?= number_format($p['total_biaya'], 2, ',', '.') ?></td> <!-- Total biaya -->
-                <td>
-                    <a href="<?= site_url('pengobatan/edit/' . $p['id_pengobatan']) ?>" class="btn btn-sm" style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;"> <i class="bi bi-pencil-square"></i></a>
-                    <a href="<?= site_url('pengobatan/delete/' . $p['id_pengobatan']) ?>" class="btn btn-sm" style="color: #ffffff; background-color: #00705a; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;"><i class="bi bi-trash"></i></a>
+                <td class="text-center"><?= $p['nama_dokter'] ?></td>
+                <td class="text-center"><?= date('d-m-Y', strtotime($p['tgl_pengobatan'])) ?></td>
+                <td class="text-center">Rp.<?= number_format($p['biaya_pengobatan'], 2, ',', '.') ?></td>
+                <td class="text-center"><?= $p['status_bayar'] == 'Sudah Dibayar' ? '<span class="text-success">Sudah Dibayar</span>' : '<span class="text-danger">Belum Dibayar</span>' ?></td>
+                <td class="text-center">Rp.<?= number_format($p['tarif'], 2, ',', ',') ?></td>
+                <td class="text-center">Rp.<?= number_format($p['total_biaya'], 2, ',', '.') ?></td>
+                <td class="action-buttons">
+                    <div class="btn-group" role="group">
+                        <a href="<?= site_url('pengobatan/edit/' . $p['id_pengobatan']) ?>" class="btn btn-sm" style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;"> <i class="bi bi-pencil-square"></i></a>
+                        <a href="<?= site_url('pengobatan/delete/' . $p['id_pengobatan']) ?>" class="btn btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')" style="color: #ffffff; background-color: #00705a; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;">                                    <i class="bi bi-trash"></i></a>
+                    </div>
                 </td>
             </tr>
         <?php endforeach; ?>
@@ -229,10 +285,14 @@
  </div>
 </body>
 <script>
-        $(document).ready(function() {
-            $('#uploadTable').DataTable();
-        });
-    </script>
+     $(document).ready(function () {
+    $('#uploadTable').DataTable({
+        scrollX: true, // Mengaktifkan scroll horizontal
+        autoWidth: false // Menonaktifkan lebar otomatis
+    });
+});
+
+</script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>

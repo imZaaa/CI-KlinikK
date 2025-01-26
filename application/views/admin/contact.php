@@ -38,9 +38,6 @@
         background-color: transparent !important; /* Menghilangkan background biru */
     }
 
-    ::-webkit-scrollbar {
-        display: none;
-    }
 
     /* Styling untuk container utama */
     .content-container {
@@ -78,10 +75,7 @@
 
         ::-webkit-scrollbar{
             display: none;
-        }
-
-       
-       
+        }      
 
 /* Button */
 .btn-custom {
@@ -156,7 +150,9 @@
 .mb-3 {
     margin-bottom: 15px;
 }
-
+.col.py-3 {
+    margin-left: 230px; /* Memberikan ruang agar konten utama tidak tertutup sidebar */
+}
 
 </style>
 <body>

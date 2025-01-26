@@ -4,117 +4,165 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Pengobatan</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body {
-            background-color: #f5f5f5;
+            background-color: #f4f8f7;
         }
-        .card {
-            border: none;
+        .container {
+            background-color: #ffffff;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 40%;
         }
-        .card-header {
+        h2 {
+            color: #00705a;
+            font-weight: bold;
+        }
+        label {
+            color: #00705a;
+        }
+        .form-control, .form-select {
+            border-color: #00705a;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #006047;
+            box-shadow: 0 0 0 0.25rem rgba(0, 96, 71, 0.25);
+        }
+        .btn {
             background-color: #00705a;
             color: white;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-        }
-        .btn-primary {
-            background-color: #00705a;
             border: none;
         }
-        .btn-primary:hover {
-            background-color: #005a46;
+        .btn:hover {
+            background-color: #006047;
         }
-        .form-control:focus {
-            border-color: #00705a;
-            box-shadow: 0 0 5px rgba(0, 112, 90, 0.5);
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6368;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group input[type="checkbox"] {
+            margin-right: 10px;
         }
     </style>
 </head>
 <body>
-<div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-8 col-sm-10">
-            <div class="card">
-                <div class="card-header text-center">
-                    <h3>Edit Pengobatan</h3>
-                </div>
-                <div class="card-body">
-                    <form action="<?= site_url('pengobatan/edit/' . $pengobatan->id_pengobatan) ?>" method="post">
-                        <!-- Dropdown Pasien -->
-                        <div class="form-group">
-                            <label for="id_pasien">Pasien</label>
-                            <select name="id_pasien" id="id_pasien" class="form-control">
-                                <?php if (empty($pasien)): ?>
-                                    <option value="">Data pasien tidak tersedia</option>
-                                <?php else: ?>
-                                    <?php foreach ($pasien as $row): ?>
-                                        <option value="<?= $row['id']?>" <?= ($row['id'] == $pengobatan->id_pasien) ? 'selected' : '' ?>>
-                                            <?= $row['nama'] ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </select>
-                        </div>
-                        <!-- Dropdown Penyakit -->
-                        <div class="form-group">
-                            <label for="id_penyakit">Penyakit</label>
-                            <select name="id_penyakit" id="id_penyakit" class="form-control">
-                                <?php foreach ($penyakit as $row): ?>
-                                    <option value="<?= $row->id ?>" <?= ($row->id == $pengobatan->id_penyakit) ? 'selected' : '' ?>>
-                                        <?= $row->nama_penyakit ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <!-- Dropdown Obat -->
-                        <div class="form-group">
-                            <label for="id_obat">Obat</label>
-                            <select name="id_obat" id="id_obat" class="form-control">
-                                <?php if (empty($obat)): ?>
-                                    <option value="">Data obat tidak tersedia</option>
-                                <?php else: ?>
-                                    <?php foreach ($obat as $row): ?>
-                                        <option value="<?= $row['id'] ?>" <?= ($row['id'] == $pengobatan->id_obat) ? 'selected' : '' ?>>
-                                            <?= $row['nama_obat'] ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </select>
-                        </div>
-                        <!-- Input Tanggal -->
-                        <div class="form-group">
-                            <label for="tgl_pengobatan">Tanggal Pengobatan</label>
-                            <input type="date" name="tgl_pengobatan" id="tgl_pengobatan" class="form-control"
-                                   value="<?= $pengobatan->tgl_pengobatan ?>">
-                        </div>
-                        <!-- Input Biaya -->
-                        <div class="form-group">
-                            <label for="biaya_pengobatan">Biaya Pengobatan</label>
-                            <input type="number" name="biaya_pengobatan" id="biaya_pengobatan" class="form-control"
-                                   value="<?= $pengobatan->biaya_pengobatan ?>">
-                        </div>
-                        <!-- Dropdown Status Bayar -->
-                        <div class="form-group">
-                            <label for="status_bayar">Status Bayar</label>
-                            <select name="status_bayar" id="status_bayar" class="form-control">
-                                <option value="Belum Dibayar" <?= ($pengobatan->status_bayar == 'Belum Dibayar') ? 'selected' : '' ?>>
-                                    Belum Dibayar
-                                </option>
-                                <option value="Sudah Dibayar" <?= ($pengobatan->status_bayar == 'Sudah Dibayar') ? 'selected' : '' ?>>
-                                    Sudah Dibayar
-                                </option>
-                            </select>
-                        </div>
-                        <button type="submit" name="submit" class="btn btn-primary mt-3">Simpan</button>
-                    </form>
-                </div>
-            </div>
+<div class="container mt-5">
+    <h2 class="mb-4">Edit Pengobatan</h2>
+    <form action="<?= site_url('Pengobatan/edit/' . $pengobatan->id_pengobatan) ?>" method="post">
+        <div class="mb-3">
+            <label for="id_pasien" class="form-label">Nama Pasien</label>
+            <select name="id_pasien" id="id_pasien" class="form-select" required>
+                <?php foreach ($pasien as $p): ?>
+                    <option value="<?= $p['id'] ?>" <?= ($p['id'] == $pengobatan->id_pasien) ? 'selected' : '' ?>><?= $p['nama']?></option>
+                <?php endforeach; ?>
+            </select>
         </div>
-    </div>
+
+        <!-- Dokter -->
+        <div class="mb-3">
+            <label for="id_dokter" class="form-label">Dokter</label>
+            <select id="id_dokter" name="id_dokter" class="form-select" required>
+                <option value="" selected>Pilih Dokter</option>
+                <?php if (!empty($dokter)) : ?>
+                    <?php foreach ($dokter as $d): ?>
+                        <option value="<?= $d['id'] ?>" data-tarif="<?= $d['tarif'] ?>" <?= ($d['id'] == $pengobatan->id_dokter) ? 'selected' : '' ?>><?= $d['nama'] ?></option>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <option value="">Tidak ada data dokter</option>
+                <?php endif; ?>
+            </select>
+        </div>
+
+        <!-- Input untuk memilih Penyakit -->
+        <div class="form-group">
+            <label for="id_penyakit">Penyakit</label><br>
+            <?php foreach ($penyakit as $p): ?>
+                <input type="checkbox" name="id_penyakit[]" value="<?= $p->id ?>" id="penyakit_<?= $p->id ?>" <?= in_array($p->id, $selected_penyakit) ? 'checked' : '' ?>>
+                <label for="penyakit_<?= $p->id ?>"><?= $p->nama_penyakit ?></label><br>
+            <?php endforeach; ?>
+        </div>
+
+        <!-- Input untuk memilih Obat -->
+        <div class="form-group">
+            <label for="id_obat">Obat</label><br>
+            <?php foreach ($obat as $o): ?>
+                <input type="checkbox" name="id_obat[]" value="<?= $o['id'] ?>" id="id_obat_<?= $o['id'] ?>" data-harga="<?= $o['harga'] ?>" <?= in_array($o['id'], $selected_obat) ? 'checked' : '' ?>>
+                <label for="id_obat_<?= $o['id'] ?>"><?= $o['nama_obat'] ?> - Rp <?= number_format($o['harga'], 0, ',', '.') ?></label><br>
+            <?php endforeach; ?>
+        </div>
+
+        <!-- Tanggal Pengobatan -->
+        <div class="mb-3">
+            <label for="tgl_pengobatan" class="form-label">Tanggal Pengobatan</label>
+            <input type="date" name="tgl_pengobatan" id="tgl_pengobatan" class="form-control" value="<?= $pengobatan->tgl_pengobatan ?>" required>
+        </div>
+
+        <div class="form-group">
+            <label for="tarif_dokter">Tarif Dokter</label>
+            <input type="text" class="form-control" id="tarif_dokter" value="<?= isset($tarif) ? $tarif : '' ?>" readonly>
+        </div>
+
+        <!-- Input untuk total biaya -->
+        <div class="form-group">
+            <label for="biaya_pengobatan">Total Biaya</label>
+            <input type="text" id="biaya_pengobatan" name="biaya_pengobatan" class="form-control" value="<?= $pengobatan->biaya_pengobatan ?>" readonly>
+        </div>
+
+        <!-- Status Bayar -->
+        <div class="mb-3">
+            <label for="status_bayar" class="form-label">Status Bayar</label>
+            <select name="status_bayar" id="status_bayar" class="form-select" required>
+                <option value="Belum Dibayar" <?= ($pengobatan->status_bayar == 'Belum Dibayar') ? 'selected' : '' ?>>Belum Dibayar</option>
+                <option value="Sudah Dibayar" <?= ($pengobatan->status_bayar == 'Sudah Dibayar') ? 'selected' : '' ?>>Sudah Dibayar</option>
+            </select>
+        </div>
+
+        <button type="submit" name="Submit" class="btn btn-success">Simpan</button>
+        <a href="<?= site_url('pengobatan') ?>" class="btn btn-secondary">Kembali</a>
+    </form>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    function calculateCost() {
+        let totalBiaya = 0;
+
+        // Biaya Dokter
+        let dokterBiaya = $('#id_dokter option:selected').data('tarif');
+        if (dokterBiaya) {
+            totalBiaya += parseInt(dokterBiaya);
+        }
+
+        // Biaya Obat (gunakan checkbox untuk obat)
+        $("input[name='id_obat[]']:checked").each(function() {
+            let obatHarga = $(this).data('harga');
+            if (obatHarga) {
+                totalBiaya += parseInt(obatHarga);
+            }
+        });
+
+        // Set total biaya pengobatan pada input biaya_pengobatan
+        $('#biaya_pengobatan').val(totalBiaya);
+
+        // Set tarif dokter pada input tarif_dokter
+        $('#tarif_dokter').val(dokterBiaya);
+    }
+
+    // Hitung ulang setiap kali ada perubahan pada pemilihan dokter atau obat
+    $('#id_dokter, input[name="id_obat[]"]').on('change', function() {
+        calculateCost();
+    });
+});
+</script>
+
 </body>
 </html>

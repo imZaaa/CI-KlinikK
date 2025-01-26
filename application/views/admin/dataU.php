@@ -237,10 +237,10 @@
             <table id="dataTable" class="table table-bordered table-hover" data-aos="fade-down-right">
                 <thead style="background-color: #00705a;">
                     <tr>
-                        <th>ID</th>
-                        <th>Username</th>
-                        <th>Role</th>
-                        <th>Aksi</th>
+                        <th class="text-white">ID</th>
+                        <th class="text-white">Username</th>
+                        <th class="text-white">Role</th>
+                        <th class="text-white">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
