@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Laporan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/logo.png')?>">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
 <!-- PUSH BY RHEZA16-01-2025 0:32 -->
 </head>
@@ -151,20 +154,82 @@
             transform: translateY(-2px);
         }
 
-        @media print {
-    .col-auto { 
-        display: none; /* Sembunyikan sidebar */
+       @media print {
+    /* Menyembunyikan elemen lain selain tabel saat print */
+    body * {
+        visibility: hidden;
     }
 
-    .col.py-3 {
-        margin-left: 0; /* Hilangkan margin kiri pada konten utama */
+    /* Membuat tabel terlihat saat print */
+    .tab-content .table,
+    .tab-content .table * {
+        visibility: visible;
     }
 
+    /* Mengatur tabel agar lebih besar dan terpusat */
+    .tab-content .table {
+        width: 100%;  /* Membuat tabel mengisi seluruh lebar halaman */
+        margin: 0 auto;  /* Memastikan tabel berada di tengah */
+        border-collapse: collapse;  /* Menjaga garis border tetap rapi */
+    }
+
+    /* Membuat font lebih besar agar lebih mudah dibaca */
+    .tab-content .table th, .tab-content .table td {
+        padding: 12px 18px;  /* Menambah padding agar lebih luas */
+        font-size: 14px;  /* Ukuran font yang lebih besar */
+        border: 1px solid #000;  /* Garis border lebih jelas */
+    }
+
+    /* Mengatur margin halaman agar lebih leluasa */
+    @page {
+        size: A4;
+        margin: 20mm;  /* Memberikan margin lebih besar */
+    }
+
+    /* Mengatur font default untuk seluruh halaman cetak */
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        font-size: 12px;  /* Ukuran font yang lebih besar di seluruh halaman */
+    }
+
+    /* Menyembunyikan tombol print saat di print */
     button {
-        display: none; /* Sembunyikan tombol Print */
+        display: none;
+    }
+
+    /* Agar tabel bisa mengisi halaman penuh */
+    .tab-content .table th, .tab-content .table td {
+        text-align: left;
     }
 }
+.nav-pills .nav-link {
+    background-color: #00705a;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    padding: 10px 15px;
+}
 
+/* Efek hover */
+.nav-pills .nav-link:hover {
+    background-color: #005d4a;
+    color: #e0fff4;
+    transform: scale(1.05);
+}
+
+/* Gaya tombol aktif */
+.nav-pills .nav-link.active {
+    background-color: #005d4a;
+    box-shadow: 0 4px 10px rgba(0, 112, 90, 0.5);
+    color: #e0fff4;
+}
+
+/* Margin antar tombol */
+.nav-item {
+    margin-right: 10px;
+}
 </style>
 <body>
     <div class="container-fluid">
@@ -239,93 +304,135 @@
         </div>
 <div class="col py-3">
      <div class="container">
-        <h1 class="text-center">Laporan Klinik</h1>
+    <h1 class="text-center mb-4">Laporan Klinik</h1>
 
-        <!-- Tombol Print -->
-        <button onclick="window.print()" class="btn btn-custom mb-4">
+    <!-- Tombol Navigasi -->
+    <ul class="nav nav-pills mb-4" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pills-obat-tab" data-bs-toggle="pill" data-bs-target="#pills-obat" type="button" role="tab" aria-controls="pills-obat" aria-selected="true">
+                Laporan Pemakaian Obat
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-customer-tab" data-bs-toggle="pill" data-bs-target="#pills-customer" type="button" role="tab" aria-controls="pills-customer" aria-selected="false">
+                Laporan Data Customer
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-pendapatan-tab" data-bs-toggle="pill" data-bs-target="#pills-pendapatan" type="button" role="tab" aria-controls="pills-pendapatan" aria-selected="false">
+                Laporan Pendapatan
+            </button>
+        </li>
+    </ul>
+
+    <!-- Konten Laporan -->
+    <div class="tab-content" id="pills-tabContent">
+        <!-- Laporan Pemakaian Obat -->
+        <div class="tab-pane fade show active" id="pills-obat" role="tabpanel" aria-labelledby="pills-obat-tab">
+            <h2>Pemakaian Obat</h2>
+            <button onclick="window.print()" class="btn btn-custom mb-4">
             Print Laporan
         </button>
+            <table id="dataTable" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Obat</th>
+                        <th>Jumlah Pemakaian</th>
+                        <th>Terakhir Digunakan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $no = 1; foreach ($pemakaian_obat as $obat): ?>
+                    <tr>
+                        <td><?= $no++; ?></td>
+                        <td><?= $obat['nama_obat']; ?></td>
+                        <td><?= $obat['jumlah_pemakaian']; ?></td>
+                        <td><?= $obat['terakhir_digunakan']; ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
 
-        <!-- Laporan Pemakaian Obat -->
-        <h2>Pemakaian Obat</h2>
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama Obat</th>
-                    <th>Jumlah Pemakaian</th>
-                    <th>Terakhir Digunakan</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $no = 1; foreach ($pemakaian_obat as $obat): ?>
-                <tr>
-                    <td><?= $no++; ?></td>
-                    <td><?= $obat['nama_obat']; ?></td>
-                    <td><?= $obat['jumlah_pemakaian']; ?></td>
-                    <td><?= $obat['terakhir_digunakan']; ?></td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+        <!-- Laporan Data Customer -->
+        <div class="tab-pane fade" id="pills-customer" role="tabpanel" aria-labelledby="pills-customer-tab">
+            <h2>Data Customer (Pasien)</h2>
+            <button onclick="window.print()" class="btn btn-custom mb-4">
+            Print Laporan
+        </button>
+            <table id="dataTable2" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Pasien</th>
+                        <th>Tanggal Lahir</th>
+                        <th>No. Telepon</th>
+                        <th>Alamat</th>
+                        <th>Jumlah Kunjungan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $no = 1; foreach ($data_customer as $customer): ?>
+                    <tr>
+                        <td><?= $no++; ?></td>
+                        <td><?= $customer['nama']; ?></td>
+                        <td><?= $customer['tanggal_lahir']; ?></td>
+                        <td><?= $customer['nomor_telepon']; ?></td>
+                        <td><?= $customer['alamat']; ?></td>
+                        <td><?= $customer['jumlah_kunjungan']; ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
 
-        <!-- Data Customer -->
-        <h2>Data Customer (Pasien)</h2>
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama Pasien</th>
-                    <th>Tanggal Lahir</th>
-                    <th>No. Telepon</th>
-                    <th>Alamat</th>
-                    <th>Jumlah Kunjungan</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $no = 1; foreach ($data_customer as $customer): ?>
-                <tr>
-                    <td><?= $no++; ?></td>
-                    <td><?= $customer['nama']; ?></td>
-                    <td><?= $customer['tanggal_lahir']; ?></td>
-                    <td><?= $customer['nomor_telepon']; ?></td>
-                    <td><?= $customer['alamat']; ?></td>
-                    <td><?= $customer['jumlah_kunjungan']; ?></td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-
-        <!-- Data Pendapatan Pengobatan -->
-        <h2>Pendapatan Pengobatan</h2>
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama Pasien</th>
-                    <th>Tanggal Pengobatan</th>
-                    <th>Biaya</th>
-                    <th>Status Pembayaran</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $no = 1; foreach ($pendapatan_pengobatan as $pendapatan): ?>
-                <tr>
-                    <td><?= $no++; ?></td>
-                    <td><?= $pendapatan['nama']; ?></td>
-                    <td><?= $pendapatan['tgl_pengobatan']; ?></td>
-                    <td><?= $pendapatan['total_biaya']; ?></td>
-                    <td><?= $pendapatan['status_bayar']; ?></td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-
-        <!-- Total Pendapatan -->
-        <h3>Total Pendapatan: Rp<?= number_format($total_pendapatan, 0, ',', '.'); ?></h3>
+        <!-- Laporan Pendapatan -->
+        <div class="tab-pane fade" id="pills-pendapatan" role="tabpanel" aria-labelledby="pills-pendapatan-tab">
+            <h2>Pendapatan Pengobatan</h2>
+            <button onclick="window.print()" class="btn btn-custom mb-4">
+            Print Laporan
+        </button>
+            <table id="dataTable3" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Pasien</th>
+                        <th>Tanggal Pengobatan</th>
+                        <th>Biaya</th>
+                        <th>Status Pembayaran</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $no = 1; foreach ($pendapatan_pengobatan as $pendapatan): ?>
+                    <tr>
+                        <td><?= $no++; ?></td>
+                        <td><?= $pendapatan['nama']; ?></td>
+                        <td><?= $pendapatan['tgl_pengobatan']; ?></td>
+                        <td>Rp. <?= number_format($pendapatan['total_biaya'], 0, ',', '.'); ?></td>
+                        <td><?= $pendapatan['status_bayar']; ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <h3>Total Pendapatan: Rp. <?= number_format($total_pendapatan, 0, ',', '.'); ?></h3>
+        </div>
     </div>
+</div>
+
+</div>
 </body>
- 
+  <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+        $(document).ready(function() {
+            $('#dataTable2').DataTable();
+        });
+        $(document).ready(function() {
+            $('#dataTable3').DataTable();
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>
