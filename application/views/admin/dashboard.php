@@ -114,7 +114,7 @@
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li>
                         <a href="#" class="nav-link px-0 align-middle active">
-                           <i class="fs-4 bi-clipboard-data-fill"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+                           <i class="fs-4 bi bi-house-fill"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
                     </li>
                     <li>
                         <a href="<?= site_url('Dokter/admin')?>" class="nav-link px-0 align-middle">
@@ -156,8 +156,8 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Customers</span> </a>
+                        <a href="#" class="nav-link px-0 align-middle active">
+                        <i class="fs-4 8 bi bi-file-bar-graph-fill"></i><span class="ms-1 d-none d-sm-inline">Laporan</span> </a>
                     </li>
                 </ul>
                 <hr>
