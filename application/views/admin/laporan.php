@@ -178,58 +178,91 @@
         </div>
 <div class="col py-3">
     <div class="container">
-    <div class="row g-4">
-        <!-- Card Total Admin -->
-        <div class="col-md-3">
-    <a href="<?= site_url('login/dataU')?>" style="text-decoration: none;">
-        <div class="card text-dark bg-white shadow">
-            <div class="card-body text-center">
-                <i class="bi bi-person-badge-fill fs-1 mb-3"></i>
-                <h5 class="card-title">Total Admin</h5>
-                <p class="card-text fs-3 fw-bold"><?= $admin_count; ?></p>
-            </div>
-        </div>
-    </a>
-</div>
+        <h1>Laporan Klinik</h1>
 
-<!-- Card Total User -->
-<div class="col-md-3">
-    <a href="<?= site_url('login/dataU')?>" style="text-decoration: none;">
-        <div class="card text-dark bg-white shadow">
-            <div class="card-body text-center">
-                <i class="bi bi-people-fill fs-1 mb-3"></i>
-                <h5 class="card-title">Total User</h5>
-                <p class="card-text fs-3 fw-bold"><?= $user_count; ?></p>
-            </div>
-        </div>
-    </a>
-</div>
+<!-- Tombol Print -->
+<button onclick="window.print()" style="margin-bottom: 20px; padding: 10px 15px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+    Print Laporan
+</button>
 
-<!-- Card Total Pasien -->
-<div class="col-md-3">
-    <a href="<?= site_url('pasien')?>" style="text-decoration: none;">
-        <div class="card text-dark bg-white shadow">
-            <div class="card-body text-center">
-                <i class="bi bi-person-lines-fill fs-1 mb-3"></i>
-                <h5 class="card-title">Total Pasien</h5>
-                <p class="card-text fs-3 fw-bold"><?= $patient_count; ?></p>
-            </div>
-        </div>
-    </a>
-</div>
+<!-- Laporan Pemakaian Obat -->
+<h2>Pemakaian Obat</h2>
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Nama Obat</th>
+            <th>Jumlah Pemakaian</th>
+            <th>Terakhir Digunakan</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $no = 1; foreach ($pemakaian_obat as $obat): ?>
+        <tr>
+            <td><?= $no++; ?></td>
+            <td><?= $obat['nama_obat']; ?></td>
+            <td><?= $obat['jumlah_pemakaian']; ?></td>
+            <td><?= $obat['terakhir_digunakan']; ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
 
-<!-- Card Total Dokter -->
-<div class="col-md-3">
-    <a href="<?= site_url('dokter/admin')?>" style="text-decoration: none;">
-        <div class="card text-dark bg-white shadow">
-            <div class="card-body text-center">
-                <i class="bi bi-heart-pulse-fill fs-1 mb-3"></i>
-                <h5 class="card-title">Total Dokter</h5>
-                <p class="card-text fs-3 fw-bold"><?= $doctor_count; ?></p>
-            </div>
-        </div>
-    </a>
-</div>
+<!-- Data Customer -->
+<h2>Data Customer (Pasien)</h2>
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Nama Pasien</th>
+            <th>Tanggal Lahir</th>
+            <th>No. Telepon</th>
+            <th>Alamat</th>
+            <th>Jumlah Kunjungan</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $no = 1; foreach ($data_customer as $customer): ?>
+        <tr>
+            <td><?= $no++; ?></td>
+            <td><?= $customer['nama']; ?></td>
+            <td><?= $customer['tanggal_lahir']; ?></td>
+            <td><?= $customer['nomor_telepon']; ?></td>
+            <td><?= $customer['alamat']; ?></td>
+            <td><?= $customer['jumlah_kunjungan']; ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+<!-- Data Pendapatan Pengobatan -->
+<h2>Pendapatan Pengobatan</h2>
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Nama Pasien</th>
+            <th>Tanggal Pengobatan</th>
+            <th>Biaya</th>
+            <th>Status Pembayaran</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $no = 1; foreach ($pendapatan_pengobatan as $pendapatan): ?>
+        <tr>
+            <td><?= $no++; ?></td>
+            <td><?= $pendapatan['nama']; ?></td>
+            <td><?= $pendapatan['tgl_pengobatan']; ?></td>
+            <td><?= $pendapatan['total_biaya']; ?></td>
+            <td><?= $pendapatan['status_bayar']; ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+<!-- Total Pendapatan -->
+<h3>Total Pendapatan: Rp<?= number_format($total_pendapatan, 0, ',', '.'); ?></h3>
+    </div>
 
      <div class="container mt-5">
         <div class="row">
@@ -309,7 +342,7 @@ const myPieChart = new Chart(ctxPie, {
     type: 'pie',
     data: {
         labels: ['Admin', 'User', 'Pasien', 'Dokter'],
-        datasets: [{
+        datasets: [{     
             label: 'Distribusi Data',
             data: [
                 <?= $admin_count; ?>,
@@ -358,3 +391,5 @@ const myPieChart = new Chart(ctxPie, {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>
+
+
