@@ -237,7 +237,7 @@
             <th>Tanggal Pengobatan</th>
             <th>Biaya Pengobatan</th>
             <th>Status Bayar</th>
-            <th>Tarif</th>
+            <th>Tarif Dokter</th>
             <th>Total Biaya</th>
             <th>Action</th>
         </tr>

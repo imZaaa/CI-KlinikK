@@ -104,6 +104,67 @@
             padding: 20px;
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
+
+        :root {
+            --primary-color: #00705a;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+        }
+
+        table th {
+            background-color: var(--primary-color);
+            color: #ffffff;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table tbody tr:hover {
+            background-color: #e6f7f3;
+        }
+
+        .btn-custom {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #005846;
+            transform: translateY(-2px);
+        }
+
+        @media print {
+    .col-auto { 
+        display: none; /* Sembunyikan sidebar */
+    }
+
+    .col.py-3 {
+        margin-left: 0; /* Hilangkan margin kiri pada konten utama */
+    }
+
+    button {
+        display: none; /* Sembunyikan tombol Print */
+    }
+}
+
 </style>
 <body>
     <div class="container-fluid">
@@ -113,7 +174,7 @@
                <img src="<?= base_url('assets/logo.png')?>" width="130px">
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li>
-                        <a href="#" class="nav-link px-0 align-middle active">
+                        <a href="#" class="nav-link px-0 align-middle">
                            <i class="fs-4 bi bi-house-fill"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
                     </li>
                     <li>
@@ -177,217 +238,94 @@
             </div>
         </div>
 <div class="col py-3">
-    <div class="container">
-        <h1>Laporan Klinik</h1>
+     <div class="container">
+        <h1 class="text-center">Laporan Klinik</h1>
 
-<!-- Tombol Print -->
-<button onclick="window.print()" style="margin-bottom: 20px; padding: 10px 15px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
-    Print Laporan
-</button>
+        <!-- Tombol Print -->
+        <button onclick="window.print()" class="btn btn-custom mb-4">
+            Print Laporan
+        </button>
 
-<!-- Laporan Pemakaian Obat -->
-<h2>Pemakaian Obat</h2>
-<table border="1" cellpadding="5" cellspacing="0">
-    <thead>
-        <tr>
-            <th>No</th>
-            <th>Nama Obat</th>
-            <th>Jumlah Pemakaian</th>
-            <th>Terakhir Digunakan</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php $no = 1; foreach ($pemakaian_obat as $obat): ?>
-        <tr>
-            <td><?= $no++; ?></td>
-            <td><?= $obat['nama_obat']; ?></td>
-            <td><?= $obat['jumlah_pemakaian']; ?></td>
-            <td><?= $obat['terakhir_digunakan']; ?></td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+        <!-- Laporan Pemakaian Obat -->
+        <h2>Pemakaian Obat</h2>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Obat</th>
+                    <th>Jumlah Pemakaian</th>
+                    <th>Terakhir Digunakan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $no = 1; foreach ($pemakaian_obat as $obat): ?>
+                <tr>
+                    <td><?= $no++; ?></td>
+                    <td><?= $obat['nama_obat']; ?></td>
+                    <td><?= $obat['jumlah_pemakaian']; ?></td>
+                    <td><?= $obat['terakhir_digunakan']; ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
 
-<!-- Data Customer -->
-<h2>Data Customer (Pasien)</h2>
-<table border="1" cellpadding="5" cellspacing="0">
-    <thead>
-        <tr>
-            <th>No</th>
-            <th>Nama Pasien</th>
-            <th>Tanggal Lahir</th>
-            <th>No. Telepon</th>
-            <th>Alamat</th>
-            <th>Jumlah Kunjungan</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php $no = 1; foreach ($data_customer as $customer): ?>
-        <tr>
-            <td><?= $no++; ?></td>
-            <td><?= $customer['nama']; ?></td>
-            <td><?= $customer['tanggal_lahir']; ?></td>
-            <td><?= $customer['nomor_telepon']; ?></td>
-            <td><?= $customer['alamat']; ?></td>
-            <td><?= $customer['jumlah_kunjungan']; ?></td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+        <!-- Data Customer -->
+        <h2>Data Customer (Pasien)</h2>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Pasien</th>
+                    <th>Tanggal Lahir</th>
+                    <th>No. Telepon</th>
+                    <th>Alamat</th>
+                    <th>Jumlah Kunjungan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $no = 1; foreach ($data_customer as $customer): ?>
+                <tr>
+                    <td><?= $no++; ?></td>
+                    <td><?= $customer['nama']; ?></td>
+                    <td><?= $customer['tanggal_lahir']; ?></td>
+                    <td><?= $customer['nomor_telepon']; ?></td>
+                    <td><?= $customer['alamat']; ?></td>
+                    <td><?= $customer['jumlah_kunjungan']; ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
 
-<!-- Data Pendapatan Pengobatan -->
-<h2>Pendapatan Pengobatan</h2>
-<table border="1" cellpadding="5" cellspacing="0">
-    <thead>
-        <tr>
-            <th>No</th>
-            <th>Nama Pasien</th>
-            <th>Tanggal Pengobatan</th>
-            <th>Biaya</th>
-            <th>Status Pembayaran</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php $no = 1; foreach ($pendapatan_pengobatan as $pendapatan): ?>
-        <tr>
-            <td><?= $no++; ?></td>
-            <td><?= $pendapatan['nama']; ?></td>
-            <td><?= $pendapatan['tgl_pengobatan']; ?></td>
-            <td><?= $pendapatan['total_biaya']; ?></td>
-            <td><?= $pendapatan['status_bayar']; ?></td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+        <!-- Data Pendapatan Pengobatan -->
+        <h2>Pendapatan Pengobatan</h2>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Pasien</th>
+                    <th>Tanggal Pengobatan</th>
+                    <th>Biaya</th>
+                    <th>Status Pembayaran</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $no = 1; foreach ($pendapatan_pengobatan as $pendapatan): ?>
+                <tr>
+                    <td><?= $no++; ?></td>
+                    <td><?= $pendapatan['nama']; ?></td>
+                    <td><?= $pendapatan['tgl_pengobatan']; ?></td>
+                    <td><?= $pendapatan['total_biaya']; ?></td>
+                    <td><?= $pendapatan['status_bayar']; ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
 
-<!-- Total Pendapatan -->
-<h3>Total Pendapatan: Rp<?= number_format($total_pendapatan, 0, ',', '.'); ?></h3>
+        <!-- Total Pendapatan -->
+        <h3>Total Pendapatan: Rp<?= number_format($total_pendapatan, 0, ',', '.'); ?></h3>
     </div>
-
-     <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="chart-container">
-                    <canvas id="myChart"></canvas>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="chart-container">
-                    <canvas id="myPieChart"></canvas>
-                </div>
-            </div>
-            </div>
-        </div>
-    </div>
-</div>
-    </div>
-</div>
 </body>
- <script>
-    // Chart untuk Line
-    // Chart untuk Line
-const ctx = document.getElementById('myChart').getContext('2d');
-const myChart = new Chart(ctx, {
-    type: 'line', // Mengubah tipe grafik menjadi line
-    data: {
-        labels: ['Admin', 'User', 'Pasien', 'Dokter'],
-        datasets: [{
-            label: 'Jumlah Data',
-            data: [
-                <?= $admin_count; ?>,
-                <?= $user_count; ?>,
-                <?= $patient_count; ?>,
-                <?= $doctor_count; ?>
-            ],
-            fill: true, // Mengisi area di bawah garis
-            backgroundColor: 'rgba(93, 173, 226, 0.2)', // Warna latar belakang area
-            borderColor: 'rgba(93, 173, 226, 1)', // Warna garis
-            borderWidth: 2
-        }]
-    },
-    options: {
-    responsive: true,
-    plugins: {
-        title: {
-            display: true,
-            text: 'Jumlah Data Pengguna Berdasarkan Kategori',
-            font: {
-                size: 16,
-                family: 'Montserrat',
-                weight: 'bold',
-            },
-            padding: {
-                top: 10,
-                bottom: 30
-            }
-        }
-    },
-    scales: {
-        y: {
-            beginAtZero: false, // Tidak mulai dari 0
-            min: 1, // Mulai dari 1
-            max: 4, // Berakhir di 4
-            ticks: {
-                stepSize: 1 // Setiap langkahnya 1
-            }
-        }
-    }
-}
-
-});
-
-// Chart untuk Pie
-const ctxPie = document.getElementById('myPieChart').getContext('2d');
-const myPieChart = new Chart(ctxPie, {
-    type: 'pie',
-    data: {
-        labels: ['Admin', 'User', 'Pasien', 'Dokter'],
-        datasets: [{     
-            label: 'Distribusi Data',
-            data: [
-                <?= $admin_count; ?>,
-                <?= $user_count; ?>,
-                <?= $patient_count; ?>,
-                <?= $doctor_count; ?>
-            ],
-            backgroundColor: [
-                'rgba(54, 162, 235, 0.7)',
-                'rgba(75, 192, 192, 0.7)',
-                'rgba(255, 206, 86, 0.7)',
-                'rgba(255, 99, 132, 0.7)'
-            ],
-            borderColor: [
-                'rgba(54, 162, 235, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(255, 99, 132, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Distribusi Data Pengguna Berdasarkan Kategori',
-                font: {
-                    size: 16,
-                    family: 'Montserrat',
-                    weight: 'bold',
-                },
-                padding: {
-                    top: 10,
-                    bottom: 30
-                }
-            }
-        }
-    }
-});
-
-</script>
-
-
+ 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>
