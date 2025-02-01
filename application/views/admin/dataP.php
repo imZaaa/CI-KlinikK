@@ -60,21 +60,51 @@
     #uploadTable tbody tr:hover {
         background-color: #d1f0e6;
     }
-    /* Styling untuk sidebar agar tetap di tempat */
+    /* Membuat kontainer tabel bisa di-scroll horizontal */
+    .table-container {
+    overflow-x: auto; /* Mengaktifkan scroll horizontal jika tabel terlalu lebar */
+    -webkit-overflow-scrolling: touch; /* Scroll halus pada perangkat sentuh */
+    position: relative;
+    max-width: 100%; /* Membatasi lebar tabel agar tidak melewati batas kontainer */
+}
+
+.table-container table {
+    width: 100%; /* Memastikan tabel memenuhi lebar kontainer */
+    border-collapse: collapse; /* Menghilangkan jarak antar sel tabel */
+    position: sticky;
+}
+
+.row.flex-nowrap {
+    overflow-x: hidden; /* Menyembunyikan scroll horizontal pada elemen luar */
+    white-space: nowrap; /* Mencegah elemen dalam baris terpotong */
+}
+
 .col-auto {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh; /* Menjaga sidebar sepanjang tinggi viewport */
-    z-index: 1050; /* Agar sidebar tetap di atas konten */
-    padding-top: 20px; /* Memberikan ruang agar tidak terlalu rapat ke atas */
+    position: fixed; /* Membuat elemen tetap berada di posisi tertentu saat scroll */
+    top: 0; /* Menempel di bagian atas */
+    left: 0; /* Menempel di bagian kiri */
+    height: 100vh; /* Tinggi penuh layar */
+    z-index: 1050; /* Memastikan elemen ini berada di atas elemen lain */
+    padding-top: 20px; /* Memberikan jarak atas pada elemen */
+    background-color: #fff; /* Tambahkan warna latar belakang agar tidak transparan */
 }
 
-/* Mengatur ruang untuk konten utama */
 .col.py-3 {
-    margin-left: 230px; /* Memberikan ruang agar konten utama tidak tertutup sidebar */
+    margin-left: 230px; /* Memberikan jarak ke kiri, sesuai lebar elemen fixed */
+    padding-top: 20px; /* Memberikan padding atas untuk konten */
 }
 
+.table-container th, .table-container td {
+    padding: 10px; /* Jarak di dalam sel tabel */
+    text-align: left; /* Teks rata kiri */
+    border: 1px solid #ddd; /* Batas antar sel tabel */
+}
+
+.table-container th {
+    background-color: #00705a; /* Warna latar belakang untuk header tabel */
+    font-weight: bold; /* Menonjolkan teks header */
+    color: white;
+}
         ::-webkit-scrollbar{
             display: none;
         }
@@ -129,9 +159,9 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Customers</span> </a>
+                     <li>
+                        <a href="<?= site_url('laporan') ?>" class="nav-link px-0 align-middle">
+                        <i class="fs-4 8 bi bi-file-bar-graph-fill"></i><span class="ms-1 d-none d-sm-inline">Laporan</span> </a>
                     </li>
                 </ul>
                 <hr>
@@ -183,12 +213,13 @@
 
         <!-- Tabel yang menampilkan data upload, dengan ID untuk DataTables -->
         <table id="uploadTable" class="table table-bordered table-striped table-hover"
-       style="border-color: #00705a; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); overflow: hidden;">
+       style=" box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); overflow: hidden;">
    <thead class="table-primary" style="background-color: #00705a; color: #ffffff; border-top-left-radius: 10px; border-top-right-radius: 10px;">
     <tr>
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 5%;">ID</th>
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 10%;">Gambar</th>
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 15%;">Nama</th>
+        <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 15%;">Umur</th>
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 15%;">Tanggal Lahir</th>
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 10%;">Jenis Kelamin</th>
         <th style="border-color: #00705a; text-align: center; font-weight: bold; width: 15%;">Alamat</th>
@@ -213,6 +244,7 @@
                         <?php endif; ?>
                     </td>
                     <td style="border-color: #00705a;"><?= !empty($upload['nama']) ? $upload['nama'] : '-'; ?></td>
+                    <td style="border-color: #00705a;"><?= !empty($upload['umur']) ? $upload['umur'] . ' tahun' : '-'; ?></td>
                     <td style="border-color: #00705a;"><?= !empty($upload['tanggal_lahir']) ? $upload['tanggal_lahir'] : '-'; ?></td>
                     <td style="border-color: #00705a;"><?= !empty($upload['jenis_kelamin']) ? $upload['jenis_kelamin'] : '-'; ?></td>
                     <td style="border-color: #00705a;"><?= !empty($upload['alamat']) ? $upload['alamat'] : '-'; ?></td>
@@ -245,24 +277,12 @@
 </div>
 </body>
 <script type="text/javascript">
-        $(document).ready(function(){
-            // Inisialisasi DataTables dengan konfigurasi
-            $('#uploadTable').DataTable({
-                responsive: true, // Menyusun ulang tabel agar responsif
-                autoWidth: false, // Menonaktifkan lebar otomatis
-                language: {
-                    search: "Cari:", // Label untuk kolom pencarian
-                    lengthMenu: "Tampilkan _MENU_ entri", // Pilihan jumlah entri yang tampil
-                    info: "Menampilkan _START_ ke _END_ dari _TOTAL_ entri", // Info tentang jumlah entri yang ditampilkan
-                    paginate: {
-                        first: "Pertama", // Label untuk tombol pertama
-                        last: "Terakhir", // Label untuk tombol terakhir
-                        next: "Berikutnya", // Label untuk tombol berikutnya
-                        previous: "Sebelumnya" // Label untuk tombol sebelumnya
-                    }
-                }
-            });
-        });
+        $(document).ready(function () {
+    $('#uploadTable').DataTable({
+        scrollX: true, // Mengaktifkan scroll horizontal
+        autoWidth: false // Menonaktifkan lebar otomatis
+    });
+});
     </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>

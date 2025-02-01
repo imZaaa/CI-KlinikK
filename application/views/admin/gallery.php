@@ -126,6 +126,10 @@
                             </li>
                         </ul>
                     </li>
+                     <li>
+                        <a href="<?= site_url('laporan') ?>" class="nav-link px-0 align-middle">
+                        <i class="fs-4 8 bi bi-file-bar-graph-fill"></i><span class="ms-1 d-none d-sm-inline">Laporan</span> </a>
+                    </li>
                 </ul>
                 <hr>
                 <div class="dropdown pb-4">
@@ -178,6 +182,7 @@
                     <th style="text-align: center;">Nomor</th>
                     <th style="text-align: center;">Gambar</th>
                     <th style="text-align: center;">Deskripsi</th>
+                    <th style="text-align: center;">Kategori</th>
                     <th style="text-align: center;">Aksi</th>
                 </tr>
             </thead>
@@ -195,6 +200,7 @@
                                 <?php endif; ?>
                             </td>
                             <td><?= !empty($upload['deskripsi']) ? $upload['deskripsi'] : '-'; ?></td>
+                            <td><?= !empty($upload['kategori']) ? $upload['kategori'] : '-'; ?></td>
                             <td class="text-center">
                                 <a href="<?= site_url('gallery/edit/'.$upload['id']); ?>" class="btn btn-sm"  style="color: #00705a; background-color: #fff; border-color: #00705a; border-radius: 5px; padding: 5px 10px; transition: all 0.3s ease;">
                                     <i class="bi bi-pencil-square"></i>

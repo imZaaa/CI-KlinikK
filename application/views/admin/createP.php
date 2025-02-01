@@ -9,6 +9,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Mengimpor CSS Bootstrap untuk styling halaman -->
 </head>
+
 <body class="bg-light"> <!-- Menambahkan kelas 'bg-light' pada body untuk memberikan latar belakang terang -->
 
     <div class="container mt-5"> <!-- Membuat container dengan margin top 5 untuk memberi jarak atas -->
@@ -48,16 +49,31 @@
                                     placeholder="Masukkan Tnggal Lahir" 
                                     required> <!-- Menandakan input ini wajib diisi -->
                             </div>                            
-                                <div class="mb-3"> <!-- Margin bawah 3 untuk memberi jarak antar elemen -->
-                                <label for="jk" class="form-label">Jenis Kelamin</label> <!-- Label untuk input deskripsi -->
-                                <input 
-                                    type="text" 
-                                    name="jenis_kelamin" 
-                                    id="jk" 
-                                    class="form-control"
-                                    placeholder="Masukkan Jenis Kelamin" 
-                                    required> <!-- Menandakan input ini wajib diisi -->
-                            </div>                            
+                               <div class="mb-3"> <!-- Margin bawah 3 untuk memberi jarak antar elemen -->
+                                    <label class="form-label">Jenis Kelamin</label> <!-- Label untuk input deskripsi -->
+                                    <div class="d-flex"> <!-- Flexbox untuk membuat radio button menyamping -->
+                                        <div class="form-check me-3"> <!-- Margin kanan 3 untuk memberi jarak antar radio button -->
+                                            <input 
+                                                type="radio" 
+                                                name="jenis_kelamin" 
+                                                id="jk-laki" 
+                                                class="form-check-input"
+                                                value="Laki-laki"
+                                                required> <!-- Menandakan input ini wajib diisi -->
+                                            <label for="jk-laki" class="form-check-label">Laki-laki</label>
+                                        </div>
+                                        <div class="form-check"> <!-- Tidak perlu margin kanan untuk yang terakhir -->
+                                            <input 
+                                                type="radio" 
+                                                name="jenis_kelamin" 
+                                                id="jk-perempuan" 
+                                                class="form-check-input"
+                                                value="Perempuan"
+                                                required> <!-- Menandakan input ini wajib diisi -->
+                                            <label for="jk-perempuan" class="form-check-label">Perempuan</label>
+                                        </div>
+                                    </div>
+                                </div>                          
                                 <div class="mb-3"> <!-- Margin bawah 3 untuk memberi jarak antar elemen -->
                                 <label for="alamat" class="form-label">Alamat</label> <!-- Label untuk input deskripsi -->
                                 <input 
@@ -68,16 +84,51 @@
                                     placeholder="Masukkan Alamat" 
                                     required> <!-- Menandakan input ini wajib diisi -->
                             </div>                            
-                                <div class="mb-3"> <!-- Margin bawah 3 untuk memberi jarak antar elemen -->
-                                <label for="goldar" class="form-label">Golongan Darah</label> <!-- Label untuk input deskripsi -->
-                                <input 
-                                    type="text" 
-                                    name="goldar" 
-                                    id="goldar" 
-                                    class="form-control"
-                                    placeholder="Masukkan Golongan Darah" 
-                                    required> <!-- Menandakan input ini wajib diisi -->
-                            </div>                            
+                               <div class="mb-3"> <!-- Margin bawah 3 untuk memberi jarak antar elemen -->
+                                    <label class="form-label">Golongan Darah</label> <!-- Label untuk input deskripsi -->
+                                    <div class="d-flex"> <!-- Flexbox untuk membuat radio button menyamping -->
+                                        <div class="form-check me-3"> <!-- Margin kanan 3 untuk memberi jarak antar radio button -->
+                                            <input 
+                                                type="radio" 
+                                                name="goldar" 
+                                                id="goldar-a" 
+                                                class="form-check-input"
+                                                value="A"
+                                                required> <!-- Menandakan input ini wajib diisi -->
+                                            <label for="goldar-a" class="form-check-label">A</label>
+                                        </div>
+                                        <div class="form-check me-3"> <!-- Margin kanan 3 untuk memberi jarak antar radio button -->
+                                            <input 
+                                                type="radio" 
+                                                name="goldar" 
+                                                id="goldar-b" 
+                                                class="form-check-input"
+                                                value="B"
+                                                required> <!-- Menandakan input ini wajib diisi -->
+                                            <label for="goldar-b" class="form-check-label">B</label>
+                                        </div>
+                                        <div class="form-check me-3"> <!-- Margin kanan 3 untuk memberi jarak antar radio button -->
+                                            <input 
+                                                type="radio" 
+                                                name="goldar" 
+                                                id="goldar-ab" 
+                                                class="form-check-input"
+                                                value="AB"
+                                                required> <!-- Menandakan input ini wajib diisi -->
+                                            <label for="goldar-ab" class="form-check-label">AB</label>
+                                        </div>
+                                        <div class="form-check"> <!-- Tidak perlu margin kanan untuk yang terakhir -->
+                                            <input 
+                                                type="radio" 
+                                                name="goldar" 
+                                                id="goldar-o" 
+                                                class="form-check-input"
+                                                value="O"
+                                                required> <!-- Menandakan input ini wajib diisi -->
+                                            <label for="goldar-o" class="form-check-label">O</label>
+                                        </div>
+                                    </div>
+                                </div>                          
                                 <div class="mb-3"> <!-- Margin bawah 3 untuk memberi jarak antar elemen -->
                                 <label for="no_telp" class="form-label">Nomor Telepon</label> <!-- Label untuk input deskripsi -->
                                 <input 
@@ -114,7 +165,7 @@
                                 <button type="submit" name="submit" value="Simpan" class="btn btn-success"> <!-- Tombol simpan dengan kelas success dari Bootstrap -->
                                     Simpan
                                 </button>
-                                <a href="<?= site_url('upload'); ?>" class="btn btn-secondary"> <!-- Tombol kembali dengan link ke halaman daftar upload -->
+                                <a href="<?= site_url('pasien'); ?>" class="btn btn-secondary"> <!-- Tombol kembali dengan link ke halaman daftar upload -->
                                     Kembali
                                 </a>
                             </div>

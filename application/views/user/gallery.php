@@ -238,6 +238,71 @@
         opacity: 1;
         transform: scale(1);
     }
+
+    .card {
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card-img-top.zoomable:hover {
+        transform: scale(1.1);
+    }
+
+    .card-body {
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+    }
+
+    .card-text {
+        color: #333;
+        margin-bottom: 0;
+    }
+
+    .card-text.fs-4.fw-bold {
+        color: #000;
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
+    .card-text:not(.fs-4.fw-bold) {
+        font-size: 1rem;
+        color: #555;
+    }
+
+    /* Optional: Add a gradient border */
+    .card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 15px;
+        padding: 2px;
+        background: linear-gradient(145deg, #ff9a9e, #fad0c4);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: destination-out;
+        mask-composite: exclude;
+        pointer-events: none;
+    }
 </style>
 <body>
     <!-- Navbar atas -->
@@ -315,28 +380,74 @@
 
   <div class="container">
     <h1 class="gallery-header mt-3">Gallery</h1>
-    <div class="row gallery-row">
-    <?php if (!empty($uploads)): ?>
-        <?php foreach ($uploads as $index => $upload): ?>
-            <div class="col-md-4 mb-4">
-                <div class="card" data-aos="zoom-in" 
-                    data-aos-delay="<?= ($index % 2 == 0) ? 100 : 300; ?>" 
-                    data-aos-duration="350"
-                    data-aos-easing="ease-in-out"
-                    data-aos-anchor-placement="top-center">
-                    <img src="<?= base_url('assets/' . $upload['gambar']); ?>" class="card-img-top zoomable" alt="Gambar">
-                    <div class="card-body">
-                        <p class="card-text fs-4 fw-bold">Deskripsi</p>
-                        <p class="card-text"><?= $upload['deskripsi']; ?></p>
-                    </div>
+    
+    <!-- Tab Navigation -->
+    <ul class="nav nav-tabs" id="galleryTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="fasilitas-tab" data-bs-toggle="tab" data-bs-target="#fasilitas" type="button" role="tab">Fasilitas</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pelayanan-tab" data-bs-toggle="tab" data-bs-target="#pelayanan" type="button" role="tab">Proses Pelayanan</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="peralatan-tab" data-bs-toggle="tab" data-bs-target="#peralatan" type="button" role="tab">Peralatan Medis</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="kegiatan-tab" data-bs-toggle="tab" data-bs-target="#kegiatan" type="button" role="tab">Kegiatan Kesehatan</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tim-medis-tab" data-bs-toggle="tab" data-bs-target="#tim-medis" type="button" role="tab">Tim Medis</button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="galleryTabContent">
+        <?php 
+        $categories = [
+            'fasilitas' => 'Fasilitas',
+            'pelayanan' => 'Proses Pelayanan',
+            'peralatan' => 'Peralatan Medis',
+            'kegiatan' => 'Kegiatan Kesehatan',
+            'tim-medis' => 'Tim Medis'
+        ];
+        $first = true;
+        ?>
+
+        <?php foreach ($categories as $key => $category): ?>
+            <div class="tab-pane fade <?= $first ? 'show active' : ''; ?>" id="<?= $key ?>" role="tabpanel">
+                <div class="row gallery-row mt-3">
+                    <?php 
+                    $hasData = false;
+                    foreach ($uploads as $index => $upload): 
+                        if ($upload['kategori'] == $category): 
+                            $hasData = true;
+                    ?>
+                        <div class="col-md-4 mb-4">
+                           <div class="card" data-aos="zoom-in" 
+                                data-aos-delay="<?= ($index % 2 == 0) ? 100 : 300; ?>" 
+                                data-aos-duration="350"
+                                data-aos-easing="ease-in-out"
+                                data-aos-anchor-placement="top-center">
+                                <img src="<?= base_url('assets/' . $upload['gambar']); ?>" class="card-img-top zoomable" alt="Gambar">
+                                <div class="card-body">
+                                    <p class="card-text fs-4 fw-bold">Deskripsi</p>
+                                    <p class="card-text"><?= $upload['deskripsi']; ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    <?php 
+                        endif;
+                    endforeach; 
+                    ?>
+                    <?php if (!$hasData): ?>
+                        <p class="no-uploads text-center">Belum ada data di kategori ini.</p>
+                    <?php endif; ?>
                 </div>
             </div>
+            <?php $first = false; ?>
         <?php endforeach; ?>
-    <?php else: ?>
-        <p class="no-uploads">Belum ada data yang diunggah.</p>
-    <?php endif; ?>
     </div>
 </div>
+
 
 <!-- Area untuk zoomed image -->
 <div id="zoomedImageArea" class="zoomed-image-area" style="display: none;">

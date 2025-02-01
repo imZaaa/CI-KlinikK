@@ -133,6 +133,10 @@
                                 <a href="<?= site_url('message')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Message</span></a>
                             </li>
                         </ul>
+                         <li>
+                        <a href="<?= site_url('laporan') ?>" class="nav-link px-0 align-middle">
+                        <i class="fs-4 8 bi bi-file-bar-graph-fill"></i><span class="ms-1 d-none d-sm-inline">Laporan</span> </a>
+                    </li>
                     </li>
                 </ul>
                 <hr>

@@ -39,6 +39,16 @@
                                     placeholder="Masukkan deskripsi baru" 
                                     required>
                             </div>
+                           <div class="mb-3">
+                            <label for="kategori" class="form-label">Kategori</label>
+                            <select name="kategori" class="form-control" required>
+                                <option value="Fasilitas" <?php echo ($upload->kategori == 'Fasilitas') ? 'selected' : ''; ?>>Fasilitas</option>
+                                <option value="Proses Pelayanan" <?php echo ($upload->kategori == 'Proses Pelayanan') ? 'selected' : ''; ?>>Proses Pelayanan</option>
+                                <option value="Peralatan Medis" <?php echo ($upload->kategori == 'Peralatan Medis') ? 'selected' : ''; ?>>Peralatan Medis</option>
+                                <option value="Kegiatan Kesehatan" <?php echo ($upload->kategori == 'Kegiatan Kesehatan') ? 'selected' : ''; ?>>Kegiatan Kesehatan</option>
+                                <option value="Tim Medis" <?php echo ($upload->kategori == 'Tim Medis') ? 'selected' : ''; ?>>Tim Medis</option>
+                            </select>
+                        </div>
                             <!-- Menampilkan gambar yang sebelumnya diupload -->
                             <div class="mb-3">
                                 <label class="form-label">Gambar Sebelumnya</label>

@@ -56,17 +56,31 @@
                                     placeholder="Masukkan Tnggal Lahir" 
                                     required> <!-- Menandakan input ini wajib diisi -->
                             </div>                            
-                                <div class="mb-3"> <!-- Margin bawah 3 untuk memberi jarak antar elemen -->
-                                <label for="jk" class="form-label">Jenis Kelamin</label> <!-- Label untuk input deskripsi -->
-                                <input 
-                                    type="text" 
-                                    name="jenis_kelamin" 
-                                    id="jk" 
-                                    class="form-control"
-                                    value="<?= $upload->jenis_kelamin?>"
-                                    placeholder="Masukkan Jenis Kelamin" 
-                                    required> <!-- Menandakan input ini wajib diisi -->
-                            </div>                            
+                                <div class="mb-3">
+                                    <label for="jk" class="form-label">Jenis Kelamin</label> <br>
+                                    <div id="jk" class="form-check form-check-inline">
+                                        <input 
+                                            type="radio" 
+                                            name="jenis_kelamin" 
+                                            id="jkL" 
+                                            class="form-check-input"
+                                            value="Laki-laki"
+                                            <?= ($upload->jenis_kelamin == 'Laki-laki') ? 'checked' : '' ?> 
+                                            required>
+                                        <label for="jkL" class="form-check-label">Laki-laki</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input 
+                                            type="radio" 
+                                            name="jenis_kelamin" 
+                                            id="jkP" 
+                                            class="form-check-input"
+                                            value="Perempuan"
+                                            <?= ($upload->jenis_kelamin == 'Perempuan') ? 'checked' : '' ?> 
+                                            required>
+                                        <label for="jkP" class="form-check-label">Perempuan</label>
+                                    </div>
+                                </div>                         
                                 <div class="mb-3"> <!-- Margin bawah 3 untuk memberi jarak antar elemen -->
                                 <label for="alamat" class="form-label">Alamat</label> <!-- Label untuk input deskripsi -->
                                 <input 
@@ -78,16 +92,52 @@
                                     placeholder="Masukkan Alamat" 
                                     required> <!-- Menandakan input ini wajib diisi -->
                             </div>                            
-                                <div class="mb-3"> <!-- Margin bawah 3 untuk memberi jarak antar elemen -->
-                                <label for="goldar" class="form-label">Golongan Darah</label> <!-- Label untuk input deskripsi -->
-                                <input 
-                                    type="text" 
-                                    name="goldar" 
-                                    id="goldar" 
-                                    class="form-control"
-                                    value="<?= $upload->goldar?>"
-                                    placeholder="Masukkan Golongan Darah" 
-                                    required> <!-- Menandakan input ini wajib diisi -->
+                               <div class="mb-3">
+                                <label for="goldar" class="form-label">Golongan Darah</label> <br>
+                                <div id="goldar" class="form-check form-check-inline">
+                                    <input 
+                                        type="radio" 
+                                        name="goldar" 
+                                        id="goldarA" 
+                                        class="form-check-input"
+                                        value="A"
+                                        <?= ($upload->goldar == 'A') ? 'checked' : '' ?> 
+                                        required>
+                                    <label for="goldarA" class="form-check-label">A</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input 
+                                        type="radio" 
+                                        name="goldar" 
+                                        id="goldarB" 
+                                        class="form-check-input"
+                                        value="B"
+                                        <?= ($upload->goldar == 'B') ? 'checked' : '' ?> 
+                                        required>
+                                    <label for="goldarB" class="form-check-label">B</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input 
+                                        type="radio" 
+                                        name="goldar" 
+                                        id="goldarAB" 
+                                        class="form-check-input"
+                                        value="AB"
+                                        <?= ($upload->goldar == 'AB') ? 'checked' : '' ?> 
+                                        required>
+                                    <label for="goldarAB" class="form-check-label">AB</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input 
+                                        type="radio" 
+                                        name="goldar" 
+                                        id="goldarO" 
+                                        class="form-check-input"
+                                        value="O"
+                                        <?= ($upload->goldar == 'O') ? 'checked' : '' ?> 
+                                        required>
+                                    <label for="goldarO" class="form-check-label">O</label>
+                                </div>
                             </div>                            
                                 <div class="mb-3"> <!-- Margin bawah 3 untuk memberi jarak antar elemen -->
                                 <label for="no_telp" class="form-label">Nomor Telepon</label> <!-- Label untuk input deskripsi -->

@@ -7,9 +7,11 @@ class Pasien_model extends CI_Model {
     }
 
     // Mengambil semua data upload dari tabel 'tbl_pasien'
-    public function get_uploads(){
-        $query = $this->db->get('tbl_pasien');  // Melakukan query untuk mengambil semua data dari tabel 'tbl_pasien'
-        return $query->result_array();  // Mengembalikan hasil query dalam bentuk array objek
+    public function get_uploads() {
+        $this->db->select("*, TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) AS umur");
+        $this->db->from("tbl_pasien");
+        $query = $this->db->get();
+        return $query->result_array();
     }
 
     // Menambahkan data upload baru ke dalam tabel 'tbl_pasien'
@@ -39,11 +41,19 @@ class Pasien_model extends CI_Model {
 
 
     // Mengambil data upload berdasarkan ID
-   public function get_upload_by_id($id){
-        $this->db->where('id', $id);  // Menambahkan kondisi untuk mencari berdasarkan ID
-        $query = $this->db->get('tbl_pasien');  // Melakukan query untuk mengambil data dari tabel 'tbl_upload'
-        return $query->row();  // Mengembalikan satu baris data yang sesuai dengan ID
+   public function get_upload_by_id($id) {
+    $this->db->select("*, TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) AS umur");
+    $this->db->from("tbl_pasien");
+    $this->db->where("id", $id); // Sesuaikan dengan nama field di tabel
+    $query = $this->db->get();
+    
+    if ($query->num_rows() > 0) {
+        return $query->row(); // Mengembalikan sebagai objek
+    } else {
+        return null; // Jika tidak ada data, return null
     }
+}
+
 
       public function get_last_id() {
         $this->db->select('id');

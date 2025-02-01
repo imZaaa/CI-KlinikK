@@ -206,18 +206,17 @@
 .nav-pills .nav-link {
     background-color: #00705a;
     color: white;
-    font-weight: bold;
     border-radius: 10px;
     transition: all 0.3s ease;
     padding: 10px 15px;
 }
 
 /* Efek hover */
-.nav-pills .nav-link:hover {
+/* .nav-pills .nav-link:hover {
     background-color: #005d4a;
     color: #e0fff4;
     transform: scale(1.05);
-}
+} */
 
 /* Gaya tombol aktif */
 .nav-pills .nav-link.active {
@@ -230,6 +229,24 @@
 .nav-item {
     margin-right: 10px;
 }
+
+ .total-pendapatan {
+            font-size: 2rem;
+            background:#00705a;
+            border: 2px solid #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .total-pendapatan:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .total-pendapatan span {
+            color: #ffdd57;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
 </style>
 <body>
     <div class="container-fluid">
@@ -239,7 +256,7 @@
                <img src="<?= base_url('assets/logo.png')?>" width="130px">
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li>
-                        <a href="#" class="nav-link px-0 align-middle">
+                        <a href="<?= site_url('dashboard')?>" class="nav-link px-0 align-middle">
                            <i class="fs-4 bi bi-house-fill"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
                     </li>
                     <li>
@@ -410,13 +427,14 @@
                         <td><?= $pendapatan['nama']; ?></td>
                         <td><?= $pendapatan['tgl_pengobatan']; ?></td>
                         <td>Rp. <?= number_format($pendapatan['total_biaya'], 0, ',', '.'); ?></td>
-                        <td><?= $pendapatan['status_bayar']; ?></td>
-                    </tr>
+                        <td class="text-center"><?= $pendapatan['status_bayar'] == 'Sudah Dibayar' ? '<span class="text-success">Sudah Dibayar</span>' : '<span class="text-danger">Belum Dibayar</span>' ?></td>                    </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <h3>Total Pendapatan: Rp. <?= number_format($total_pendapatan, 0, ',', '.'); ?></h3>
-        </div>
+            <h3 class="total-pendapatan text-center p-3 mb-4 bg-gradient-primary text-white rounded shadow">
+                        Total Pendapatan: <span class="fw-bold">Rp.<?= number_format($total_pendapatan, 0, ',', '.'); ?></span>
+            </h3>       
+         </div>
     </div>
 </div>
 
@@ -431,6 +449,12 @@
         });
         $(document).ready(function() {
             $('#dataTable3').DataTable();
+        });
+        $(document).ready(function() {
+            $('.total-pendapatan span').counterUp({
+                delay: 10,
+                time: 1000
+            });
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

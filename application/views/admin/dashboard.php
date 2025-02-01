@@ -252,7 +252,6 @@
 </body>
  <script>
     // Chart untuk Line
-    // Chart untuk Line
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'line', // Mengubah tipe grafik menjadi line
@@ -269,39 +268,40 @@ const myChart = new Chart(ctx, {
             fill: true, // Mengisi area di bawah garis
             backgroundColor: 'rgba(93, 173, 226, 0.2)', // Warna latar belakang area
             borderColor: 'rgba(93, 173, 226, 1)', // Warna garis
-            borderWidth: 2
+            borderWidth: 2,
+            tension: 0.4 // Memberi efek ombak pada garis
         }]
     },
     options: {
-    responsive: true,
-    plugins: {
-        title: {
-            display: true,
-            text: 'Jumlah Data Pengguna Berdasarkan Kategori',
-            font: {
-                size: 16,
-                family: 'Montserrat',
-                weight: 'bold',
-            },
-            padding: {
-                top: 10,
-                bottom: 30
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Jumlah Data Pengguna Berdasarkan Kategori',
+                font: {
+                    size: 16,
+                    family: 'Montserrat',
+                    weight: 'bold',
+                },
+                padding: {
+                    top: 10,
+                    bottom: 30
+                }
             }
-        }
-    },
-    scales: {
-        y: {
-            beginAtZero: false, // Tidak mulai dari 0
-            min: 1, // Mulai dari 1
-            max: 4, // Berakhir di 4
-            ticks: {
-                stepSize: 1 // Setiap langkahnya 1
+        },
+        scales: {
+            y: {
+                beginAtZero: false, // Tidak mulai dari 0
+                min: 0.5, // Mulai dari 0.5 agar grafik tidak terpotong
+                max: 8, // Berakhir di 4
+                ticks: {
+                    stepSize: 1 // Setiap langkahnya 1
+                }
             }
         }
     }
-}
-
 });
+
 
 // Chart untuk Pie
 const ctxPie = document.getElementById('myPieChart').getContext('2d');
