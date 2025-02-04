@@ -429,7 +429,7 @@
                                 data-aos-anchor-placement="top-center">
                                 <img src="<?= base_url('assets/' . $upload['gambar']); ?>" class="card-img-top zoomable" alt="Gambar">
                                 <div class="card-body">
-                                    <p class="card-text fs-4 fw-bold">Deskripsi</p>
+                                    
                                     <p class="card-text"><?= $upload['deskripsi']; ?></p>
                                 </div>
                             </div>
