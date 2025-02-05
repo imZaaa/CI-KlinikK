@@ -168,7 +168,7 @@
                                 <a href="<?= site_url('pengobatan')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Data Pengobatan</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="<?= site_url('resep')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Data Resep</span></a>
+                                <a href="<?= site_url('resep')?>" class="nav-link px-0 active"> <span class="d-none d-sm-inline">Data Resep</span></a>
                             </li>
                             <li class="w-100">
                                 <a href="<?= site_url('message')?>" class="nav-link px-0"> <span class="d-none d-sm-inline">Message</span></a>
@@ -213,7 +213,7 @@
                             <th>Nama Obat</th>
                             <th>Jumlah Obat</th>
                             <th>Dosis</th>
-                            <th>Tanggal Resep</th>
+                            <th>Tanggal Expired</th>
                             <th>Keterangan</th>
                             <th>Aksi</th>
                         </tr>

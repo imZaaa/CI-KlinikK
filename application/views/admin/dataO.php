@@ -71,7 +71,20 @@
 
 /* Mengatur ruang untuk konten utama */
 .col.py-3 {
-    margin-left: 230px; /* Memberikan ruang agar konten utama tidak tertutup sidebar */
+    margin-left: 230px; /* Memberikan jarak ke kiri, sesuai lebar elemen fixed */
+    padding-top: 20px; /* Memberikan padding atas untuk konten */
+}
+
+.table-container th, .table-container td {
+    padding: 10px; /* Jarak di dalam sel tabel */
+    text-align: left; /* Teks rata kiri */
+    border: 1px solid #ddd; /* Batas antar sel tabel */
+}
+
+.table-container th {
+    background-color: #00705a; /* Warna latar belakang untuk header tabel */
+    font-weight: bold; /* Menonjolkan teks header */
+    color: white;
 }
 
 </style>
@@ -228,9 +241,12 @@
 </div>
     </div>
     <script>
-        $(document).ready(function() {
-            $('#uploadTable').DataTable();
-        });
+        $(document).ready(function () {
+    $('#uploadTable').DataTable({
+        scrollX: true, // Mengaktifkan scroll horizontal
+        autoWidth: false // Menonaktifkan lebar otomatis
+    });
+});
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
