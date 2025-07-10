@@ -11,15 +11,15 @@
 ### 📈 GitHub Stats
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=rhezarifal&show_icons=true&theme=tokyonight" width="400"/>
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=rhezarifal&theme=tokyonight" width="400"/>
+  <img src="https://github-readme-stats.vercel.app/api?username=imZaaa&show_icons=true&theme=tokyonight" width="400"/>
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=imZaaa&theme=tokyonight" width="400"/>
 </p>
 
 ---
 
 ### 🐍 Contribution Snake
 
-![snake gif](https://github.com/rhezarifal/rhezarifal/blob/output/github-contribution-grid-snake.svg)
+![snake gif](https://github.com/imZaaa/imZaaa/blob/output/github-contribution-grid-snake.svg)
 
 ---
 
